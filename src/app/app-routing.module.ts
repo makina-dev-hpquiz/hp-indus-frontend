@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { DataResolverService } from './resolver/data-resolver.service';
 
 const routes: Routes = [
   {
@@ -11,6 +12,21 @@ const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full'
   },
+  {
+    path: 'screen-bugs',
+    loadChildren: () => import('./screen-bugs/screen-bugs.module').then( m => m.ScreenBugsPageModule)
+  },
+  {
+    path: 'add-incident',
+    loadChildren: () => import('./add-incident/add-incident.module').then( m => m.AddIncidentPageModule)
+  },
+  {
+    path: 'incident/:id',
+    resolve: {
+      special: DataResolverService
+    },
+    loadChildren: () => import('./add-incident/add-incident.module').then( m => m.AddIncidentPageModule)
+  }
 ];
 
 @NgModule({

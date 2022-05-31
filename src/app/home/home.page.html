@@ -1,20 +1,15 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
+<header-menu></header-menu>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <div class="container" style="float:left;">
+    <a href={{lastAPKPath}}>
+      <img src="../../assets/icon/harry_potter_app.png"><div></div>
+      Télécharger dernière version du jeu</a>
+  </div>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+  <div class="container" style="float:right;">
+    <a href="http://192.168.1.11:8080/APK/hp-core.apk">
+      <ion-icon size="large" color="black" name="build"></ion-icon><div></div>
+      Télécharger dernière version HP-Core</a>
   </div>
 </ion-content>

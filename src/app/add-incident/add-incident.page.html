@@ -1,0 +1,92 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-icon class="back-button" slot="start" color="warning" size="large" name="arrow-back"
+      [routerLink]="['/screen-bugs']"></ion-icon>
+    <ion-title slot="start">Référencer un bug</ion-title>
+    <ion-icon color="success" slot="end" name="send" size="large" (click)="addIncident()"></ion-icon>
+    <!-- <ion-button color="success"  fill="outline" slot="end" (click)="addIncident()">Sauvegarder</ion-button> -->
+  </ion-toolbar>
+  <ion-toolbar *ngIf="state===STATE_UPDATE" class="toolbar-secondary">
+    <!-- en modification-->
+    <span>Mise à jour le :</span>
+    <!-- <ion-icon size="large" color="primary" fill="outline" name="briefcase" slot="end"></ion-icon> -->
+    <ion-icon size="large" color="danger" name="close" (click)="deleteIncident()" slot="end"></ion-icon>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item>
+    <ion-label>Titre</ion-label>
+    <ion-input [(ngModel)]=incident.title name="title"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label>Image</ion-label> <br>
+    <div style="margin-right: 40%;">
+      <div #inputDiv style="font-size: small;">
+        <input type="file" id="screen" name="screen" accept="image/png, image/jpeg" #fileUpload
+          (change)="loadScreenshot($event)">
+     </div>
+     
+        
+      <div #viewerDiv style="display:none;">
+        <img style="height:200px" id="imageToDisplay" #viewer src={{screenshot}}>
+        <div style="left: 50%;">
+          <ion-button color="danger" fill="outline" (click)="cancelScreenshot()">
+            <ion-icon name="close-outline"></ion-icon>
+          </ion-button>
+        </div>
+      </div>
+    </div>
+  </ion-item>
+
+  <div class="status">
+    <ion-row radio-group>
+      <ion-radio-group>
+        <ion-col>
+            Status
+        </ion-col>
+        <ion-col>
+          <ion-item>
+            <ion-label>En attente</ion-label>
+            <ion-radio checked="checked" value="TO DO"></ion-radio>
+          </ion-item>
+        <!-- </ion-col>
+        <ion-col> -->
+          <ion-item>
+            <ion-label>En cours</ion-label>
+            <ion-radio value="DOING" item-left></ion-radio>
+          </ion-item>
+        <!-- </ion-col>
+        <ion-col> -->
+          <ion-item>
+            <ion-label>Terminé</ion-label>
+            <ion-radio value="Done" item-left></ion-radio>
+          </ion-item>
+        </ion-col>
+      </ion-radio-group>
+    </ion-row>
+  </div>
+
+  <ion-item>
+    <ion-label>Description</ion-label>
+    <ion-textarea [(ngModel)]="incident.description"></ion-textarea>
+  </ion-item>
+  <ion-item>
+    <ion-label>Date de remonté</ion-label>
+    <ion-datetime [(ngModel)]="incident.date" displayFormat="DD MMM YYYY"></ion-datetime>
+  </ion-item>
+  <ion-item>
+    <ion-label>Priorité</ion-label>
+    <ion-select [(ngModel)]="incident.priority">
+      <ion-select-option value="haute">Haute</ion-select-option>
+      <ion-select-option value="normal">Normal</ion-select-option>
+      <ion-select-option value="faible">Faible</ion-select-option>
+    </ion-select>
+  </ion-item>
+  <ion-item>
+    <ion-label>Type</ion-label>
+    <ion-select [(ngModel)]="incident.type">
+      <ion-select-option *ngFor="let type of types" [value]="type">{{type}}</ion-select-option>
+    </ion-select>
+  </ion-item>
+</ion-content>
