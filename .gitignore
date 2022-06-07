@@ -3,6 +3,8 @@
 
 package-lock.json
 
+nohup.out
+pid.file
 
 *~
 *.sw[mnpcod]
