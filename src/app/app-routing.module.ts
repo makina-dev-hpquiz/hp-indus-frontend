@@ -26,7 +26,11 @@ const routes: Routes = [
       special: DataResolverService
     },
     loadChildren: () => import('./add-incident/add-incident.module').then( m => m.AddIncidentPageModule)
+  },  {
+    path: 'list',
+    loadChildren: () => import('./apk-manager/list/list.module').then( m => m.ListPageModule)
   }
+
 ];
 
 @NgModule({

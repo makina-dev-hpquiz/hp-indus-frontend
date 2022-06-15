@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { AndroidPackage } from 'src/entities/androidPackage';
 import { AndroidPackageService } from '../services/androidPackage/android-package.service';
