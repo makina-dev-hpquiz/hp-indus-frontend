@@ -17,8 +17,6 @@ export class ListPage implements OnInit {
   async ngOnInit() {
     this.allHpQuizAPK = await this.androidPackageService.getAllHPQuizAPK();
     this.allHpCoreAPK = await this.androidPackageService.getAllHPCoreAPK();
-
-    console.log(this.allHpCoreAPK);
   }
 
 }

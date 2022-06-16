@@ -22,27 +22,35 @@ export class AndroidPackageService extends AbstractService {
   }
 
   /**
-  * Interroge le serveur pour récupérer l'APK HP-Quiz
+  * Interroge le serveur pour récupérer la dernière version de l'APK HP-Quiz
   * @returns Promise<AndroidPackage>
   */
-  public getLastHPQuizAPK() {
+  public getLastHPQuizAPK(): Promise<AndroidPackage> {
     return this.getAPK(this.URL_SERVER + this.APK_URL + this.LAST_HP_QUIZ_APK);
 
   }
 
  /**
-  * Interroge le serveur pour récupérer l'APK HP-Core
+  * Interroge le serveur pour récupérer la dernière version de l'APK HP-Core
   * @returns Promise<AndroidPackage>
   */
-  public async getLastHPCoreApk() {
+  public async getLastHPCoreApk(): Promise<AndroidPackage> {
     return this.getAPK(this.URL_SERVER + this.APK_URL + this.LAST_HP_CORE_APK);
   }
 
-  public getAllHPQuizAPK(){
+  /**
+  * Interroge le serveur pour récupérer une liste d'APK associé à l'application HP-Core
+  * @returns Promise<AndroidPackage[]>
+  */
+  public getAllHPQuizAPK(): Promise<AndroidPackage[]> {
     return this.getAllAPK(this.URL_SERVER + this.APK_URL + this.ALL_HP_QUIZ_APK);
    }
 
-  public getAllHPCoreAPK(){ 
+    /**
+  * Interroge le serveur pour récupérer une liste d'APK associé à l'application HP-Core
+  * @returns Promise<AndroidPackage[]>
+  */
+  public getAllHPCoreAPK(): Promise<AndroidPackage[]> { 
     return this.getAllAPK(this.URL_SERVER + this.APK_URL + this.ALL_HP_CORE_APK);
   }
 
@@ -55,6 +63,11 @@ export class AndroidPackageService extends AbstractService {
     return await this.httpClient.get<AndroidPackage>(url).toPromise();
   }
 
+   /**
+   * Interroge le serveur pour récupérer une liste d'APK
+   * @param url 
+   * @returns Promise<AndroidPackage[]>
+   */
   private async getAllAPK(url): Promise<AndroidPackage[]>{
     return await this.httpClient.get<AndroidPackage[]>(url).toPromise();
   }

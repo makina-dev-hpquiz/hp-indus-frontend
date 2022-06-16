@@ -1,0 +1,15 @@
+ion-header{
+    ion-icon{
+        margin-left:2%;
+    }
+}
+ion-content{
+    width: 100%;
+    .column{
+        float: left;
+        width: 50%;
+        h1{
+            text-align: center;
+        }
+    }
+}

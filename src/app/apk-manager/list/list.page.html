@@ -1,21 +1,20 @@
 <ion-header>
   <ion-toolbar>
+    <ion-icon class="back-button" slot="start" color="primary" size="large" name="arrow-back"
+      [routerLink]="['/home']"></ion-icon>
     <ion-title>Anciennes APK</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-
-  <div>
-    <div>HP-Core</div>
+  <div class="column">
+    <h1>HP-Core</h1>
     <apk-template *ngFor="let hpCoreAPK of allHpCoreAPK" [apk]="hpCoreAPK"> xx</apk-template>
   </div>
 
-  <div>
-    <div>HP-Quiz</div>
-
+  <div class="column">
+    <h1>HP-Quiz</h1>
+    <apk-template *ngFor="let hpQuizApk of allHpQuizAPK" [apk]="hpQuizApk"> xx</apk-template>
   </div>
-
-
 </ion-content>
 
