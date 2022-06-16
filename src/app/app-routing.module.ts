@@ -26,9 +26,15 @@ const routes: Routes = [
       special: DataResolverService
     },
     loadChildren: () => import('./add-incident/add-incident.module').then( m => m.AddIncidentPageModule)
-  },  {
-    path: 'list',
+  },
+  {
+    path: 'archives',
     loadChildren: () => import('./apk-manager/list/list.module').then( m => m.ListPageModule)
+  },
+  {
+    path: 'home/archives',
+    redirectTo: 'archives',
+    pathMatch: 'full'
   }
 
 ];

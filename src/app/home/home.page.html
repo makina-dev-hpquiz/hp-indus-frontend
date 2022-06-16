@@ -1,20 +1,15 @@
 <header-menu></header-menu>
 
 <ion-content [fullscreen]="true">
-  <div *ngIf="hpQuizAPK" class="container" style="float:left;">
-    <a  href={{hpQuizAPK.path}}>
-      <img src="../../assets/icon/harry_potter_app.png"><div></div>
-      Télécharger dernière version du jeu</a>
-      <p>{{hpQuizAPK.buildDate}} - {{hpQuizAPK.size}}</p>
+  <div class="column">
+    <h1>HP-Core</h1>
+    <apk-template [apk]="hpCoreAPK"></apk-template>
   </div>
 
-  <div *ngIf="hpCoreAPK" class="container" style="float:right;">
-      <a href={{hpCoreAPK.path}}>
-      <ion-icon size="large" color="black" name="build"></ion-icon><div></div>
-      Télécharger dernière version HP-Core</a>
-    <p>{{hpCoreAPK.buildDate}} - {{hpCoreAPK.size}}</p>
+  <div class="column">
+    <h1>HP-Quiz</h1>
+    <apk-template [apk]="hpQuizAPK"></apk-template>
   </div>
 
-
-  <div><a routerLink="../list">Accès aux anciennes versions</a></div>
+  <div><a id="archives" routerLink="archives">Accès aux anciennes versions</a></div>
 </ion-content>

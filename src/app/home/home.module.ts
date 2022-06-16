@@ -6,6 +6,7 @@ import { HomePage } from './home.page';
 
 import { HomePageRoutingModule } from './home-routing.module';
 import { HeaderMenuComponent } from '../header-menu/header-menu.component';
+import { ApkTemplateComponent } from '../components/apk-template/apk-template.component';
 
 
 @NgModule({
@@ -16,6 +17,6 @@ import { HeaderMenuComponent } from '../header-menu/header-menu.component';
     HomePageRoutingModule
   ],
   declarations: [HomePage, 
-    HeaderMenuComponent]
+    HeaderMenuComponent, ApkTemplateComponent]
 })
 export class HomePageModule {}

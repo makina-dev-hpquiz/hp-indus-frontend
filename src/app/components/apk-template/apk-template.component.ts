@@ -10,23 +10,26 @@ import { ApplicationsNameConsts } from 'src/constants/applicationsNameConst';
 export class ApkTemplateComponent implements OnInit {
 
   @Input() apk: AndroidPackage;
-  picture: string; 
+  picture: string;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
-    this.initPicture();    
+    this.initPicture();
   }
 
   /**
    * Initialise l'image à afficher en fonction du nom de l'application
    */
-  initPicture(){
-    if(this.apk.name.includes(ApplicationsNameConsts.HP_CORE)) {
-      this.picture = "../../assets/icon/build.svg";
-    } else if(this.apk.name.includes(ApplicationsNameConsts.HP_QUIZ)) {
-      this.picture = "../../assets/icon/harry_potter_app.png";
-    } 
+  initPicture() {
+    if (this.apk) {
+      if (this.apk.name.includes(ApplicationsNameConsts.HP_CORE)) {
+        this.picture = "../../assets/icon/build.svg";
+      } else if (this.apk.name.includes(ApplicationsNameConsts.HP_QUIZ)) {
+        this.picture = "../../assets/icon/harry_potter_app.png";
+      }
+    }
   }
 
 }
