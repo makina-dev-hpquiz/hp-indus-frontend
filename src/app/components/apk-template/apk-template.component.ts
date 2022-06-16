@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { AndroidPackage } from 'src/entities/androidPackage';
 import { ApplicationsNameConsts } from 'src/constants/applicationsNameConst';
 
@@ -19,15 +19,22 @@ export class ApkTemplateComponent implements OnInit {
     this.initPicture();
   }
 
+  ngOnChanges(changes: SimpleChanges){
+    this.initPicture();
+  }
+
   /**
    * Initialise l'image à afficher en fonction du nom de l'application
    */
   initPicture() {
+    console.log(this.apk);
     if (this.apk) {
       if (this.apk.name.includes(ApplicationsNameConsts.HP_CORE)) {
         this.picture = "../../assets/icon/build.svg";
       } else if (this.apk.name.includes(ApplicationsNameConsts.HP_QUIZ)) {
         this.picture = "../../assets/icon/harry_potter_app.png";
+      } else {
+        this.picture = "../../assets/icon/help-outline.svg";
       }
     }
   }
