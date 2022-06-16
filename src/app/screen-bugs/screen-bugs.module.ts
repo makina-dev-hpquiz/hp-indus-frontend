@@ -16,7 +16,7 @@ import { HeaderMenuComponent } from '../header-menu/header-menu.component';
     IonicModule,
     ScreenBugsPageRoutingModule
   ],
-  declarations: [ScreenBugsPage, 
+  declarations: [ScreenBugsPage,
     HeaderMenuComponent]
 })
 export class ScreenBugsPageModule {}

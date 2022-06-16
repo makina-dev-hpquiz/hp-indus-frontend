@@ -7,32 +7,32 @@ import { Component } from '@angular/core';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  navigate: { title: string; url: string; icon: string; type: string; }[];
+  navigate: { title: string; url: string; icon: string; type: string }[];
   constructor() {
-    this.sideMenu();  
+    this.sideMenu();
   }
 
-  sideMenu() {  
-    this.navigate =   
-    [  
-        { 
+  sideMenu() {
+    this.navigate =
+    [
+        {
         title : 'Home',
         url   : '/home',
         icon  : 'home',
         type  : 'page'
         },
-      { 
-        title : 'Report Bugs',  
-        url   : '/screen-bugs',  
-        icon  : 'bug',  
+      {
+        title : 'Report Bugs',
+        url   : '/screen-bugs',
+        icon  : 'bug',
         type  : 'page'
-      },   
-      {  
-        title : 'Todo',  
-        url   : 'https://trello.com/b/qn8eTmwn/harry-potter-quiz',  
-        icon  : 'list',  
-        type  : 'link' 
-      },  
-    ];  
-  }  
+      },
+      {
+        title : 'Todo',
+        url   : 'https://trello.com/b/qn8eTmwn/harry-potter-quiz',
+        icon  : 'list',
+        type  : 'link'
+      },
+    ];
+  }
 }

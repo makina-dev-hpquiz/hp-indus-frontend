@@ -14,7 +14,7 @@ import { ApkTemplateComponent } from 'src/app/components/apk-template/apk-templa
     CommonModule,
     FormsModule,
     IonicModule,
-    ListPageRoutingModule    
+    ListPageRoutingModule
   ],
   declarations: [ListPage, ApkTemplateComponent]
 })

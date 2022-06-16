@@ -11,12 +11,12 @@ import { DataService } from '../services/data.service';
   styleUrls: ['./screen-bugs.page.scss'],
 })
 export class ScreenBugsPage implements OnInit {
-  
-  @ViewChild("fileUpload", {static: false}) fileUpload: ElementRef;
+
+  @ViewChild('fileUpload', {static: false}) fileUpload: ElementRef;
   public incidents: Incident[];
 
 
-  constructor(private BugService: BugService, private router: Router, private dataService: DataService) { }
+  constructor(private bugService: BugService, private router: Router, private dataService: DataService) { }
 
   ngOnInit() {
     this.getBugs();
@@ -28,17 +28,17 @@ export class ScreenBugsPage implements OnInit {
   //   const formData = new FormData();
   //   formData.append('file', this.fileUpload.nativeElement.files[0]);
   //   this.BugService.sendBug(formData).subscribe((event: any) => {
-   
+
   //     });
   //   } else { console.log("vide")}
   // }
- 
+
   async getBugs(){
-    this.incidents = await this.BugService.getAllBugs();
-    console.log("getBugs");
+    this.incidents = await this.bugService.getAllBugs();
+    console.log('getBugs');
     console.log(this.incidents);
   }
-    
+
   openIncident(incident: Incident) {
     console.log(incident);
     this.dataService.setData(incident.id, incident);

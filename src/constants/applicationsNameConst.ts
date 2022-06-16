@@ -1,4 +1,4 @@
-export class ApplicationsNameConsts {
-    static HP_CORE = "hp-core";
-    static HP_QUIZ = "hp-quiz";s
+export class ApplicationsNameConst {
+    public static readonly hpCore = 'hp-core';
+    public static readonly hpQuiz = 'hp-quiz';
 }

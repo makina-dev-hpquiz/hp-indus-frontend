@@ -16,7 +16,7 @@ import { ApkTemplateComponent } from '../components/apk-template/apk-template.co
     IonicModule,
     HomePageRoutingModule
   ],
-  declarations: [HomePage, 
+  declarations: [HomePage,
     HeaderMenuComponent, ApkTemplateComponent]
 })
 export class HomePageModule {}
