@@ -3,7 +3,7 @@ import { AndroidPackage } from 'src/entities/androidPackage';
 import { ApplicationsNameConst } from 'src/constants/applicationsNameConst';
 
 @Component({
-  selector: 'apk-template',
+  selector: 'app-apk-template',
   templateUrl: './apk-template.component.html',
   styleUrls: ['./apk-template.component.scss'],
 })
