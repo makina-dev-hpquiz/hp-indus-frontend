@@ -57,7 +57,13 @@ export class AndroidPackageService extends AbstractService {
    * @returns Promise<AndroidPackage>
    */
   private async getAPK(url): Promise<AndroidPackage>{
-    return await this.httpClient.get<AndroidPackage>(url).toPromise();
+
+    try {
+      return await this.httpClient.get<AndroidPackage>(url).toPromise();
+    } catch(error) {
+      console.error('Erreur survenue lors de l\'execution de AndroidPackageService.getAPK() : ', url, error);
+      console.error('httpClient est correctement initialisé : ', Boolean(this.httpClient));
+    }
   }
 
    /**
@@ -67,7 +73,12 @@ export class AndroidPackageService extends AbstractService {
     * @returns Promise<AndroidPackage[]>
     */
   private async getAllAPK(url): Promise<AndroidPackage[]>{
-    return await this.httpClient.get<AndroidPackage[]>(url).toPromise();
+    try {
+      return await this.httpClient.get<AndroidPackage[]>(url).toPromise();
+    } catch(error) {
+      console.error('Erreur survenue lors de l\'execution de AndroidPackageService.getAllAPK() : ', url, error);
+      console.error('httpClient est correctement initialisé : ', Boolean(this.httpClient));
+    }
   }
 
 }
