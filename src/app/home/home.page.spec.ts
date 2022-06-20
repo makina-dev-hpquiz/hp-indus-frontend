@@ -14,7 +14,7 @@ describe('HomePage', () => {
 
   beforeEach(waitForAsync(() => {
     mockAndroidPackageService =
-        jasmine.createSpyObj<AndroidPackageService>('AndroidPackageService', ['getLastHPQuizAPK', 'getLastHPCoreApk']);
+        jasmine.createSpyObj<AndroidPackageService>('AndroidPackageService', ['getLastHPQuizAPK', 'getLastHPCoreAPK']);
 
     TestBed.configureTestingModule({
       declarations: [ HomePage ],
@@ -37,7 +37,7 @@ describe('HomePage', () => {
     const apk = new AndroidPackage('hp-core.apk', '16/05/2022 16:45', '4.62 Mo', '0');
 
     mockAndroidPackageService.getLastHPQuizAPK.and.returnValue(of(apk).toPromise());
-    mockAndroidPackageService.getLastHPCoreApk.and.returnValue(of(apk).toPromise());
+    mockAndroidPackageService.getLastHPCoreAPK.and.returnValue(of(apk).toPromise());
     expect(component).toBeTruthy();
   });
 });

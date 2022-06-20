@@ -21,7 +21,7 @@ describe('AndroidPackageService', () => {
     const expected = new AndroidPackage('hp-core-latest.apk', '16/05/2022 16:45', '4.62 Mo', '0');
     httpClientSpy.get.and.returnValue(of(expected));
 
-    const result: AndroidPackage = await service.getLastHPCoreApk();
+    const result: AndroidPackage = await service.getLastHPCoreAPK();
     expect(result).toEqual(expected);
   });
 

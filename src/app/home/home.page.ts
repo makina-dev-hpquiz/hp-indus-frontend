@@ -17,7 +17,7 @@ export class HomePage implements OnInit {
 
   async ngOnInit() {
     this.hpQuizAPK = await this.androidPackageService.getLastHPQuizAPK();
-    this.hpCoreAPK = await this.androidPackageService.getLastHPCoreApk();
+    this.hpCoreAPK = await this.androidPackageService.getLastHPCoreAPK();
   }
 
 }

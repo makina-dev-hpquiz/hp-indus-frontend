@@ -28,7 +28,7 @@ export class AndroidPackageService extends AbstractService {
   *
   * @returns Promise<AndroidPackage>
   */
-  public async getLastHPCoreApk(): Promise<AndroidPackage> {
+  public async getLastHPCoreAPK(): Promise<AndroidPackage> {
     return this.getAPK(ServerConst.urlServer + ServerConst.apkUrl + ServerConst.lastHPCoreAPK);
   }
 
