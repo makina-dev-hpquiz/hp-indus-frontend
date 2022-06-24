@@ -59,6 +59,7 @@ export class AndroidPackageService extends AbstractService {
   private async getAPK(url): Promise<AndroidPackage>{
 
     try {
+      console.log('Utilisation de la méthode AndroidPackageService.getAPK : ', url);
       return await this.httpClient.get<AndroidPackage>(url).toPromise();
     } catch(error) {
       console.error('Erreur survenue lors de l\'execution de AndroidPackageService.getAPK() : ', url, error);
@@ -74,6 +75,7 @@ export class AndroidPackageService extends AbstractService {
     */
   private async getAllAPK(url): Promise<AndroidPackage[]>{
     try {
+      console.log('Utilisation de la méthode AndroidPackageService.getAllAPK : ', url);
       return await this.httpClient.get<AndroidPackage[]>(url).toPromise();
     } catch(error) {
       console.error('Erreur survenue lors de l\'execution de AndroidPackageService.getAllAPK() : ', url, error);

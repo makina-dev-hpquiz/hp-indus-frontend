@@ -16,7 +16,6 @@ export class ApkTemplateComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-    this.initPicture();
   }
 
   ngOnChanges(changes: SimpleChanges){
@@ -27,16 +26,19 @@ export class ApkTemplateComponent implements OnInit, OnChanges {
    * Initialise l'image à afficher en fonction du nom de l'application
    */
   initPicture() {
-    console.log(this.apk);
+    if(this.apk){
+    console.log('Initialisation de l\'image à afficher pour ', this.apk.name);
     if (this.apk) {
       if (this.apk.name.includes(ApplicationsNameConst.hpCore)) {
         this.picture = '../../assets/icon/build.svg';
       } else if (this.apk.name.includes(ApplicationsNameConst.hpQuiz)) {
         this.picture = '../../assets/icon/harry_potter_app.png';
       } else {
+        console.error('Aucune image n\'a pu être trouvé pour l\'application ', this.apk.name);
         this.picture = '../../assets/icon/help-outline.svg';
       }
     }
+  }
   }
 
 }

@@ -1,15 +1,16 @@
 <app-header-menu></app-header-menu>
 
 <ion-content [fullscreen]="true">
-  <div class="column">
-    <h1>HP-Core</h1>
-    <app-apk-template [apk]="hpCoreAPK"></app-apk-template>
-  </div>
+  <div>
+    <div class="column">
+      <h1>HP-Core</h1>
+      <app-apk-template [apk]="hpCoreAPK"></app-apk-template>
+    </div>
 
-  <div class="column">
-    <h1>HP-Quiz</h1>
-    <app-apk-template [apk]="hpQuizAPK"></app-apk-template>
+    <div class="column">
+      <h1>HP-Quiz</h1>
+      <app-apk-template [apk]="hpQuizAPK"></app-apk-template>
+    </div>
   </div>
-
-  <div><a id="archives" routerLink="archives">Accès aux anciennes versions</a></div>
+  <div style="text-align: center"><a id="archives" routerLink="archives">Accès aux anciennes versions</a></div>
 </ion-content>

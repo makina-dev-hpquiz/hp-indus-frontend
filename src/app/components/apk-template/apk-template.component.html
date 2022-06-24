@@ -2,6 +2,6 @@
    <a  href={{apk.path}}>
       <img src={{picture}}><div></div>
       Télécharger {{apk.name}}</a>
-      <p>{{apk.version}}</p>
+     <span *ngIf=apk.version>Version {{apk.version}}</span>
       <p>{{apk.buildDate}} - {{apk.size}}</p>
 </div>
