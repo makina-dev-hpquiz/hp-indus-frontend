@@ -21,7 +21,19 @@ export class BugService extends AbstractService{
    * @returns
    */
   public sendBug(formData) {
-    return this.httpClient.post<any>(ServerConst.urlServer+ServerConst.bugUrl+ServerConst.uploadUrl, formData, {
+    return this.httpClient.post<any>(ServerConst.urlServer+ServerConst.bugUrl, formData, {
+      reportProgress: true,
+      observe: 'events'
+    });
+  }
+
+  /**
+   * Envoie une requête au serveur pour mettre à jour un incident
+   * @param formData 
+   * @returns 
+   */
+  public updateIncident(formData) {
+    return this.httpClient.put<any>(ServerConst.urlServer+ServerConst.bugUrl, formData, {
       reportProgress: true,
       observe: 'events'
     });
@@ -43,7 +55,7 @@ export class BugService extends AbstractService{
    * @returns
    */
   public async deleteBugById(id: string): Promise<Incident[]>{
-    return await this.httpClient.delete<any>(ServerConst.urlServer+ServerConst.bugUrl+ServerConst.deleteUrl+id).toPromise();
+    return await this.httpClient.delete<any>(ServerConst.urlServer+ServerConst.bugUrl+id).toPromise();
   }
 
 

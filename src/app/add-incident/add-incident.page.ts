@@ -48,11 +48,15 @@ export class AddIncidentPage implements OnInit {
       this.incident = this.route.snapshot.data.special;
       this.screenshot = this.incident.screenshotWebPath;
       this.state = this.STATE_UPDATE;
+      
+    console.log(this.incident);
     } else {
       this.state = this.STATE_NEW;
       this.incident = new Incident();
       this.incident.priority = this.defaultPriority;
       this.incident.date = new Date().toISOString();
+      
+    console.log(this.incident);
     }
   }
 
@@ -61,6 +65,7 @@ export class AddIncidentPage implements OnInit {
      this.displayScreenshot();
     }
   }
+
 
   async addIncident(){
     //save to Backend
@@ -72,7 +77,7 @@ export class AddIncidentPage implements OnInit {
     console.log('priotity : ', this.incident.priority);
     console.log('type : ', this.incident.type);
 
-
+    console.log(this.incident);
     const formData = this.incident.getFormData();
 
     // formData.append('file', this.fileUpload.nativeElement.files[0]);
@@ -83,6 +88,26 @@ export class AddIncidentPage implements OnInit {
         });
       });
 
+  }
+
+  
+  async updateIncident(){
+    console.log(this.incident);
+
+    const formData = new FormData();
+
+
+
+    
+    console.log("formData :");
+    console.log(formData);
+
+    await this.bugService.updateIncident(formData).subscribe((event: any) => {
+
+        // this.router.navigate(['/screen-bugs']).then(() => {
+        //   window.location.reload();
+        // });
+      });
   }
 
   loadScreenshot(event){
