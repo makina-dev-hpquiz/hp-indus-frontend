@@ -1,12 +1,14 @@
 // .back-button{
 //     padding-left: 1%;
 // }
-
 ion-toolbar {
     padding-left: 2%;
     padding-right: 2%;
     ion-icon {
         cursor: pointer;
+    }
+    .save-button {
+        float: right;
     }
 }
 .toolbar-secondary{
@@ -21,4 +23,8 @@ ion-toolbar {
 .status{
     padding: 3%;
     padding-left: 1.5%;
+}
+
+form{
+    height: -webkit-fill-available;
 }

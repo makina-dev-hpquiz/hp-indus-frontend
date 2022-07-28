@@ -1,22 +1,25 @@
-<ion-header>
+<form (ngSubmit)="saveAction(incidentForm.value)" #incidentForm="ngForm">
+  <ion-header>
   <ion-toolbar>
     <ion-icon class="back-button" slot="start" color="warning" size="large" name="arrow-back"
       [routerLink]="['/screen-bugs']"></ion-icon>
     <ion-title slot="start">Référencer un bug</ion-title>
-    <ion-icon *ngIf="state===STATE_NEW" color="success" slot="end" name="send" size="large" (click)="addIncident()" ></ion-icon>
-    <ion-icon *ngIf="state===STATE_UPDATE" color="success" slot="end" name="send" size="large" (click)="updateIncident()"></ion-icon>
-
-    <!-- <ion-button color="success"  fill="outline" slot="end" (click)="addIncident()">Sauvegarder</ion-button> -->
+    <ion-button class="save-button" fill="clear" type="submit">
+      <ion-icon color="success" name="send" size="large"></ion-icon>
+    </ion-button>
   </ion-toolbar>
   <ion-toolbar *ngIf="state===STATE_UPDATE" class="toolbar-secondary">
     <!-- en modification-->
     <span>Mise à jour le :</span>
-    <!-- <ion-icon size="large" color="primary" fill="outline" name="briefcase" slot="end"></ion-icon> -->
     <ion-icon size="large" color="danger" name="close" (click)="deleteIncident()" slot="end"></ion-icon>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <input *ngIf="state===STATE_UPDATE" type="hidden" [(ngModel)]=incident.id name="id"/>
+  <input type="hidden" [(ngModel)]=incident.screenshotPath name="screenshotPath"/>
+  <input type="hidden" [(ngModel)]=incident.screenshotWebPath name="screenshotWebPath"/>
+
   <ion-item>
     <ion-label>Titre</ion-label>
     <ion-input [(ngModel)]=incident.title name="title"></ion-input>
@@ -41,6 +44,7 @@
     </div>
   </ion-item>
 
+  <!-- TODO NE FONCTIONNE PAS CORRECTEMENT -->
   <div class="status">
     <ion-row radio-group>
       <ion-radio-group>
@@ -71,15 +75,15 @@
 
   <ion-item>
     <ion-label>Description</ion-label>
-    <ion-textarea [(ngModel)]="incident.description"></ion-textarea>
+    <ion-textarea [(ngModel)]="incident.description" name="description" ></ion-textarea>
   </ion-item>
   <ion-item>
     <ion-label>Date de remonté</ion-label>
-    <ion-datetime [(ngModel)]="incident.date" displayFormat="DD MMM YYYY"></ion-datetime>
+    <ion-datetime [(ngModel)]="incident.date" displayFormat="DD MMM YYYY" name="date"></ion-datetime>
   </ion-item>
   <ion-item>
     <ion-label>Priorité</ion-label>
-    <ion-select [(ngModel)]="incident.priority">
+    <ion-select [(ngModel)]="incident.priority" name="priority">
       <ion-select-option value="haute">Haute</ion-select-option>
       <ion-select-option value="normal">Normal</ion-select-option>
       <ion-select-option value="faible">Faible</ion-select-option>
@@ -87,8 +91,9 @@
   </ion-item>
   <ion-item>
     <ion-label>Type</ion-label>
-    <ion-select [(ngModel)]="incident.type">
+    <ion-select [(ngModel)]="incident.type" name="type">
       <ion-select-option *ngFor="let type of types" [value]="type">{{type}}</ion-select-option>
     </ion-select>
   </ion-item>
 </ion-content>
+</form>

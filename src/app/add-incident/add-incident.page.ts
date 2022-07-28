@@ -67,47 +67,42 @@ export class AddIncidentPage implements OnInit {
   }
 
 
-  async addIncident(){
-    //save to Backend
-    console.log('################');
-    console.log('title : ', this.incident.title);
-    console.log('description : ', this.incident.description);
-    console.log(this.incident.screenshotPath);
-    console.log('date : ', this.incident.date);
-    console.log('priotity : ', this.incident.priority);
-    console.log('type : ', this.incident.type);
+  saveAction(formValue){
+    if(this.state == this.STATE_NEW){
+      this.addIncident(formValue);
+    } else {
+      this.updateIncident(formValue);
+    }
+  }
 
-    console.log(this.incident);
-    const formData = this.incident.getFormData();
-
-    // formData.append('file', this.fileUpload.nativeElement.files[0]);
-    await this.bugService.sendBug(formData).subscribe((event: any) => {
-
+  async addIncident(formValue){
+    
+    await this.bugService.sendBug(this.generateIncidentFormData(formValue)).subscribe((event: any) => {
+      this.router.navigate(['/screen-bugs']).then(() => {
+        window.location.reload();
+      });
+    });
+  }
+   
+  async updateIncident(formValue){
+      await this.bugService.updateIncident(this.generateIncidentFormData(formValue)).subscribe((event: any) => {
         this.router.navigate(['/screen-bugs']).then(() => {
           window.location.reload();
         });
       });
-
   }
 
-  
-  async updateIncident(){
-    console.log(this.incident);
-
+  /**
+   * Génére un object FormData à partir d'un objet form.value
+   * 
+   * @param formValue 
+   * @returns FormData
+   */
+  private generateIncidentFormData(formValue) {
     const formData = new FormData();
+    Object.keys(formValue).map((key) => formData.append(key, formValue[key]));
 
-
-
-    
-    console.log("formData :");
-    console.log(formData);
-
-    await this.bugService.updateIncident(formData).subscribe((event: any) => {
-
-        // this.router.navigate(['/screen-bugs']).then(() => {
-        //   window.location.reload();
-        // });
-      });
+    return formData
   }
 
   loadScreenshot(event){
@@ -155,4 +150,6 @@ export class AddIncidentPage implements OnInit {
       });
     });
   }
+
+
 }

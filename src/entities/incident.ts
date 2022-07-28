@@ -22,15 +22,4 @@ export class Incident {
         public type?: string
     ) { }
 
-
-    public getFormData() {
-        const formData = new FormData();
-        formData.append('title', this.title);
-        formData.append('description', this.description);
-        formData.append('screenshot', this.screenshotPath);
-        formData.append('date', this.date);
-        formData.append('priority', this.priority);
-        formData.append('type', this.type);
-        return formData;
-    }
 }
