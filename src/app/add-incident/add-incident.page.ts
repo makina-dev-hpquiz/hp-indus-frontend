@@ -30,7 +30,7 @@ export class AddIncidentPage implements OnInit {
   @ViewChild('inputDiv', {static: false}) inputDiv: ElementRef;
   @ViewChild('viewerDiv', {static: false}) viewerDiv: ElementRef;
 
-  constructor(private route: ActivatedRoute, private router: Router, private bugService: BugService) {
+  constructor(private route: ActivatedRoute, private router: Router, private incidentService: BugService) {
     this.incident = new Incident();
     this.types = ['Interface', 'Orthographe', 'Evenement'];
     this.defaultPriority = 'normal';
@@ -48,15 +48,11 @@ export class AddIncidentPage implements OnInit {
       this.incident = this.route.snapshot.data.special;
       this.screenshot = this.incident.screenshotWebPath;
       this.state = this.STATE_UPDATE;
-      
-    console.log(this.incident);
     } else {
       this.state = this.STATE_NEW;
       this.incident = new Incident();
       this.incident.priority = this.defaultPriority;
       this.incident.date = new Date().toISOString();
-      
-    console.log(this.incident);
     }
   }
 
@@ -77,17 +73,15 @@ export class AddIncidentPage implements OnInit {
 
   async addIncident(formValue){
     
-    await this.bugService.sendBug(this.generateIncidentFormData(formValue)).subscribe((event: any) => {
+    await this.incidentService.sendBug(this.generateIncidentFormData(formValue)).subscribe((event: any) => {
       this.router.navigate(['/screen-bugs']).then(() => {
-        window.location.reload();
       });
     });
   }
    
   async updateIncident(formValue){
-      await this.bugService.updateIncident(this.generateIncidentFormData(formValue)).subscribe((event: any) => {
+      await this.incidentService.updateIncident(this.generateIncidentFormData(formValue)).subscribe((event: any) => {
         this.router.navigate(['/screen-bugs']).then(() => {
-          window.location.reload();
         });
       });
   }
@@ -143,10 +137,8 @@ export class AddIncidentPage implements OnInit {
   }
 
   deleteIncident(){
-    this.bugService.deleteBugById(this.incident.id).then((event: any) => {
-
+    this.incidentService.deleteBugById(this.incident.id).then((event: any) => {
       this.router.navigate(['/screen-bugs']).then(() => {
-        window.location.reload();
       });
     });
   }

@@ -10,37 +10,22 @@ import { DataService } from '../services/data.service';
   templateUrl: './screen-bugs.page.html',
   styleUrls: ['./screen-bugs.page.scss'],
 })
-export class ScreenBugsPage implements OnInit {
+export class ScreenBugsPage{
 
   @ViewChild('fileUpload', {static: false}) fileUpload: ElementRef;
   public incidents: Incident[];
 
+  constructor(private incidentService: BugService, private router: Router, private dataService: DataService) { }
 
-  constructor(private bugService: BugService, private router: Router, private dataService: DataService) { }
-
-  ngOnInit() {
+  ionViewDidEnter(){
     this.getBugs();
   }
 
-  // sendScreenshot() {
-  //   if(this.fileUpload.nativeElement.files.length > 0) {
-  //     console.log("A envoyer")
-  //   const formData = new FormData();
-  //   formData.append('file', this.fileUpload.nativeElement.files[0]);
-  //   this.BugService.sendBug(formData).subscribe((event: any) => {
-
-  //     });
-  //   } else { console.log("vide")}
-  // }
-
   async getBugs(){
-    this.incidents = await this.bugService.getAllBugs();
-    console.log('getBugs');
-    console.log(this.incidents);
+    this.incidents = await this.incidentService.getAllBugs();
   }
 
   openIncident(incident: Incident) {
-    console.log(incident);
     this.dataService.setData(incident.id, incident);
     this.router.navigateByUrl('/incident/'+incident.id);
   }
