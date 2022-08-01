@@ -25,10 +25,10 @@ export class AddIncidentPage implements OnInit {
   public readonly STATE_NEW: string; // = 'NEW';
   public readonly STATE_UPDATE = 'UPDATE';
 
-  @ViewChild('fileUpload', {static: false}) fileUpload: ElementRef;
+  @ViewChild('fileUpload', { static: false }) fileUpload: ElementRef;
   // @ViewChild("viewer", {static: false}) viewer: ElementRef;
-  @ViewChild('inputDiv', {static: false}) inputDiv: ElementRef;
-  @ViewChild('viewerDiv', {static: false}) viewerDiv: ElementRef;
+  @ViewChild('inputDiv', { static: false }) inputDiv: ElementRef;
+  @ViewChild('viewerDiv', { static: false }) viewerDiv: ElementRef;
 
   constructor(private route: ActivatedRoute, private router: Router, private incidentService: BugService) {
     this.incident = new Incident();
@@ -36,7 +36,7 @@ export class AddIncidentPage implements OnInit {
     this.defaultPriority = 'normal';
 
     // this.STATE_NEW = 'NEW';
-    this. STATE_UPDATE = 'UPDATE';
+    this.STATE_UPDATE = 'UPDATE';
     this.state = this.STATE_NEW;
   }
 
@@ -53,37 +53,42 @@ export class AddIncidentPage implements OnInit {
       this.incident = new Incident();
       this.incident.priority = this.defaultPriority;
       this.incident.date = new Date().toISOString();
+      this.incident.screenshotPath = "";
+      this.incident.screenshotWebPath = "";
+      this.incident.description = "";
     }
   }
 
-  ionViewWillEnter(){
-    if(this.state === this.STATE_UPDATE) {
-     this.displayScreenshot();
+  ionViewWillEnter() {
+    if (this.state === this.STATE_UPDATE) {
+
+      if (this.incident.screenshotWebPath) {
+        this.displayScreenshot();
+      }
     }
   }
 
 
-  saveAction(formValue){
-    if(this.state == this.STATE_NEW){
+  saveAction(formValue) {
+    if (this.state == this.STATE_NEW) {
       this.addIncident(formValue);
     } else {
       this.updateIncident(formValue);
     }
   }
 
-  async addIncident(formValue){
-    
+  async addIncident(formValue) {
     await this.incidentService.sendBug(this.generateIncidentFormData(formValue)).subscribe((event: any) => {
       this.router.navigate(['/screen-bugs']).then(() => {
       });
     });
   }
-   
-  async updateIncident(formValue){
-      await this.incidentService.updateIncident(this.generateIncidentFormData(formValue)).subscribe((event: any) => {
-        this.router.navigate(['/screen-bugs']).then(() => {
-        });
+
+  async updateIncident(formValue) {
+    await this.incidentService.updateIncident(this.generateIncidentFormData(formValue)).subscribe((event: any) => {
+      this.router.navigate(['/screen-bugs']).then(() => {
       });
+    });
   }
 
   /**
@@ -95,15 +100,13 @@ export class AddIncidentPage implements OnInit {
   private generateIncidentFormData(formValue) {
     const formData = new FormData();
     Object.keys(formValue).map((key) => formData.append(key, formValue[key]));
+    formData.append('file', this.fileUpload.nativeElement.files[0]);
 
     return formData
   }
 
-  loadScreenshot(event){
-
-    this.incident.screenshotPath =  this.fileUpload.nativeElement.files[0];
+  loadScreenshot(event) {
     this.havePicture = true;
-
     this.displayScreenshot();
 
     if (event.target.files && event.target.files[0]) {
@@ -112,31 +115,31 @@ export class AddIncidentPage implements OnInit {
       reader.onload = (event: ProgressEvent) => {
         this.screenshot = (<FileReader>event.target).result;
       };
-      // this.incident.screenshot =event.target.files[0];
       reader.readAsDataURL(event.target.files[0]);
     }
-
   }
 
-  displayScreenshot(){
+  displayScreenshot() {
     this.inputDiv.nativeElement.style.display = this.displayNone;
     this.viewerDiv.nativeElement.style.display = this.displayBlock;
   }
 
-  cancelScreenshot(){
+  cancelScreenshot() {
     this.havePicture = false;
     this.screenshot = null;
 
     this.fileUpload.nativeElement.type = 'text';
     this.fileUpload.nativeElement.type = 'file';
 
-    this.incident.screenshotPath = null;
+    this.incident.screenshotPath = "";
+    this.incident.screenshotWebPath = "";
 
     this.viewerDiv.nativeElement.style.display = this.displayNone;
     this.inputDiv.nativeElement.style.display = this.displayBlock;
   }
 
-  deleteIncident(){
+  deleteIncident() {
+    // Fenêtre confirme
     this.incidentService.deleteBugById(this.incident.id).then((event: any) => {
       this.router.navigate(['/screen-bugs']).then(() => {
       });
