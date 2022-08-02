@@ -141,11 +141,12 @@ export class AddIncidentPage implements OnInit {
   }
 
   deleteIncident() {
-    // Fenêtre confirme
-    this.incidentService.deleteById(this.incident.id).then((event: any) => {
-      this.router.navigate(['/screen-bugs']).then(() => {
+    if(confirm("Êtes vous sûr de vouloir supprimer l'incident?")) {
+      this.incidentService.deleteById(this.incident.id).then((event: any) => {
+        this.router.navigate(['/screen-bugs']).then(() => {
+        });
       });
-    });
+    }
   }
 
 
