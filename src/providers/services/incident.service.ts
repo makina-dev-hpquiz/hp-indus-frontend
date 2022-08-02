@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpEvent, HttpErrorResponse, HttpEventType } from  '@angular/common/http';
 import { Incident } from 'src/entities/incident';
-import { AbstractService } from '../abstractService/abstract.service';
 import { ServerConst } from 'src/constants/serverConsts';
+import { AbstractService } from './abstract.service';
 
 
 @Injectable({

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AndroidPackage } from 'src/entities/androidPackage';
-import { AndroidPackageService } from '../services/androidPackage/android-package.service';
+import { AndroidPackageService } from 'src/providers/services/android-package.service';
 
 @Component({
   selector: 'app-home',

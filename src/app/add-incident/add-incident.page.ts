@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Incident } from 'src/entities/incident';
-import { IncidentService } from '../services/upload/incident.service';
+import { IncidentService } from 'src/providers/services/incident.service';
 
 @Component({
   selector: 'app-add-incident',

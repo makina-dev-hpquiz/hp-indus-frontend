@@ -1,9 +1,8 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { Incident } from 'src/entities/incident';
-import { IncidentService } from '../services/upload/incident.service';
-
+import { Component, ElementRef,  ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { DataService } from '../services/data.service';
+import { Incident } from 'src/entities/incident';
+import { DataService } from 'src/providers/resolver/data.service';
+import { IncidentService } from 'src/providers/services/incident.service';
 
 @Component({
   selector: 'app-screen-bugs',
