@@ -7,7 +7,7 @@ export class ServerConst {
     public static readonly allHPQuizAPK = 'hp-quiz';
     public static readonly allHPCoreAPK = 'hp-core';
 
-    public static readonly bugUrl = 'incidents/';
+    public static readonly incidentUrl = 'incidents/';
     public static readonly uploadUrl = 'upload';
     public static readonly deleteUrl = 'delete/';
 }

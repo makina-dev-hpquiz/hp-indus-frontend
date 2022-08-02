@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Incident } from 'src/entities/incident';
-import { BugService } from '../services/upload/bug.service';
+import { IncidentService } from '../services/upload/incident.service';
 
 @Component({
   selector: 'app-add-incident',
@@ -30,7 +30,7 @@ export class AddIncidentPage implements OnInit {
   @ViewChild('inputDiv', { static: false }) inputDiv: ElementRef;
   @ViewChild('viewerDiv', { static: false }) viewerDiv: ElementRef;
 
-  constructor(private route: ActivatedRoute, private router: Router, private incidentService: BugService) {
+  constructor(private route: ActivatedRoute, private router: Router, private incidentService: IncidentService) {
     this.incident = new Incident();
     this.types = ['Interface', 'Orthographe', 'Evenement'];
     this.defaultPriority = 'normal';
@@ -78,14 +78,16 @@ export class AddIncidentPage implements OnInit {
   }
 
   async addIncident(formValue) {
-    await this.incidentService.sendBug(this.generateIncidentFormData(formValue)).subscribe((event: any) => {
+
+
+    await this.incidentService.save(this.generateIncidentFormData(formValue)).then((event: any) => {
       this.router.navigate(['/screen-bugs']).then(() => {
       });
     });
   }
 
   async updateIncident(formValue) {
-    await this.incidentService.updateIncident(this.generateIncidentFormData(formValue)).subscribe((event: any) => {
+    await this.incidentService.update(this.generateIncidentFormData(formValue)).then((event: any) => {
       this.router.navigate(['/screen-bugs']).then(() => {
       });
     });
@@ -140,7 +142,7 @@ export class AddIncidentPage implements OnInit {
 
   deleteIncident() {
     // Fenêtre confirme
-    this.incidentService.deleteBugById(this.incident.id).then((event: any) => {
+    this.incidentService.deleteById(this.incident.id).then((event: any) => {
       this.router.navigate(['/screen-bugs']).then(() => {
       });
     });

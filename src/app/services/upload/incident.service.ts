@@ -8,7 +8,7 @@ import { ServerConst } from 'src/constants/serverConsts';
 @Injectable({
   providedIn: 'root'
 })
-export class BugService extends AbstractService{
+export class IncidentService extends AbstractService{
 
   constructor(protected httpClient: HttpClient) {
     super(httpClient);
@@ -17,26 +17,21 @@ export class BugService extends AbstractService{
   /**
    * Envoie une requête au serveur pour sauvegarder un bug
    *
-   * @param formData
+   * @param incidentFormData
    * @returns
    */
-  public sendBug(formData) {
-    return this.httpClient.post<any>(ServerConst.urlServer+ServerConst.bugUrl, formData, {
-      reportProgress: true,
-      observe: 'events'
-    });
+  public async save(incidentFormData): Promise<Incident> {
+    return await this.httpClient.post<any>(ServerConst.urlServer+ServerConst.incidentUrl, incidentFormData).toPromise();
   }
 
   /**
    * Envoie une requête au serveur pour mettre à jour un incident
-   * @param formData 
-   * @returns 
+   *
+   * @param incidentFormData
+   * @returns
    */
-  public updateIncident(formData) {
-    return this.httpClient.put<any>(ServerConst.urlServer+ServerConst.bugUrl, formData, {
-      reportProgress: true,
-      observe: 'events'
-    });
+  public async update(incidentFormData): Promise<Incident>  {
+    return await this.httpClient.put<any>(ServerConst.urlServer+ServerConst.incidentUrl, incidentFormData).toPromise();
   }
 
   /**
@@ -44,8 +39,8 @@ export class BugService extends AbstractService{
    *
    * @returns
    */
-  public async getAllBugs(): Promise<Incident[]>{
-    return await this.httpClient.get<any>(ServerConst.urlServer+ServerConst.bugUrl).toPromise();
+  public async getAll(): Promise<Incident[]>{
+    return await this.httpClient.get<any>(ServerConst.urlServer+ServerConst.incidentUrl).toPromise();
   }
 
   /**
@@ -54,8 +49,8 @@ export class BugService extends AbstractService{
    * @param id
    * @returns
    */
-  public async deleteBugById(id: string): Promise<Incident[]>{
-    return await this.httpClient.delete<any>(ServerConst.urlServer+ServerConst.bugUrl+id).toPromise();
+  public async deleteById(id: string){
+    return await this.httpClient.delete<any>(ServerConst.urlServer+ServerConst.incidentUrl+id).toPromise();
   }
 
 

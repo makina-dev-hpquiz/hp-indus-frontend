@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Incident } from 'src/entities/incident';
-import { BugService } from '../services/upload/bug.service';
+import { IncidentService } from '../services/upload/incident.service';
 
 import { Router } from '@angular/router';
 import { DataService } from '../services/data.service';
@@ -15,14 +15,14 @@ export class ScreenBugsPage{
   @ViewChild('fileUpload', {static: false}) fileUpload: ElementRef;
   public incidents: Incident[];
 
-  constructor(private incidentService: BugService, private router: Router, private dataService: DataService) { }
+  constructor(private incidentService: IncidentService, private router: Router, private dataService: DataService) { }
 
   ionViewDidEnter(){
-    this.getBugs();
+    this.getAllIncidents();
   }
 
-  async getBugs(){
-    this.incidents = await this.incidentService.getAllBugs();
+  async getAllIncidents(){
+    this.incidents = await this.incidentService.getAll();
   }
 
   openIncident(incident: Incident) {
