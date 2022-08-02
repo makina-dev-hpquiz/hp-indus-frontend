@@ -4,10 +4,10 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { ScreenBugsPageRoutingModule } from './screen-bugs-routing.module';
+import { ScreenBugsPageRoutingModule } from './incidents-listing-routing.module';
 
-import { ScreenBugsPage } from './screen-bugs.page';
-import { HeaderMenuComponent } from '../header-menu/header-menu.component';
+import { IncidentsListingPage } from './incidents-listing.page';
+import { HeaderMenuComponent } from '../../header-menu/header-menu.component';
 
 @NgModule({
   imports: [
@@ -16,7 +16,7 @@ import { HeaderMenuComponent } from '../header-menu/header-menu.component';
     IonicModule,
     ScreenBugsPageRoutingModule
   ],
-  declarations: [ScreenBugsPage,
+  declarations: [IncidentsListingPage,
     HeaderMenuComponent]
 })
 export class ScreenBugsPageModule {}

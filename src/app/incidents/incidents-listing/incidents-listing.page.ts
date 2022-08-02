@@ -5,11 +5,11 @@ import { DataService } from 'src/providers/resolver/data.service';
 import { IncidentService } from 'src/providers/services/incident.service';
 
 @Component({
-  selector: 'app-screen-bugs',
-  templateUrl: './screen-bugs.page.html',
-  styleUrls: ['./screen-bugs.page.scss'],
+  selector: 'app-incidents-listing',
+  templateUrl: './incidents-listing.page.html',
+  styleUrls: ['./incidents-listing.page.scss'],
 })
-export class ScreenBugsPage{
+export class IncidentsListingPage{
 
   @ViewChild('fileUpload', {static: false}) fileUpload: ElementRef;
   public incidents: Incident[];

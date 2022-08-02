@@ -22,8 +22,8 @@ export class AppComponent {
         type  : 'page'
         },
       {
-        title : 'Report Bugs',
-        url   : '/screen-bugs',
+        title : 'Incidents',
+        url   : '/incidents',
         icon  : 'bug',
         type  : 'page'
       },

@@ -13,19 +13,19 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'screen-bugs',
-    loadChildren: () => import('./screen-bugs/screen-bugs.module').then( m => m.ScreenBugsPageModule)
+    path: 'incidents',
+    loadChildren: () => import('./incidents/incidents-listing/incidents-listing.module').then( m => m.ScreenBugsPageModule)
   },
   {
     path: 'add-incident',
-    loadChildren: () => import('./add-incident/add-incident.module').then( m => m.AddIncidentPageModule)
+    loadChildren: () => import('./incidents/add-incident/add-incident.module').then( m => m.AddIncidentPageModule)
   },
   {
     path: 'incident/:id',
     resolve: {
       special: DataResolverService
     },
-    loadChildren: () => import('./add-incident/add-incident.module').then( m => m.AddIncidentPageModule)
+    loadChildren: () => import('./incidents/add-incident/add-incident.module').then( m => m.AddIncidentPageModule)
   },
   {
     path: 'archives',

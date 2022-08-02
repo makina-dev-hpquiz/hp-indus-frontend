@@ -1,6 +1,6 @@
 <app-header-menu></app-header-menu>
 <ion-toolbar>
-  <h2>Screen bugs</h2>
+  <h2>Liste des Incidents </h2>
   <ion-button fill="outline" slot="end" [routerLink]="['/add-incident']">Ajouter un bug</ion-button>
 
 
@@ -10,13 +10,11 @@
 
   <ion-card *ngFor="let incident of incidents">
     <ion-item>
-      <!-- <ion-icon name="pin" slot="start"></ion-icon> -->
       <ion-label>{{incident.title}}</ion-label>
       <ion-button fill="outline" slot="end" (click)="openIncident(incident)">View</ion-button>
       
       <ion-label>{{incident.date}}</ion-label>
     </ion-item>
-    <!-- sanitizer.bypassSecurityTrustResourceUrl(incident.screenshotPath) -->
     <ion-card-content> 
       <img style="height:400px;" [src]="incident.screenshotWebPath">
       <p>
@@ -26,17 +24,4 @@
       <p>{{incident.priority}}</p>
     </ion-card-content>
   </ion-card>
-<!--   
-  <input type="file"
-  id="screen" name="screen"
-  accept="image/png, image/jpeg"
-  #fileUpload>
-  <button (click)="sendScreenshot()">Envoyer</button> -->
-<!-- 
-  <button onclick="test()">BUTTON</button>
-  <ion-button onclick="test()">TEST ION BUTTON</ion-button> -->
-  <!-- <ion-alert style="background-color: coral;">
-    <p>TEST</p>
-
-  </ion-alert> -->
 </ion-content>
