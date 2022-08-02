@@ -25,6 +25,8 @@ export class AddIncidentPage implements OnInit {
   public readonly STATE_NEW: string; // = 'NEW';
   public readonly STATE_UPDATE = 'UPDATE';
 
+  public readonly INCIDENTS_PAGE = "/incidents";
+
   @ViewChild('fileUpload', { static: false }) fileUpload: ElementRef;
   // @ViewChild("viewer", {static: false}) viewer: ElementRef;
   @ViewChild('inputDiv', { static: false }) inputDiv: ElementRef;
@@ -78,17 +80,15 @@ export class AddIncidentPage implements OnInit {
   }
 
   async addIncident(formValue) {
-
-
     await this.incidentService.save(this.generateIncidentFormData(formValue)).then((event: any) => {
-      this.router.navigate(['/screen-bugs']).then(() => {
+      this.router.navigate([this.INCIDENTS_PAGE]).then(() => {
       });
     });
   }
 
   async updateIncident(formValue) {
     await this.incidentService.update(this.generateIncidentFormData(formValue)).then((event: any) => {
-      this.router.navigate(['/screen-bugs']).then(() => {
+      this.router.navigate([this.INCIDENTS_PAGE]).then(() => {
       });
     });
   }
@@ -143,11 +143,9 @@ export class AddIncidentPage implements OnInit {
   deleteIncident() {
     if(confirm("Êtes vous sûr de vouloir supprimer l'incident?")) {
       this.incidentService.deleteById(this.incident.id).then((event: any) => {
-        this.router.navigate(['/screen-bugs']).then(() => {
+        this.router.navigate([this.INCIDENTS_PAGE]).then(() => {
         });
       });
     }
   }
-
-
 }

@@ -17,7 +17,7 @@ const routes: Routes = [
     loadChildren: () => import('./incidents/incidents-listing/incidents-listing.module').then( m => m.ScreenBugsPageModule)
   },
   {
-    path: 'add-incident',
+    path: 'incident',
     loadChildren: () => import('./incidents/add-incident/add-incident.module').then( m => m.AddIncidentPageModule)
   },
   {
