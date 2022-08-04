@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AndroidPackage } from 'src/entities/androidPackage';
-import { ServerConst } from 'src/constants/serverConsts';
+import { ServerConst } from 'src/constants/serverConst';
 import { AbstractService } from './abstract.service';
 
 @Injectable({

@@ -1,3 +1,30 @@
-h2{
+ion-toolbar{
     margin-inline: 10px;
+    padding-right: 10px;
+    span{
+        display: flex;
+    }
+    .status{
+        border-top: 1px solid lightgrey;
+        ion-label{
+            position: absolute;
+            color: grey;
+            font-size: x-small;
+            margin-top:-7px;
+            margin-left:5px;
+            background:white;
+        }
+        border:1px solid lightgray;
+        border-radius: 5px;
+    }
+    ion-input{
+        // background-color: lightgrey;
+        border-radius:5px;
+        width: 30%;
+        // position: absolute;
+    }
+    // .space{
+    //     width: 30%;
+    //     position: absolute;
+    // }
 }

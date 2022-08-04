@@ -92,7 +92,7 @@
   <ion-item>
     <ion-label>Type</ion-label>
     <ion-select [(ngModel)]="incident.type" name="type">
-      <ion-select-option *ngFor="let type of types" [value]="type">{{type}}</ion-select-option>
+      <ion-select-option *ngFor="let type of types">{{type}}</ion-select-option>
     </ion-select>
   </ion-item>
 </ion-content>
