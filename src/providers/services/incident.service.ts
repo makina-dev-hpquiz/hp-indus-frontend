@@ -3,6 +3,7 @@ import { HttpClient, HttpEvent, HttpErrorResponse, HttpEventType } from  '@angul
 import { Incident } from 'src/entities/incident';
 import { ServerConst } from 'src/constants/serverConst';
 import { AbstractService } from './abstract.service';
+import { IncidentFilter } from 'src/entities/incidentFilter';
 
 
 @Injectable({
@@ -39,8 +40,21 @@ export class IncidentService extends AbstractService{
    *
    * @returns
    */
-  public async getAll(): Promise<Incident[]>{
-    return await this.httpClient.get<any>(ServerConst.urlServer+ServerConst.incidentUrl).toPromise();
+  public async getAll(filter : IncidentFilter): Promise<Incident[]>{
+    let paramsUrl = "?sort="+filter.sort;
+    if(filter.q){
+      paramsUrl += "&q="+filter.q;
+    }
+    // if(filter.status.length > 0){ TODO
+    //   paramsUrl = &status=filter.status;
+    // }
+    if(filter.priority){
+      paramsUrl += "&priority="+filter.priority;
+    }
+    if(filter.type){
+      paramsUrl += "&type="+filter.type;
+    }
+    return await this.httpClient.get<any>(ServerConst.urlServer+ServerConst.incidentUrl+paramsUrl).toPromise();
   }
 
   /**

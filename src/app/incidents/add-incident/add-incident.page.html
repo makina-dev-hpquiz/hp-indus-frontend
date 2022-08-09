@@ -49,7 +49,7 @@
     <ion-row radio-group>
       <ion-radio-group>
         <ion-col>
-            Status
+            Statut
         </ion-col>
         <ion-col>
           <ion-item>
@@ -84,9 +84,7 @@
   <ion-item>
     <ion-label>Priorité</ion-label>
     <ion-select [(ngModel)]="incident.priority" name="priority">
-      <ion-select-option value="haute">Haute</ion-select-option>
-      <ion-select-option value="normal">Normal</ion-select-option>
-      <ion-select-option value="faible">Faible</ion-select-option>
+      <ion-select-option *ngFor="let priority of priorities">{{priority}}</ion-select-option>
     </ion-select>
   </ion-item>
   <ion-item>

@@ -3,10 +3,7 @@ ion-toolbar{
     padding-right: 10px;
     span{
         display: flex;
-    }
-    .status{
-        border-top: 1px solid lightgrey;
-        ion-label{
+        .mini-label{
             position: absolute;
             color: grey;
             font-size: x-small;
@@ -14,6 +11,10 @@ ion-toolbar{
             margin-left:5px;
             background:white;
         }
+    }
+    .status{
+        border-top: 1px solid lightgrey;
+        
         border:1px solid lightgray;
         border-radius: 5px;
     }

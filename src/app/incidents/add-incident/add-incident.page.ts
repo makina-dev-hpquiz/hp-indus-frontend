@@ -1,5 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { PriorityConst } from 'src/constants/priorityConst';
+import { TypeConst } from 'src/constants/typeConst';
 import { Incident } from 'src/entities/incident';
 import { IncidentService } from 'src/providers/services/incident.service';
 
@@ -18,6 +20,7 @@ export class AddIncidentPage implements OnInit {
   public incident: Incident;
 
   public types: string[];
+  public priorities: string[];
   public defaultPriority;
 
   public state: string;
@@ -34,7 +37,8 @@ export class AddIncidentPage implements OnInit {
 
   constructor(private route: ActivatedRoute, private router: Router, private incidentService: IncidentService) {
     this.incident = new Incident();
-    this.types = ['Interface', 'Orthographe', 'Evenement'];
+    this.types = TypeConst.getTypes();
+    this.priorities = PriorityConst.getPriority();
     this.defaultPriority = 'normal';
 
     // this.STATE_NEW = 'NEW';

@@ -1,8 +1,8 @@
 export class TypeConst {
     public static readonly none = "Aucune";
-    public static readonly event = "Evénèment";
-    public static readonly words = "Orthographe";
-    public static readonly screen = "Interface";
+    public static readonly event = "evenement";
+    public static readonly words = "orthographe";
+    public static readonly screen = "interface";
 
     public static getTypes(){
         return [

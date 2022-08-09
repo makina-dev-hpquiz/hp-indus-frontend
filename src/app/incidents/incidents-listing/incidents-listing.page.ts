@@ -4,6 +4,7 @@ import { PriorityConst } from 'src/constants/priorityConst';
 import { StatusConst } from 'src/constants/statusConst';
 import { TypeConst } from 'src/constants/typeConst';
 import { Incident } from 'src/entities/incident';
+import { IncidentFilter } from 'src/entities/incidentFilter';
 import { DataService } from 'src/providers/resolver/data.service';
 import { IncidentService } from 'src/providers/services/incident.service';
 
@@ -30,20 +31,21 @@ export class IncidentsListingPage{
   public selectedType = TypeConst.none;
   public types = TypeConst.getSearchTypes();
 
-  public search: String = "";
-  public selectedStatus: Array<String>;
+  public search: string = "";
+  public selectedStatus: Array<string>;
 
   public logoSortedDate;
   public recentDate = true; 
   public readonly logoRecentDate = "add-outline";
   public readonly logoOldDate = "remove-outline";
 
-  public filter: Array<String>;
+  public filter: IncidentFilter;
 
   constructor(private incidentService: IncidentService, private router: Router, private dataService: DataService) {
     this.selectedStatus = new Array();
     this.selectedStatus.push(StatusConst.toDo);
     this.selectedStatus.push(StatusConst.doing);
+    this.filter = new IncidentFilter("-date");
 
     this.logoSortedDate = this.logoRecentDate;
   }
@@ -56,8 +58,6 @@ export class IncidentsListingPage{
     }
     this.recentDate = !this.recentDate;
 
-    // console.log(this.recentDate);
-    // console.log(this.logoSortedDate);
     this.updateSearch();
   }
 
@@ -81,7 +81,6 @@ export class IncidentsListingPage{
     } else {
       this.selectedStatus.push(status);
     }
-    // console.log(this.selectedStatus);
 
     this.updateSearch();
   }
@@ -90,23 +89,22 @@ export class IncidentsListingPage{
    * Met à jour la liste des incidents en fonction des différents filtres et tri
    */
   updateSearch(){
-    this.filter = new Array();
-    this.filter.push(this.search);
-    this.filter.push(this.recentDate? "asc": "desc");
-    this.filter = this.filter.concat(this.selectedStatus);
-    this.filter.push(this.selectedPriority);
-    this.filter.push(this.selectedType);
-
-    console.log(this.filter);
+    this.filter = new IncidentFilter(this.recentDate? "-date": "date",
+      this.search,
+      new Array().concat(this.selectedStatus),
+      this.selectedPriority,
+      this.selectedType
+    );
+      
+    this.getAllIncidents();
   }
-
 
   ionViewDidEnter(){
     this.getAllIncidents();
   }
 
   async getAllIncidents(){
-    this.incidents = await this.incidentService.getAll();
+    this.incidents = await this.incidentService.getAll(this.filter);
   }
 
   openIncident(incident: Incident) {

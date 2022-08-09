@@ -5,12 +5,16 @@
 </ion-toolbar>
 <ion-toolbar>
   <span>
-    <ion-input (ionBlur)="updateSearch()" type="text" [(ngModel)]="search"  fill="outline" placeholder="Rechercher"></ion-input>
-    <ion-button (click)="sortByDate()">
-      <ion-icon [name]=logoSortedDate></ion-icon> 
-    </ion-button>
+    <ion-input (ionBlur)="updateSearch()" type="text" [(ngModel)]="search" fill="outline" placeholder="Rechercher">
+    </ion-input>
+    <span>
+      <ion-label class="mini-label">Tri Date</ion-label>
+      <ion-button (click)="sortByDate()">
+        <ion-icon [name]=logoSortedDate></ion-icon>
+      </ion-button>
+    </span>
     <span class="status">
-      <ion-label>Status</ion-label>
+      <ion-label class="mini-label">Statut</ion-label>
       <ion-button #toDoButton [fill]=solidButton slot="end" (click)="changeStatus(toDoButton, toDoMsg)">{{toDoMsg}}
       </ion-button>
       <ion-button #doingButton [fill]=solidButton slot="end" (click)="changeStatus(doingButton, doingMsg)">{{doingMsg}}
@@ -18,12 +22,18 @@
       <ion-button #donetButton [fill]=outlineButton slot="end" (click)="changeStatus(donetButton, doneMsg)">{{doneMsg}}
       </ion-button>
     </span>
-    <ion-select (ionChange)="updateSearch()" [(ngModel)]="selectedPriority">
-      <ion-select-option *ngFor="let priority of priorities">{{priority}}</ion-select-option>
-    </ion-select>
-    <ion-select (ionChange)="updateSearch()" [(ngModel)]="selectedType">
-      <ion-select-option *ngFor="let type of types" >{{type}}</ion-select-option>
-    </ion-select>
+    <span>
+      <ion-label class="mini-label">Priorité</ion-label>
+      <ion-select (ionChange)="updateSearch()" [(ngModel)]="selectedPriority">
+        <ion-select-option *ngFor="let priority of priorities">{{priority}}</ion-select-option>
+      </ion-select>
+    </span>
+    <span>
+      <ion-label class="mini-label">Type d'incident</ion-label>
+      <ion-select (ionChange)="updateSearch()" [(ngModel)]="selectedType">
+        <ion-select-option *ngFor="let type of types">{{type}}</ion-select-option>
+      </ion-select>
+    </span>
   </span>
 </ion-toolbar>
 <!-- Voir https://ionicframework.com/docs/v3/api/components/slides/Slides/ -->
