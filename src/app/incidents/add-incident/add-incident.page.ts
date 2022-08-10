@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PriorityConst } from 'src/constants/priorityConst';
+import { StatusConst } from 'src/constants/statusConst';
 import { TypeConst } from 'src/constants/typeConst';
 import { Incident } from 'src/entities/incident';
 import { IncidentService } from 'src/providers/services/incident.service';
@@ -21,6 +22,7 @@ export class AddIncidentPage implements OnInit {
 
   public types: string[];
   public priorities: string[];
+  public statusList: string[];
   public defaultPriority;
 
   public state: string;
@@ -39,6 +41,7 @@ export class AddIncidentPage implements OnInit {
     this.incident = new Incident();
     this.types = TypeConst.getTypes();
     this.priorities = PriorityConst.getPriority();
+    this.statusList = StatusConst.getStatus();
     this.defaultPriority = 'normal';
 
     // this.STATE_NEW = 'NEW';
@@ -50,8 +53,8 @@ export class AddIncidentPage implements OnInit {
 
   ngOnInit() {
     this.incident = new Incident();
-    if (this.route.snapshot.data.special) {
-      this.incident = this.route.snapshot.data.special;
+    if (this.route.snapshot.data.special) { // TODO Faire un appel au serveur
+      this.incident = this.route.snapshot.data.special; 
       this.screenshot = this.incident.screenshotWebPath;
       this.state = this.STATE_UPDATE;
     } else {
@@ -59,6 +62,7 @@ export class AddIncidentPage implements OnInit {
       this.incident = new Incident();
       this.incident.priority = this.defaultPriority;
       this.incident.date = new Date().toISOString();
+      this.incident.status = StatusConst.toDo;
       this.incident.screenshotPath = "";
       this.incident.screenshotWebPath = "";
       this.incident.description = "";

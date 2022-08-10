@@ -47,26 +47,14 @@
   <!-- TODO NE FONCTIONNE PAS CORRECTEMENT -->
   <div class="status">
     <ion-row radio-group>
-      <ion-radio-group>
+      <ion-radio-group [(ngModel)]="incident.status" name="status">
         <ion-col>
             Statut
         </ion-col>
         <ion-col>
-          <ion-item>
-            <ion-label>En attente</ion-label>
-            <ion-radio checked="checked" value="TO DO"></ion-radio>
-          </ion-item>
-        <!-- </ion-col>
-        <ion-col> -->
-          <ion-item>
-            <ion-label>En cours</ion-label>
-            <ion-radio value="DOING" item-left></ion-radio>
-          </ion-item>
-        <!-- </ion-col>
-        <ion-col> -->
-          <ion-item>
-            <ion-label>Terminé</ion-label>
-            <ion-radio value="Done" item-left></ion-radio>
+          <ion-item *ngFor="let status of statusList">
+            <ion-label>{{status}}</ion-label>
+            <ion-radio [value]=status></ion-radio>
           </ion-item>
         </ion-col>
       </ion-radio-group>
