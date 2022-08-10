@@ -45,9 +45,9 @@ export class IncidentService extends AbstractService{
     if(filter.q){
       paramsUrl += "&q="+filter.q;
     }
-    // if(filter.status.length > 0){ TODO
-    //   paramsUrl = &status=filter.status;
-    // }
+    if(filter.status.length > 0){ // TODO
+      paramsUrl += "&status="+filter.status.join(",");
+    }
     if(filter.priority){
       paramsUrl += "&priority="+filter.priority;
     }

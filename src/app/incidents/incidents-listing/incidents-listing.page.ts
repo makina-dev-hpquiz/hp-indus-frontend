@@ -45,7 +45,7 @@ export class IncidentsListingPage{
     this.selectedStatus = new Array();
     this.selectedStatus.push(StatusConst.toDo);
     this.selectedStatus.push(StatusConst.doing);
-    this.filter = new IncidentFilter("-date");
+    this.filter = new IncidentFilter("-date", "", new Array(StatusConst.toDo, StatusConst.doing));
 
     this.logoSortedDate = this.logoRecentDate;
   }
@@ -110,5 +110,17 @@ export class IncidentsListingPage{
   openIncident(incident: Incident) {
     this.dataService.setData(incident.id, incident);
     this.router.navigateByUrl('/incident/'+incident.id);
+  }
+
+  /**
+   * Indique le nombre d'incidents visible
+   * @returns number
+   */
+  public getIncidentNumber(): number{
+    if(this.incidents){
+      return this.incidents.length;
+    } else {
+      return 0;
+    }
   }
 }
