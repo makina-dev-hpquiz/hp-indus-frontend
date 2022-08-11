@@ -1,24 +1,31 @@
-ion-toolbar{
-    margin-inline: 10px;
-    span{
-        display: flex;
-        .mini-label{
-            position: absolute;
-            color: grey;
-            font-size: x-small;
-            margin-top:-7px;
-            margin-left:5px;
-            background:white;
+ion-toolbar {
+    div {
+        padding-left: 10px;
+        display: inline-flex;
+        vertical-align: middle;
+        margin-bottom: 3px;
+        margin-top: 5px;
+        span {
+            .mini-label {
+                position: absolute;
+                color: grey;
+                font-size: x-small;
+                margin-top: -7px;
+                margin-left: 5px;
+                background: white;
+            }
         }
-    }
-    .status{
-        border-top: 1px solid lightgrey;
-        
-        border:1px solid lightgray;
-        border-radius: 5px;
-    }
-    ion-input{
-        border-radius:5px;
-        width: 30%;
+        .status {
+            width: fit-content;
+            padding-left: 2px;
+            padding-right: 2px;
+            border-top: 1px solid lightgrey;
+            border: 1px solid lightgray;
+            border-radius: 5px;
+        }
+        ion-input {
+            border-radius: 5px;
+            width: 300px;
+        }
     }
 }

@@ -1,20 +1,26 @@
-<ion-toolbar>
-  <span>
-    <ion-input (ionBlur)="updateSearch()" type="text" [(ngModel)]="filter.search" fill="outline" placeholder="Rechercher">
+<ion-toolbar [content]="content">
+  <div>
+    <ion-input (ionBlur)="updateSearch()" type="text" [(ngModel)]="filter.search" fill="outline"
+      placeholder="Rechercher">
     </ion-input>
+  </div>
+
+  <div>
+    <span class="status">
+      <ion-label class="mini-label">Statut</ion-label>
+      <ion-button #toDoButton [fill]=solidButton (click)="changeStatus(toDoButton, toDoMsg)">{{toDoMsg}}
+      </ion-button>
+      <ion-button #doingButton [fill]=solidButton (click)="changeStatus(doingButton, doingMsg)">{{doingMsg}}
+      </ion-button>
+      <ion-button #donetButton [fill]=outlineButton  (click)="changeStatus(donetButton, doneMsg)">{{doneMsg}}
+      </ion-button>
+    </span>
+  </div>
+  <div>
     <span>
       <ion-label class="mini-label">Tri Date</ion-label>
       <ion-button (click)="sortByDate()">
         <ion-icon [name]=logoSortedDate></ion-icon>
-      </ion-button>
-    </span>
-    <span class="status">
-      <ion-label class="mini-label">Statut</ion-label>
-      <ion-button #toDoButton [fill]=solidButton slot="end" (click)="changeStatus(toDoButton, toDoMsg)">{{toDoMsg}}
-      </ion-button>
-      <ion-button #doingButton [fill]=solidButton slot="end" (click)="changeStatus(doingButton, doingMsg)">{{doingMsg}}
-      </ion-button>
-      <ion-button #donetButton [fill]=outlineButton slot="end" (click)="changeStatus(donetButton, doneMsg)">{{doneMsg}}
       </ion-button>
     </span>
     <span>
@@ -29,5 +35,5 @@
         <ion-select-option *ngFor="let type of types">{{type}}</ion-select-option>
       </ion-select>
     </span>
-  </span>
+  </div>
 </ion-toolbar>
