@@ -1,6 +1,6 @@
 <ion-toolbar [content]="content">
   <div>
-    <ion-input (ionBlur)="updateSearch()" type="text" [(ngModel)]="filter.search" fill="outline"
+    <ion-input (ionChange)="updateSearch()" debounce=1000 type="text" [(ngModel)]="filter.search" fill="outline"
       placeholder="Rechercher">
     </ion-input>
   </div>

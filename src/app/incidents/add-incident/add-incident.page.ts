@@ -158,6 +158,7 @@ export class AddIncidentPage implements OnInit {
       });
     }
   }
+  
   formValueIsComplete(): boolean {
     if(!this.incident.title ||
       !this.incident.description ||

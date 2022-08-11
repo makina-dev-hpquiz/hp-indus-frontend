@@ -42,8 +42,8 @@ export class IncidentService extends AbstractService{
    */
   public async getAll(filter : IncidentFilter): Promise<Incident[]>{
     let paramsUrl = "?sort="+filter.sort;
-    if(filter.q){
-      paramsUrl += "&q="+filter.q;
+    if(filter.search){
+      paramsUrl += "&q="+filter.search;
     }
     if(filter.status.length > 0){ // TODO
       paramsUrl += "&status="+filter.status.join(",");
