@@ -1,6 +1,6 @@
-<ion-toolbar [content]="content">
+<ion-toolbar *ngIf=toolbarIsActive [ngClass]=ionToolBarClass>
   <div>
-    <ion-input (ionChange)="updateSearch()" debounce=1000 type="text" [(ngModel)]="filter.search" fill="outline"
+    <ion-input (ionChange)="updateSearch()" debounce=500 type="text" [(ngModel)]="filter.search" fill="outline"
       placeholder="Rechercher">
     </ion-input>
   </div>
@@ -37,3 +37,8 @@
     </span>
   </div>
 </ion-toolbar>
+<div *ngIf=displayReduceOrExpendButton() class="reduce-toolbar">
+  <ion-button (click)="reduceOrExpendToolbar()">
+    <ion-icon [name]=logoReduceToolbarToDisplay></ion-icon>
+  </ion-button>
+</div>

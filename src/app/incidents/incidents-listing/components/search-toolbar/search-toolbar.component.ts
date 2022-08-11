@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { PriorityConst } from 'src/constants/priorityConst';
 import { StatusConst } from 'src/constants/statusConst';
 import { TypeConst } from 'src/constants/typeConst';
@@ -12,15 +12,20 @@ import { IncidentFilter } from 'src/entities/incidentFilter';
 export class SearchToolbarComponent implements OnInit {
 
   @Output() incidentFilterUpdated = new EventEmitter<IncidentFilter>();
-  
+
   //CSS mise à jour
   public readonly outlineButton = "outline";
   public readonly solidButton = "solid";
-  public readonly logoRecentDate = "add-outline";
-  public readonly logoOldDate = "remove-outline";
+  private readonly logoRecentDate = "add-outline";
+  private readonly logoOldDate = "remove-outline";
+  private readonly logoReduceToolbar = "caret-up-outline";
+  private readonly logoExpendToolbar = "caret-down-outline";
+
+  public toolbarIsActive: boolean;
 
   // A Afficher
   public logoSortedDate;
+  public logoReduceToolbarToDisplay;
   public readonly toDoMsg = StatusConst.toDo;
   public readonly doingMsg = StatusConst.doing;
   public readonly doneMsg = StatusConst.done;
@@ -36,7 +41,9 @@ export class SearchToolbarComponent implements OnInit {
   constructor() {
     this.selectedStatus = new Array(StatusConst.toDo, StatusConst.doing);
     this.logoSortedDate = this.logoRecentDate;
+    this.logoReduceToolbarToDisplay = this.logoReduceToolbar;
     this.filter = new IncidentFilter("-date", "", this.selectedStatus, PriorityConst.none, TypeConst.none);   
+    this.toolbarIsActive = true;
   }
 
   ngOnInit() { 
@@ -91,6 +98,27 @@ export class SearchToolbarComponent implements OnInit {
     }
 
     this.updateSearch();
+  }
+
+  /**
+   * Réduit ou étend la toolbar de recherche
+   */
+  reduceOrExpendToolbar(){
+    if(this.logoReduceToolbarToDisplay === this.logoReduceToolbar) {
+      this.logoReduceToolbarToDisplay = this.logoExpendToolbar;
+    } else {
+      this.logoReduceToolbarToDisplay = this.logoReduceToolbar;
+    }
+    this.toolbarIsActive = !this.toolbarIsActive;
+  }
+
+  /**
+   * Indique si le button ReduceOrExpend de la toolbar doit être affiché ou non,
+   * ceci en fonction de la taille de l'écran
+   * @returns boolean
+   */
+  displayReduceOrExpendButton(){
+    return (window.screen.width < 920|| window.screen.height < 600);
   }
 
   
