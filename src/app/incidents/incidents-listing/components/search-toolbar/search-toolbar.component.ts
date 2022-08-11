@@ -9,10 +9,10 @@ import { IncidentFilter } from 'src/entities/incidentFilter';
   templateUrl: './search-toolbar.component.html',
   styleUrls: ['./search-toolbar.component.scss'],
 })
-export class SearchToolbarComponent implements OnInit {
+export class SearchToolbarComponent {
 
   @Output() incidentFilterUpdated = new EventEmitter<IncidentFilter>();
-
+ 
   //CSS mise à jour
   public readonly outlineButton = "outline";
   public readonly solidButton = "solid";
@@ -35,26 +35,23 @@ export class SearchToolbarComponent implements OnInit {
 
   // Données à traiter
   public filter: IncidentFilter;
-  public selectedStatus: Array<string>;
-  public recentDate = true;
+  private selectedStatus: Array<string>;
+  private recentDate = true;
 
   constructor() {
     this.selectedStatus = new Array(StatusConst.toDo, StatusConst.doing);
+    this.filter = new IncidentFilter("-date", "", this.selectedStatus, PriorityConst.none, TypeConst.none);   
+       
     this.logoSortedDate = this.logoRecentDate;
     this.logoReduceToolbarToDisplay = this.logoReduceToolbar;
-    this.filter = new IncidentFilter("-date", "", this.selectedStatus, PriorityConst.none, TypeConst.none);   
     this.toolbarIsActive = true;
-  }
-
-  ngOnInit() { 
-    this.updateSearch();
   }
 
   /**
    * Construit un item IncidentFilter à partir des infos de la SearchToolbar 
    * et envoi l'évènement avec l'incidentFilter au composant Parent
    */
-  updateSearch() {
+  public updateSearch() {
     this.filter = new IncidentFilter(this.recentDate ? "-date" : "date",
       this.filter.search,
       new Array().concat(this.selectedStatus),
@@ -120,7 +117,4 @@ export class SearchToolbarComponent implements OnInit {
   displayReduceOrExpendButton(){
     return (window.screen.width < 920|| window.screen.height < 600);
   }
-
-  
-
 }

@@ -28,13 +28,12 @@ export class AddIncidentPage implements OnInit {
 
   public state: string;
 
-  public readonly STATE_NEW: string; // = 'NEW';
+  public readonly STATE_NEW = 'NEW';
   public readonly STATE_UPDATE = 'UPDATE';
 
   public readonly INCIDENTS_PAGE = "/incidents";
 
   @ViewChild('fileUpload', { static: false }) fileUpload: ElementRef;
-  // @ViewChild("viewer", {static: false}) viewer: ElementRef;
   @ViewChild('inputDiv', { static: false }) inputDiv: ElementRef;
   @ViewChild('viewerDiv', { static: false }) viewerDiv: ElementRef;
 
@@ -45,17 +44,14 @@ export class AddIncidentPage implements OnInit {
     this.statusList = StatusConst.getStatus();
     this.defaultPriority = 'normal';
 
-    // this.STATE_NEW = 'NEW';
-    this.STATE_UPDATE = 'UPDATE';
     this.state = this.STATE_NEW;
   }
 
-  data: any;
 
-  ngOnInit() {
+  async ngOnInit() {
     this.incident = new Incident();
-    if (this.route.snapshot.data.special) { // TODO Faire un appel au serveur
-      this.incident = this.route.snapshot.data.special; 
+    if (this.route.snapshot.data.special) { 
+      this.incident = await this.getIncident(this.route.snapshot.data.special.id); 
       this.screenshot = this.incident.screenshotWebPath;
       this.state = this.STATE_UPDATE;
     } else {
@@ -70,6 +66,9 @@ export class AddIncidentPage implements OnInit {
     }
   }
 
+  /**
+   * A l'entrée de la page on tente d'afficher l'image s'il y en a une
+   */
   ionViewWillEnter() {
     if (this.state === this.STATE_UPDATE) {
       if (this.incident.screenshotWebPath) {
@@ -78,10 +77,13 @@ export class AddIncidentPage implements OnInit {
     }
   }
 
-
+  /**
+   * Enclenche les actions de sauvegarde en fonction de l'état de la page
+   * @param formValue 
+   */
   saveAction(formValue) {
     if(this.formValueIsComplete()) {
-      if (this.state == this.STATE_NEW) {
+      if (this.state === this.STATE_NEW) {
         this.addIncident(formValue);
       } else {
         this.updateIncident(formValue);
@@ -103,6 +105,10 @@ export class AddIncidentPage implements OnInit {
     });
   }
 
+  async getIncident(id): Promise<Incident>{
+    return await this.incidentService.get(id);
+  }
+
   /**
    * Génére un object FormData à partir d'un objet form.value
    * 
@@ -117,6 +123,10 @@ export class AddIncidentPage implements OnInit {
     return formData
   }
 
+  /**
+   * Charge l'image envoyé par l'input
+   * @param event 
+   */
   loadScreenshot(event) {
     this.havePicture = true;
     this.displayScreenshot();
@@ -131,11 +141,18 @@ export class AddIncidentPage implements OnInit {
     }
   }
 
+  /**
+   * Active l'afficheur d'image
+   */
   displayScreenshot() {
     this.inputDiv.nativeElement.style.display = this.displayNone;
     this.viewerDiv.nativeElement.style.display = this.displayBlock;
   }
 
+  /**
+   * Annule l'image en la retirant dans l'objet Incident et remettant à disposition
+   * les éléments permettant de choisir une image
+   */
   cancelScreenshot() {
     this.havePicture = false;
     this.screenshot = null;
@@ -150,6 +167,9 @@ export class AddIncidentPage implements OnInit {
     this.inputDiv.nativeElement.style.display = this.displayBlock;
   }
 
+  /**
+   * Envoie une requête pour supprimer l'incident actuel
+   */
   deleteIncident() {
     if(confirm("Êtes vous sûr de vouloir supprimer l'incident?")) {
       this.incidentService.deleteById(this.incident.id).then((event: any) => {
@@ -159,6 +179,11 @@ export class AddIncidentPage implements OnInit {
     }
   }
   
+  /**
+   * Valide si l'objet Incident est complet et prêt à être sauvegarder
+   * Dans le cas contraîre fait apparaître un toast
+   * @returns Boolean
+   */
   formValueIsComplete(): boolean {
     if(!this.incident.title ||
       !this.incident.description ||
@@ -172,9 +197,12 @@ export class AddIncidentPage implements OnInit {
     return true;
   }
 
+  /**
+   * Fait apparaître un message
+   */
   async presentToast() {
     const toast = await this.toastController.create({
-      message: 'Des informations sont manquantes.',
+      message: 'L\'incident n`\'est pas complet et ne peut être sauvegarder en l\'état',
       duration: 2000,
       position: 'top',
       color: 'danger'

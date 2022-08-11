@@ -45,7 +45,7 @@ export class IncidentService extends AbstractService{
     if(filter.search){
       paramsUrl += "&q="+filter.search;
     }
-    if(filter.status.length > 0){ // TODO
+    if(filter.status.length > 0){
       paramsUrl += "&status="+filter.status.join(",");
     }
     if(filter.priority){
@@ -55,6 +55,15 @@ export class IncidentService extends AbstractService{
       paramsUrl += "&type="+filter.type;
     }
     return await this.httpClient.get<any>(ServerConst.urlServer+ServerConst.incidentUrl+paramsUrl).toPromise();
+  }
+
+  /**
+   * Envoie une requête au serveur pour récupérer l'incident dont l'id est fourni en paramètre
+   *
+   * @returns
+   */
+  public async get(id): Promise<Incident>{
+    return await this.httpClient.get<any>(ServerConst.urlServer+ServerConst.incidentUrl+"/"+id).toPromise();
   }
 
   /**

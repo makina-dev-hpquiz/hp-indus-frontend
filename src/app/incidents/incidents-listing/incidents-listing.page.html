@@ -3,10 +3,9 @@
   <h2>Liste des Incidents ({{getIncidentNumber()}})</h2>
   <ion-button fill="outline" slot="end" [routerLink]="['/incident']">Ajouter un bug</ion-button>
 </ion-toolbar>
-<app-search-toolbar (incidentFilterUpdated)=getAllIncidents($event)></app-search-toolbar>
-<!-- Voir https://ionicframework.com/docs/v3/api/components/slides/Slides/ -->
-<ion-content>
+<app-search-toolbar #searchToolBar (incidentFilterUpdated)=getAllIncidents($event)></app-search-toolbar>
 
+<ion-content>
   <ion-card *ngFor="let incident of incidents">
     <ion-item>
       <ion-label>{{incident.title}}</ion-label>
