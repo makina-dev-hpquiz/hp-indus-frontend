@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastController } from '@ionic/angular';
 import { PriorityConst } from 'src/constants/priorityConst';
 import { StatusConst } from 'src/constants/statusConst';
 import { TypeConst } from 'src/constants/typeConst';
@@ -37,7 +38,7 @@ export class AddIncidentPage implements OnInit {
   @ViewChild('inputDiv', { static: false }) inputDiv: ElementRef;
   @ViewChild('viewerDiv', { static: false }) viewerDiv: ElementRef;
 
-  constructor(private route: ActivatedRoute, private router: Router, private incidentService: IncidentService) {
+  constructor(private route: ActivatedRoute, private router: Router, private incidentService: IncidentService, public toastController: ToastController) {
     this.incident = new Incident();
     this.types = TypeConst.getTypes();
     this.priorities = PriorityConst.getPriority();
@@ -79,10 +80,12 @@ export class AddIncidentPage implements OnInit {
 
 
   saveAction(formValue) {
-    if (this.state == this.STATE_NEW) {
-      this.addIncident(formValue);
-    } else {
-      this.updateIncident(formValue);
+    if(this.formValueIsComplete()) {
+      if (this.state == this.STATE_NEW) {
+        this.addIncident(formValue);
+      } else {
+        this.updateIncident(formValue);
+      }
     }
   }
 
@@ -155,4 +158,29 @@ export class AddIncidentPage implements OnInit {
       });
     }
   }
+  formValueIsComplete(): boolean {
+    if(!this.incident.title ||
+      !this.incident.description ||
+      !this.incident.priority ||
+      !this.incident.status ||
+      !this.incident.type){
+        this.presentToast();
+        return false;
+    }
+
+    return true;
+  }
+
+  async presentToast() {
+    const toast = await this.toastController.create({
+      message: 'Des informations sont manquantes.',
+      duration: 2000,
+      position: 'top',
+      color: 'danger'
+    });
+    toast.present();
+  }
+
 }
+
+

@@ -22,7 +22,7 @@
 
   <ion-item>
     <ion-label>Titre</ion-label>
-    <ion-input [(ngModel)]=incident.title name="title"></ion-input>
+    <ion-input [(ngModel)]=incident.title required name="title"></ion-input>
   </ion-item>
   <ion-item>
     <ion-label>Image</ion-label> <br>
@@ -44,7 +44,7 @@
 
   <div class="status">
     <ion-row radio-group>
-      <ion-radio-group [(ngModel)]="incident.status" name="status">
+      <ion-radio-group [(ngModel)]="incident.status" required name="status">
         <ion-col>
             Statut
         </ion-col>
@@ -60,21 +60,21 @@
 
   <ion-item>
     <ion-label>Description</ion-label>
-    <ion-textarea [(ngModel)]="incident.description" name="description" ></ion-textarea>
+    <ion-textarea [(ngModel)]="incident.description" required name="description" ></ion-textarea>
   </ion-item>
   <ion-item>
     <ion-label>Date de remonté</ion-label>
-    <ion-datetime [(ngModel)]="incident.date" displayFormat="DD MMM YYYY" name="date"></ion-datetime>
+    <ion-datetime [(ngModel)]="incident.date" required displayFormat="DD MMM YYYY" name="date"></ion-datetime>
   </ion-item>
   <ion-item>
     <ion-label>Priorité</ion-label>
-    <ion-select [(ngModel)]="incident.priority" name="priority">
+    <ion-select [(ngModel)]="incident.priority" required name="priority">
       <ion-select-option *ngFor="let priority of priorities">{{priority}}</ion-select-option>
     </ion-select>
   </ion-item>
   <ion-item>
     <ion-label>Type</ion-label>
-    <ion-select [(ngModel)]="incident.type" name="type">
+    <ion-select [(ngModel)]="incident.type" required name="type">
       <ion-select-option *ngFor="let type of types">{{type}}</ion-select-option>
     </ion-select>
   </ion-item>
