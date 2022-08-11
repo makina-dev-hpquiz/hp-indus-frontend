@@ -18,93 +18,11 @@ export class IncidentsListingPage{
   @ViewChild('fileUpload', {static: false}) fileUpload: ElementRef;
   public incidents: Incident[];
 
-  public readonly toDoMsg = StatusConst.toDo;
-  public readonly doingMsg = StatusConst.doing;
-  public readonly doneMsg = StatusConst.done;
-
-  public readonly outlineButton = "outline";
-  public readonly solidButton = "solid";
-
-  public selectedPriority = PriorityConst.none;
-  public priorities = PriorityConst.getSearchPriority();
-
-  public selectedType = TypeConst.none;
-  public types = TypeConst.getSearchTypes();
-
-  public search: string = "";
-  public selectedStatus: Array<string>;
-
-  public logoSortedDate;
-  public recentDate = true; 
-  public readonly logoRecentDate = "add-outline";
-  public readonly logoOldDate = "remove-outline";
-
-  public filter: IncidentFilter;
-
   constructor(private incidentService: IncidentService, private router: Router, private dataService: DataService) {
-    this.selectedStatus = new Array();
-    this.selectedStatus.push(StatusConst.toDo);
-    this.selectedStatus.push(StatusConst.doing);
-    this.filter = new IncidentFilter("-date", "", new Array(StatusConst.toDo, StatusConst.doing));
-
-    this.logoSortedDate = this.logoRecentDate;
   }
 
-  sortByDate(){
-    if(this.logoSortedDate === this.logoRecentDate) {
-      this.logoSortedDate = this.logoOldDate;
-    } else {
-      this.logoSortedDate = this.logoRecentDate;
-    }
-    this.recentDate = !this.recentDate;
-
-    this.updateSearch();
-  }
-
-  /**
-   * Change la couleur des boutons status
-   * @param button 
-   * @param status 
-   */
-  changeStatus(button, status){
-    switch(button.fill){
-      case this.solidButton:
-        button.fill = this.outlineButton;
-      break;
-      case this.outlineButton:
-        button.fill = this.solidButton;
-      break;
-    }
-
-    if(this.selectedStatus.includes(status)) {
-      this.selectedStatus.splice(this.selectedStatus.indexOf(status), 1);
-    } else {
-      this.selectedStatus.push(status);
-    }
-
-    this.updateSearch();
-  }
-
-  /**
-   * Met à jour la liste des incidents en fonction des différents filtres et tri
-   */
-  updateSearch(){
-    this.filter = new IncidentFilter(this.recentDate? "-date": "date",
-      this.search,
-      new Array().concat(this.selectedStatus),
-      this.selectedPriority,
-      this.selectedType
-    );
-      
-    this.getAllIncidents();
-  }
-
-  ionViewDidEnter(){
-    this.getAllIncidents();
-  }
-
-  async getAllIncidents(){
-    this.incidents = await this.incidentService.getAll(this.filter);
+  async getAllIncidents(incidentFilter: IncidentFilter){
+    this.incidents = await this.incidentService.getAll(incidentFilter);
   }
 
   openIncident(incident: Incident) {

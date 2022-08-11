@@ -1,29 +1,6 @@
 ion-toolbar{
     margin-inline: 10px;
     padding-right: 10px;
-    span{
-        display: flex;
-        .mini-label{
-            position: absolute;
-            color: grey;
-            font-size: x-small;
-            margin-top:-7px;
-            margin-left:5px;
-            background:white;
-        }
-    }
-    .status{
-        border-top: 1px solid lightgrey;
-        
-        border:1px solid lightgray;
-        border-radius: 5px;
-    }
-    ion-input{
-        // background-color: lightgrey;
-        border-radius:5px;
-        width: 30%;
-        // position: absolute;
-    }
 }
 ion-item {
     ion-icon {
