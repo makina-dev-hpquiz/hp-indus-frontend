@@ -42,17 +42,19 @@
   <ion-card *ngFor="let incident of incidents">
     <ion-item>
       <ion-label>{{incident.title}}</ion-label>
-      <ion-button fill="outline" slot="end" (click)="openIncident(incident)">View</ion-button>
-
+      <ion-icon slot="end" color="primary" size="large" name="arrow-forward" (click)="openIncident(incident)"></ion-icon>
       <ion-label>{{incident.date}}</ion-label>
     </ion-item>
     <ion-card-content>
+      <div>
+        <span>Type : {{incident.type}} | </span>
+        <span>Priorité : {{incident.priority}} | </span>
+        <span>Statut : {{incident.status}}</span>
+      </div>
       <img style="height:400px;" [src]="incident.screenshotWebPath">
       <p>
         {{incident.description}}
       </p>
-      <p>{{incident.type}}</p>
-      <p>{{incident.priority}}</p>
     </ion-card-content>
   </ion-card>
 </ion-content>

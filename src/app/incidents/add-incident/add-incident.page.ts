@@ -71,7 +71,6 @@ export class AddIncidentPage implements OnInit {
 
   ionViewWillEnter() {
     if (this.state === this.STATE_UPDATE) {
-
       if (this.incident.screenshotWebPath) {
         this.displayScreenshot();
       }

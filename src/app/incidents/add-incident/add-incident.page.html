@@ -31,8 +31,6 @@
         <input type="file" id="screen" name="screen" accept="image/png, image/jpeg" #fileUpload
           (change)="loadScreenshot($event)">
      </div>
-     
-        
       <div #viewerDiv style="display:none;">
         <img style="height:200px" id="imageToDisplay" #viewer src={{screenshot}}>
         <div style="left: 50%;">
@@ -44,7 +42,6 @@
     </div>
   </ion-item>
 
-  <!-- TODO NE FONCTIONNE PAS CORRECTEMENT -->
   <div class="status">
     <ion-row radio-group>
       <ion-radio-group [(ngModel)]="incident.status" name="status">

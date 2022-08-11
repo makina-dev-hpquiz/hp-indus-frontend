@@ -24,8 +24,9 @@ ion-toolbar{
         width: 30%;
         // position: absolute;
     }
-    // .space{
-    //     width: 30%;
-    //     position: absolute;
-    // }
+}
+ion-item {
+    ion-icon {
+        cursor: pointer;
+    }
 }
