@@ -44,7 +44,7 @@ export class SearchToolbarComponent {
 
   constructor() {
     this.selectedStatus = new Array(StatusConst.toDo, StatusConst.doing);
-    this.filter = new IncidentFilter('-date', '', this.selectedStatus, PriorityConst.none, TypeConst.none);
+    this.filter = new IncidentFilter('date', '', this.selectedStatus, PriorityConst.none, TypeConst.none);
 
     this.logoSortedDate = this.logoRecentDate;
     this.logoReduceToolbarToDisplay = this.logoReduceToolbar;
@@ -56,7 +56,7 @@ export class SearchToolbarComponent {
    * et envoi l'évènement avec l'incidentFilter au composant Parent
    */
   public updateSearch() {
-    this.filter = new IncidentFilter(this.recentDate ? '-date' : 'date',
+    this.filter = new IncidentFilter(this.recentDate ? 'date' : '-date',
       this.filter.search,
       new Array().concat(this.selectedStatus),
       this.filter.priority,
