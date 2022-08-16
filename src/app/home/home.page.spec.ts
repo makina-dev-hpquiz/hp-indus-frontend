@@ -2,9 +2,9 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 import { of } from 'rxjs';
 import { AndroidPackage } from 'src/entities/androidPackage';
-import { AndroidPackageService } from '../services/androidPackage/android-package.service';
 import { HomePage } from './home.page';
 import { RouterTestingModule } from '@angular/router/testing';
+import { AndroidPackageService } from 'src/providers/services/android-package.service';
 
 
 describe('HomePage', () => {

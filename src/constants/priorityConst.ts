@@ -1,8 +1,8 @@
 export class PriorityConst {
-    public static readonly none = "Aucune";
-    public static readonly hight = "haute";
-    public static readonly normal = "normal";
-    public static readonly low = "basse";
+    public static readonly none = 'Aucune';
+    public static readonly hight = 'haute';
+    public static readonly normal = 'normal';
+    public static readonly low = 'basse';
 
     public static getPriority(){
         return [

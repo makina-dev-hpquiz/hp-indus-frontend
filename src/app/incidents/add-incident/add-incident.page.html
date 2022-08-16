@@ -10,13 +10,15 @@
   </ion-toolbar>
   <ion-toolbar *ngIf="state===STATE_UPDATE" class="toolbar-secondary">
     <!-- en modification-->
-    <span>Mise à jour le :</span>
+    <span>Remonté le : {{incident.date.toLocaleDateString()}} </span>
+    <span>| Mise à jour le : {{incident.date.toLocaleDateString()}}</span>
     <ion-icon size="large" color="danger" name="close" (click)="deleteIncident()" slot="end"></ion-icon>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <input *ngIf="state===STATE_UPDATE" type="hidden" [(ngModel)]=incident.id name="id"/>
+  <input *ngIf="state===STATE_UPDATE" type="hidden" [(ngModel)]=incident.date name="date"/>
   <input type="hidden" [(ngModel)]=incident.screenshotPath name="screenshotPath"/>
   <input type="hidden" [(ngModel)]=incident.screenshotWebPath name="screenshotWebPath"/>
 
@@ -62,20 +64,20 @@
     <ion-label>Description</ion-label>
     <ion-textarea [(ngModel)]="incident.description" required name="description" ></ion-textarea>
   </ion-item>
-  <ion-item>
+  <ion-item *ngIf="state===STATE_NEW">
     <ion-label>Date de remonté</ion-label>
-    <ion-datetime [(ngModel)]="incident.date" required displayFormat="DD MMM YYYY" name="date"></ion-datetime>
+    <ion-datetime (ionChange)="updateDate()" [(ngModel)]="date" required displayFormat="DD MMM YYYY" name="date"></ion-datetime>
   </ion-item>
   <ion-item>
     <ion-label>Priorité</ion-label>
     <ion-select [(ngModel)]="incident.priority" required name="priority">
-      <ion-select-option *ngFor="let priority of priorities">{{priority}}</ion-select-option>
+      <ion-select-option *ngFor="let priority of prioritiesList">{{priority}}</ion-select-option>
     </ion-select>
   </ion-item>
   <ion-item>
     <ion-label>Type</ion-label>
     <ion-select [(ngModel)]="incident.type" required name="type">
-      <ion-select-option *ngFor="let type of types">{{type}}</ion-select-option>
+      <ion-select-option *ngFor="let type of typesList">{{type}}</ion-select-option>
     </ion-select>
   </ion-item>
 </ion-content>

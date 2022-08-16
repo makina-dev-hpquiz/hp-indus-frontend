@@ -4,8 +4,8 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { IonicModule } from '@ionic/angular';
 import { of } from 'rxjs';
 import { HomePage } from 'src/app/home/home.page';
-import { AndroidPackageService } from 'src/app/services/androidPackage/android-package.service';
 import { AndroidPackage } from 'src/entities/androidPackage';
+import { AndroidPackageService } from 'src/providers/services/android-package.service';
 
 import { ListPage } from './list.page';
 

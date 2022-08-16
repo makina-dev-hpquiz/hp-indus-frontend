@@ -6,6 +6,7 @@ import { StatusConst } from 'src/constants/statusConst';
 import { TypeConst } from 'src/constants/typeConst';
 import { Incident } from 'src/entities/incident';
 import { IncidentService } from 'src/providers/services/incident.service';
+import { DateUtil } from 'src/utils/dateUtil';
 
 @Component({
   selector: 'app-add-incident',
@@ -14,33 +15,36 @@ import { IncidentService } from 'src/providers/services/incident.service';
 })
 export class AddIncidentPage implements OnInit {
 
-  public havePicture = false;
-  public screenshot;
-  private displayNone = 'none';
-  private displayBlock = 'block';
-
-  public incident: Incident;
-
-  public types: string[];
-  public priorities: string[];
-  public statusList: string[];
-  public defaultPriority;
-
-  public state: string;
-
-  public readonly STATE_NEW = 'NEW';
-  public readonly STATE_UPDATE = 'UPDATE';
-
-  public readonly INCIDENTS_PAGE = "/incidents";
-
   @ViewChild('fileUpload', { static: false }) fileUpload: ElementRef;
   @ViewChild('inputDiv', { static: false }) inputDiv: ElementRef;
   @ViewChild('viewerDiv', { static: false }) viewerDiv: ElementRef;
 
-  constructor(private route: ActivatedRoute, private router: Router, private incidentService: IncidentService, public toastController: ToastController) {
+  public havePicture = false;
+  public incident: Incident;
+
+  // Variables à afficher
+  public typesList: string[];
+  public prioritiesList: string[];
+  public statusList: string[];
+  public defaultPriority;
+  public screenshot;
+  public date: string;
+
+  // Etat de la page
+  public state: string;
+  public readonly STATE_NEW = 'NEW';
+  public readonly STATE_UPDATE = 'UPDATE';
+
+  public readonly INCIDENTS_PAGE = '/incidents';
+
+  private displayNone = 'none';
+  private displayBlock = 'block';
+
+  constructor(private route: ActivatedRoute, private router: Router,
+    private incidentService: IncidentService, public toastController: ToastController) {
     this.incident = new Incident();
-    this.types = TypeConst.getTypes();
-    this.priorities = PriorityConst.getPriority();
+    this.typesList = TypeConst.getTypes();
+    this.prioritiesList = PriorityConst.getPriority();
     this.statusList = StatusConst.getStatus();
     this.defaultPriority = 'normal';
 
@@ -50,19 +54,24 @@ export class AddIncidentPage implements OnInit {
 
   async ngOnInit() {
     this.incident = new Incident();
-    if (this.route.snapshot.data.special) { 
-      this.incident = await this.getIncident(this.route.snapshot.data.special.id); 
+    if (this.route.snapshot.data.special) {
+      this.incident = await this.getIncident(this.route.snapshot.data.special.id);
       this.screenshot = this.incident.screenshotWebPath;
       this.state = this.STATE_UPDATE;
+      this.date = this.incident.date.toISOString();
     } else {
       this.state = this.STATE_NEW;
       this.incident = new Incident();
       this.incident.priority = this.defaultPriority;
-      this.incident.date = new Date().toISOString();
+
+      // Initialisation date du jour
+      this.incident.date = new Date();
+      this.date = this.incident.date.toISOString();
+
       this.incident.status = StatusConst.toDo;
-      this.incident.screenshotPath = "";
-      this.incident.screenshotWebPath = "";
-      this.incident.description = "";
+      this.incident.screenshotPath = '';
+      this.incident.screenshotWebPath = '';
+      this.incident.description = '';
     }
   }
 
@@ -79,10 +88,11 @@ export class AddIncidentPage implements OnInit {
 
   /**
    * Enclenche les actions de sauvegarde en fonction de l'état de la page
-   * @param formValue 
+   *
+   * @param formValue
    */
   saveAction(formValue) {
-    if(this.formValueIsComplete()) {
+    if (this.formValueIsComplete()) {
       if (this.state === this.STATE_NEW) {
         this.addIncident(formValue);
       } else {
@@ -105,27 +115,21 @@ export class AddIncidentPage implements OnInit {
     });
   }
 
-  async getIncident(id): Promise<Incident>{
+  async getIncident(id): Promise<Incident> {
     return await this.incidentService.get(id);
   }
 
   /**
-   * Génére un object FormData à partir d'un objet form.value
-   * 
-   * @param formValue 
-   * @returns FormData
+   * Met à jour incident.date avec la date sélectionné
    */
-  private generateIncidentFormData(formValue) {
-    const formData = new FormData();
-    Object.keys(formValue).map((key) => formData.append(key, formValue[key]));
-    formData.append('file', this.fileUpload.nativeElement.files[0]);
-
-    return formData
+  updateDate() {
+    this.incident.date = DateUtil.convertStringDateToDate(this.date);
   }
 
   /**
    * Charge l'image envoyé par l'input
-   * @param event 
+   *
+   * @param event
    */
   loadScreenshot(event) {
     this.havePicture = true;
@@ -134,8 +138,8 @@ export class AddIncidentPage implements OnInit {
     if (event.target.files && event.target.files[0]) {
       const reader = new FileReader();
 
-      reader.onload = (event: ProgressEvent) => {
-        this.screenshot = (<FileReader>event.target).result;
+      reader.onload = (progressEvent: ProgressEvent) => {
+        this.screenshot = (progressEvent.target as FileReader).result;
       };
       reader.readAsDataURL(event.target.files[0]);
     }
@@ -160,8 +164,8 @@ export class AddIncidentPage implements OnInit {
     this.fileUpload.nativeElement.type = 'text';
     this.fileUpload.nativeElement.type = 'file';
 
-    this.incident.screenshotPath = "";
-    this.incident.screenshotWebPath = "";
+    this.incident.screenshotPath = '';
+    this.incident.screenshotWebPath = '';
 
     this.viewerDiv.nativeElement.style.display = this.displayNone;
     this.inputDiv.nativeElement.style.display = this.displayBlock;
@@ -171,27 +175,28 @@ export class AddIncidentPage implements OnInit {
    * Envoie une requête pour supprimer l'incident actuel
    */
   deleteIncident() {
-    if(confirm("Êtes vous sûr de vouloir supprimer l'incident?")) {
+    if (confirm('Êtes vous sûr de vouloir supprimer l\'incident?')) {
       this.incidentService.deleteById(this.incident.id).then((event: any) => {
         this.router.navigate([this.INCIDENTS_PAGE]).then(() => {
         });
       });
     }
   }
-  
+
   /**
    * Valide si l'objet Incident est complet et prêt à être sauvegarder
    * Dans le cas contraîre fait apparaître un toast
+   *
    * @returns Boolean
    */
   formValueIsComplete(): boolean {
-    if(!this.incident.title ||
+    if (!this.incident.title ||
       !this.incident.description ||
       !this.incident.priority ||
       !this.incident.status ||
-      !this.incident.type){
-        this.presentToast();
-        return false;
+      !this.incident.type) {
+      this.presentToast();
+      return false;
     }
 
     return true;
@@ -210,6 +215,17 @@ export class AddIncidentPage implements OnInit {
     toast.present();
   }
 
+  /**
+   * Génére un object FormData à partir d'un objet form.value
+   *
+   * @param formValue
+   * @returns FormData
+   */
+   private generateIncidentFormData(formValue) {
+    const formData = new FormData();
+    Object.keys(formValue).map((key) => formData.append(key, formValue[key]));
+    formData.append('file', this.fileUpload.nativeElement.files[0]);
+
+    return formData;
+  }
 }
-
-

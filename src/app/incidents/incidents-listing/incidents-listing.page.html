@@ -9,8 +9,9 @@
   <ion-card *ngFor="let incident of incidents">
     <ion-item>
       <ion-label>{{incident.title}}</ion-label>
+      <ion-label slot="end" >{{displayDate(incident)}}</ion-label>
       <ion-icon slot="end" color="primary" size="large" name="arrow-forward" (click)="openIncident(incident)"></ion-icon>
-      <ion-label>{{incident.date}}</ion-label>
+      
     </ion-item>
     <ion-card-content>
       <div>
