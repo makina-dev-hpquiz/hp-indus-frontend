@@ -5,8 +5,8 @@ import { FormsModule } from '@angular/forms';
 import { HomePage } from './home.page';
 
 import { HomePageRoutingModule } from './home-routing.module';
-import { HeaderMenuComponent } from '../header-menu/header-menu.component';
-import { ApkTemplateComponent } from '../components/apk-template/apk-template.component';
+import { HeaderMenuComponent } from '../components/header-menu/header-menu.component';
+import { ApkTemplateComponent } from '../apk-manager/components/apk-template/apk-template.component';
 
 
 @NgModule({

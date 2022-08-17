@@ -21,4 +21,25 @@ describe('SearchToolbarComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('SearchToolbarComponent.updateSearch', () => {
+  
+  });
+
+  
+  it('SearchToolbarComponent.sortByDate', () => {
+  
+  });
+
+  
+  it('SearchToolbarComponent.changeStatus', () => {
+  
+  });
+
+  it('SearchToolbarComponent.reduceOrExpendToolbar', () => {
+  
+  });
+  it('SearchToolbarComponent.displayReduceOrExpendButton', () => {
+  
+  });
 });

@@ -25,6 +25,7 @@ describe('IncidentService', () => {
       '',
       'normal',
       new Date('2022-06-07T16:00:00.135Z'),
+      new Date('2022-06-07T16:00:00.135Z'),
       'interface'
     );
     httpClientSpy.post.and.returnValue(of(expected));
@@ -39,6 +40,7 @@ describe('IncidentService', () => {
       '',
       '',
       'normal',
+      new Date('2022-06-07T16:00:00.135Z'),
       new Date('2022-06-07T16:00:00.135Z'),
       'interface'
     );
@@ -56,6 +58,7 @@ describe('IncidentService', () => {
         '',
         'normal',
         new Date('2022-06-07T16:00:00.135Z'),
+        new Date('2022-06-07T16:00:00.135Z'),
         'interface'
       ),
       new Incident('k0de50b4-a33a-4cde-8587-876a9e8851ac',
@@ -64,6 +67,7 @@ describe('IncidentService', () => {
         '',
         '',
         'normal',
+        new Date('2022-06-07T16:00:00.135Z'),
         new Date('2022-06-07T16:00:00.135Z'),
         'interface'
       )
@@ -74,7 +78,7 @@ describe('IncidentService', () => {
     expect(result).toEqual(expected);
   });
 
-  it('TEST IncidentService.eleteById', async () => {
+  it('TEST IncidentService.deleteById', async () => {
     const expected = new Incident('f0de50b4-a33a-4cde-8587-876a9e8851ab',
       'Test 1',
       'Description du test 1',
@@ -82,11 +86,26 @@ describe('IncidentService', () => {
       '',
       'normal',
       new Date('2022-06-07T16:00:00.135Z'),
+      new Date('2022-06-07T16:00:00.135Z'),
       'interface'
     );
     httpClientSpy.delete.and.returnValue(of('202'));
     const result = await service.deleteById(expected.id);
     expect(result).toEqual('202');
   });
-
+  it('TEST IncidentService.get', async () => {
+    const expected = new Incident('f0de50b4-a33a-4cde-8587-876a9e8851ab',
+      'Test 1',
+      'Description du test 1',
+      '',
+      '',
+      'normal',
+      new Date('2022-06-07T16:00:00.135Z'),
+      new Date('2022-06-07T16:00:00.135Z'),
+      'interface'
+    );
+    httpClientSpy.get.and.returnValue(of(expected));
+    const result: Incident = await service.get(expected.id);
+    expect(result).toEqual(expected);
+  });
 });

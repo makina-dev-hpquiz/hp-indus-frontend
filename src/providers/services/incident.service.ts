@@ -77,9 +77,6 @@ export class IncidentService extends AbstractService {
       incident.createdAt = DateUtil.convertStringDateToDate(incident.createdAt);
       return incident;
     });
-
-
-    // return incident;
   }
 
   /**

@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
-import { TestBed } from '@angular/core/testing';
+import { of } from 'rxjs';
+import { IncidentProperty } from 'src/entities/IncidentProperty';
 
 import { IncidentPropertiesService } from './incident-properties.service';
 
@@ -8,7 +9,6 @@ describe('IncidentPropertiesService', () => {
   let httpClientSpy: jasmine.SpyObj<HttpClient>;
 
   beforeEach(() => {
-
     httpClientSpy = jasmine.createSpyObj('HttpClient', ['get']);
     service = new IncidentPropertiesService(httpClientSpy);
   });
@@ -17,16 +17,38 @@ describe('IncidentPropertiesService', () => {
     expect(service).toBeTruthy();
   });
   it('TEST IncidentPropertiesService.getTypes', async () => {
-    const types = service.getTypes();
+    const expected = new IncidentProperty(
+      ['type 1', 'type 2'],
+      ['type 1', 'type 2', 'type 3'],
+      'type 1'
+    )
+
+    httpClientSpy.get.and.returnValue(of(expected));
+    const result: IncidentProperty = await service.getTypes();
+    expect(result).toEqual(expected);
 
   });
   it('TEST IncidentPropertiesService.getPriorities', async () => {
-    const priorities = service.getPriorities();
+    let expected = new IncidentProperty(
+      ['priority 1', 'priority 2'],
+      ['priority 1', 'priority 2', 'priority 3'],
+      ''
+    )
+
+    httpClientSpy.get.and.returnValue(of(expected));
+    let result = await service.getPriorities();
+    expect(result).toEqual(expected);
+    
   });
   it('TEST IncidentPropertiesService.getStatus', async () => {
-    const status = ['en attente','en cours', 'ok']; //TODO
-    const result = service.getStatus();
+    let expected = new IncidentProperty(
+      ['Status 1', 'Status 2'],
+      null,
+      ''
+    )
 
-    expect(result).toEqual(status);
+    httpClientSpy.get.and.returnValue(of(expected));
+    let result = await service.getStatus();
+    expect(result).toEqual(expected);
   });
 });
