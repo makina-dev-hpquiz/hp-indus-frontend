@@ -60,9 +60,9 @@ describe('AddIncidentPage', () => {
 
 
     await mockIncidentService.get.and.returnValue(of(incident).toPromise());
-    await mockIncidentPropertiesService.getPriorities.and.returnValue(of(incidentProperty).toPromise());
-    await mockIncidentPropertiesService.getStatus.and.returnValue(of(incidentProperty).toPromise());
-    await mockIncidentPropertiesService.getTypes.and.returnValue(of(incidentProperty).toPromise());
+    // await mockIncidentPropertiesService.getPriorities.and.returnValue(of(incidentProperty).toPromise());
+    // await mockIncidentPropertiesService.getStatus.and.returnValue(of(incidentProperty).toPromise());
+    // await mockIncidentPropertiesService.getTypes.and.returnValue(of(incidentProperty).toPromise());
 
     expect(component).toBeTruthy();
   });

@@ -1,6 +1,7 @@
 import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { IncidentConst } from 'src/constants/incidentConst';
 import { IncidentFilter } from 'src/entities/incidentFilter';
+import { IncidentProperty } from 'src/entities/IncidentProperty';
 import { IncidentPropertiesService } from 'src/providers/services/incident-properties.service';
 
 @Component({
@@ -41,6 +42,10 @@ export class SearchToolbarComponent {
   private selectedStatus: Array<string>;
   private recentDate = true;
 
+  private incidentType: IncidentProperty;
+  private incidentPriorities: IncidentProperty;
+  private incidentStatus: IncidentProperty;
+
   constructor(public incidentPropertiesService: IncidentPropertiesService) {
     this.logoSortedDate = this.logoRecentDate;
     this.logoReduceToolbarToDisplay = this.logoReduceToolbar;
@@ -49,21 +54,23 @@ export class SearchToolbarComponent {
     this.init();
   }
 
-  async init(){
-    const incidentType = (await this.incidentPropertiesService.getTypes());
-    const incidentPriorities = (await this.incidentPropertiesService.getPriorities());
-    const incidentStatus = (await this.incidentPropertiesService.getStatus());
+  async init() {
+    this.incidentType = await this.incidentPropertiesService.getTypes();
+    this.incidentPriorities = await this.incidentPropertiesService.getPriorities();
+    this.incidentStatus = await this.incidentPropertiesService.getStatus();
+    
+    if (this.incidentStatus && this.incidentPriorities && this.incidentType) {
+      this.toDoMsg = this.incidentStatus.properties[0];
+      this.doingMsg = this.incidentStatus.properties[1];
+      this.doneMsg = this.incidentStatus.properties[2];
 
-    this.toDoMsg = incidentStatus.properties[0];
-    this.doingMsg =incidentStatus.properties[1];
-    this.doneMsg = incidentStatus.properties[2];
+      this.selectedStatus = new Array(this.toDoMsg, this.doingMsg);
+      this.filter = new IncidentFilter(IncidentConst.sortField, '', this.selectedStatus,
+        this.incidentPriorities.searchProperties[0], this.incidentType.searchProperties[0]);
 
-    this.selectedStatus = new Array(this.toDoMsg,  this.doingMsg);
-    this.filter = new IncidentFilter(IncidentConst.sortField, '', this.selectedStatus,
-     incidentPriorities.searchProperties[0], incidentType.searchProperties[0]);
-
-    this.priorities = incidentPriorities.searchProperties;
-    this.types = incidentType.searchProperties;
+      this.priorities = this.incidentPriorities.searchProperties;
+      this.types = this.incidentType.searchProperties;
+    }
   }
 
 

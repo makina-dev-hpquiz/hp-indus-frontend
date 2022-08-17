@@ -41,7 +41,7 @@ export class AddIncidentPage implements OnInit {
 
   constructor(private route: ActivatedRoute, private router: Router,
     private incidentService: IncidentService, public toastController: ToastController,
-    public incidentPropertiesService: IncidentPropertiesService ) {
+    public incidentPropertiesService: IncidentPropertiesService) {
 
     this.incident = new Incident();
   }
@@ -50,23 +50,26 @@ export class AddIncidentPage implements OnInit {
   async ngOnInit() {
     this.incident = new Incident();
 
-    this.typesList = (await this.incidentPropertiesService.getTypes()).properties;
-    await this.incidentPropertiesService.getPriorities().then((incidentPriority) => {
-      this.prioritiesList = incidentPriority.properties;
-      this.incident.priority = incidentPriority.defaultProperty;
-    });
+    const incidentType = await this.incidentPropertiesService.getTypes();
+    const incidentPriorities = await this.incidentPropertiesService.getPriorities();
+    const incidentStatus = await this.incidentPropertiesService.getStatus();
 
-    await this.incidentPropertiesService.getStatus().then((incidentStatus) => {
+    if (incidentType && incidentPriorities && incidentStatus) {
+      this.typesList = incidentType.properties;
+      this.prioritiesList = incidentPriorities.properties;
+      this.incident.priority = incidentPriorities.defaultProperty;
+
       this.statusList = incidentStatus.properties;
       this.incident.status = incidentStatus.defaultProperty;
-    });
+    }
+
     if (this.route.snapshot.data.special) {
       this.state = this.STATE_UPDATE;
       this.incident = await this.getIncident(this.route.snapshot.data.special.id);
 
       this.screenshot = this.incident.screenshotWebPath;
       this.updatedAt = this.incident.updatedAt.toISOString();
-      this.createdAt  = this.incident.createdAt.toISOString();
+      this.createdAt = this.incident.createdAt.toISOString();
 
     } else {
       this.state = this.STATE_NEW;
@@ -230,7 +233,7 @@ export class AddIncidentPage implements OnInit {
    * @param formValue
    * @returns FormData
    */
-   private generateIncidentFormData(formValue) {
+  private generateIncidentFormData(formValue) {
     const formData = new FormData();
     Object.keys(formValue).map((key) => formData.append(key, formValue[key]));
     formData.append('file', this.fileUpload.nativeElement.files[0]);
