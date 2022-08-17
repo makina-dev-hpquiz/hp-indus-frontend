@@ -224,7 +224,6 @@ export class AddIncidentPage implements OnInit {
     const formData = new FormData();
     Object.keys(formValue).map((key) => formData.append(key, formValue[key]));
     formData.append('file', this.fileUpload.nativeElement.files[0]);
-
     return formData;
   }
 }

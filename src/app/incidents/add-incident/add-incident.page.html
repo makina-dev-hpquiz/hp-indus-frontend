@@ -10,15 +10,15 @@
   </ion-toolbar>
   <ion-toolbar *ngIf="state===STATE_UPDATE" class="toolbar-secondary">
     <!-- en modification-->
-    <span>Remonté le : {{incident.date.toLocaleDateString()}} </span>
-    <span>| Mise à jour le : {{incident.date.toLocaleDateString()}}</span>
+    <span>Remonté le : {{incident.date.toLocaleString()}} </span>
+    <span>| Mise à jour le : {{incident.date.toLocaleString()}}</span>
     <ion-icon size="large" color="danger" name="close" (click)="deleteIncident()" slot="end"></ion-icon>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <input *ngIf="state===STATE_UPDATE" type="hidden" [(ngModel)]=incident.id name="id"/>
-  <input *ngIf="state===STATE_UPDATE" type="hidden" [(ngModel)]=incident.date name="date"/>
+  <input *ngIf="state===STATE_UPDATE" type="hidden" [(ngModel)]=date name="date"/>
   <input type="hidden" [(ngModel)]=incident.screenshotPath name="screenshotPath"/>
   <input type="hidden" [(ngModel)]=incident.screenshotWebPath name="screenshotWebPath"/>
 

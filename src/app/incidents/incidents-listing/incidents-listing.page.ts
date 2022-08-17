@@ -50,6 +50,7 @@ export class IncidentsListingPage{
    */
   async getAllIncidents(incidentFilter: IncidentFilter){
     this.incidents = await this.incidentService.getAll(incidentFilter);
+    console.log(this.incidents);
   }
 
   /**
