@@ -1,4 +1,5 @@
 import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { IncidentConst } from 'src/constants/incidentConst';
 import { IncidentFilter } from 'src/entities/incidentFilter';
 import { IncidentPropertiesService } from 'src/providers/services/incident-properties.service';
 
@@ -58,7 +59,7 @@ export class SearchToolbarComponent {
     this.doneMsg = incidentStatus.properties[2];
 
     this.selectedStatus = new Array(this.toDoMsg,  this.doingMsg);
-    this.filter = new IncidentFilter('date', '', this.selectedStatus,
+    this.filter = new IncidentFilter(IncidentConst.sortField, '', this.selectedStatus,
      incidentPriorities.searchProperties[0], incidentType.searchProperties[0]);
 
     this.priorities = incidentPriorities.searchProperties;
@@ -71,7 +72,7 @@ export class SearchToolbarComponent {
    * et envoi l'évènement avec l'incidentFilter au composant Parent
    */
   public updateSearch() {
-    this.filter = new IncidentFilter(this.recentDate ? 'date' : '-date',
+    this.filter = new IncidentFilter(this.recentDate ? IncidentConst.sortField : IncidentConst.reverseSortField,
       this.filter.search,
       new Array().concat(this.selectedStatus),
       this.filter.priority,

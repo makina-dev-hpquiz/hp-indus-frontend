@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AndroidPackage } from 'src/entities/androidPackage';
-import { ServerConst } from 'src/constants/serverConst';
+import { ServerUrlConst } from 'src/constants/serverUrlConst';
 import { AbstractService } from './abstract.service';
 
 @Injectable({
@@ -19,7 +19,7 @@ export class AndroidPackageService extends AbstractService {
    * @returns Promise<AndroidPackage>
    */
   public getLastHPQuizAPK(): Promise<AndroidPackage> {
-    return this.getAPK(ServerConst.urlServer + ServerConst.apkUrl + ServerConst.lastHPQuizAPK);
+    return this.getAPK(ServerUrlConst.urlServer + ServerUrlConst.apkUrl + ServerUrlConst.lastHPQuizAPK);
 
   }
 
@@ -29,7 +29,7 @@ export class AndroidPackageService extends AbstractService {
   * @returns Promise<AndroidPackage>
   */
   public async getLastHPCoreAPK(): Promise<AndroidPackage> {
-    return this.getAPK(ServerConst.urlServer + ServerConst.apkUrl + ServerConst.lastHPCoreAPK);
+    return this.getAPK(ServerUrlConst.urlServer + ServerUrlConst.apkUrl + ServerUrlConst.lastHPCoreAPK);
   }
 
   /**
@@ -38,7 +38,7 @@ export class AndroidPackageService extends AbstractService {
    * @returns Promise<AndroidPackage[]>
    */
   public getAllHPQuizAPK(): Promise<AndroidPackage[]> {
-    return this.getAllAPK(ServerConst.urlServer + ServerConst.apkUrl + ServerConst.allHPQuizAPK);
+    return this.getAllAPK(ServerUrlConst.urlServer + ServerUrlConst.apkUrl + ServerUrlConst.allHPQuizAPK);
    }
 
     /**
@@ -47,7 +47,7 @@ export class AndroidPackageService extends AbstractService {
      * @returns Promise<AndroidPackage[]>
      */
   public getAllHPCoreAPK(): Promise<AndroidPackage[]> {
-    return this.getAllAPK(ServerConst.urlServer + ServerConst.apkUrl + ServerConst.allHPCoreAPK);
+    return this.getAllAPK(ServerUrlConst.urlServer + ServerUrlConst.apkUrl + ServerUrlConst.allHPCoreAPK);
   }
 
   /**

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpEvent, HttpErrorResponse, HttpEventType } from '@angular/common/http';
 import { Incident } from 'src/entities/incident';
-import { ServerConst } from 'src/constants/serverConst';
+import { ServerUrlConst } from 'src/constants/serverUrlConst';
 import { AbstractService } from './abstract.service';
 import { IncidentFilter } from 'src/entities/incidentFilter';
 import { DateUtil } from 'src/utils/dateUtil';
@@ -23,7 +23,7 @@ export class IncidentService extends AbstractService {
    * @returns
    */
   public async save(incidentFormData): Promise<Incident> {
-    return await this.httpClient.post<any>(ServerConst.urlServer + ServerConst.incidentUrl, incidentFormData).toPromise();
+    return await this.httpClient.post<any>(ServerUrlConst.urlServer + ServerUrlConst.incidentUrl, incidentFormData).toPromise();
   }
 
   /**
@@ -33,7 +33,7 @@ export class IncidentService extends AbstractService {
    * @returns
    */
   public async update(incidentFormData): Promise<Incident> {
-    return await this.httpClient.put<any>(ServerConst.urlServer + ServerConst.incidentUrl, incidentFormData).toPromise();
+    return await this.httpClient.put<any>(ServerUrlConst.urlServer + ServerUrlConst.incidentUrl, incidentFormData).toPromise();
   }
 
   /**
@@ -55,9 +55,9 @@ export class IncidentService extends AbstractService {
     if (filter.type) {
       paramsUrl += '&type=' + filter.type;
     }
-    let incidents: Incident[] = await this.httpClient.get<any>(ServerConst.urlServer + ServerConst.incidentUrl + paramsUrl).toPromise().then(incidents => {
+    let incidents: Incident[] = await this.httpClient.get<any>(ServerUrlConst.urlServer + ServerUrlConst.incidentUrl + paramsUrl).toPromise().then(incidents => {
       incidents.forEach(incident => {
-        incident.date = DateUtil.convertStringDateToDate(incident.date);
+        incident.updatedAt = DateUtil.convertStringDateToDate(incident.updatedAt);
       });
       return incidents;
     });
@@ -71,8 +71,8 @@ export class IncidentService extends AbstractService {
    * @returns
    */
   public async get(id): Promise<Incident> {
-    return await this.httpClient.get<any>(ServerConst.urlServer + ServerConst.incidentUrl + '/' + id).toPromise().then(incident => {
-      incident.date = DateUtil.convertStringDateToDate(incident.date);
+    return await this.httpClient.get<any>(ServerUrlConst.urlServer + ServerUrlConst.incidentUrl + '/' + id).toPromise().then(incident => {
+      incident.updatedAt = DateUtil.convertStringDateToDate(incident.updatedAt);
       return incident;
     });
 
@@ -87,7 +87,7 @@ export class IncidentService extends AbstractService {
    * @returns
    */
   public async deleteById(id: string) {
-    return await this.httpClient.delete<any>(ServerConst.urlServer + ServerConst.incidentUrl + id).toPromise();
+    return await this.httpClient.delete<any>(ServerUrlConst.urlServer + ServerUrlConst.incidentUrl + id).toPromise();
   }
 }
 

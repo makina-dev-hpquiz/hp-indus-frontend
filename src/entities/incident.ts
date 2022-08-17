@@ -7,7 +7,7 @@ export class Incident {
         public screenshotPath?: string,
         public screenshotWebPath?: string,
         public priority?: string,
-        public date?: Date,
+        public updatedAt?: Date,
         public type?: string,
         public status?: string
     ) {}

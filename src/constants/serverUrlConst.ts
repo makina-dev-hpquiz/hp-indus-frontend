@@ -1,4 +1,4 @@
-export class ServerConst {
+export class ServerUrlConst {
     public static readonly urlServer = 'http://192.168.1.10:8082/';
 
     public static readonly apkUrl = 'apks/';

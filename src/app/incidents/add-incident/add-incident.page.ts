@@ -61,13 +61,13 @@ export class AddIncidentPage implements OnInit {
       this.incident = await this.getIncident(this.route.snapshot.data.special.id);
       this.screenshot = this.incident.screenshotWebPath;
       this.state = this.STATE_UPDATE;
-      this.date = this.incident.date.toISOString();
+      this.date = this.incident.updatedAt.toISOString();
     } else {
       this.state = this.STATE_NEW;
 
       // Initialisation date du jour
-      this.incident.date = new Date();
-      this.date = this.incident.date.toISOString();
+      this.incident.updatedAt = new Date();
+      this.date = this.incident.updatedAt.toISOString();
       this.incident.screenshotPath = '';
       this.incident.screenshotWebPath = '';
       this.incident.description = '';
@@ -122,7 +122,7 @@ export class AddIncidentPage implements OnInit {
    * Met à jour incident.date avec la date sélectionné
    */
   updateDate() {
-    this.incident.date = DateUtil.convertStringDateToDate(this.date);
+    this.incident.updatedAt = DateUtil.convertStringDateToDate(this.date);
   }
 
   /**

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ServerConst } from 'src/constants/serverConst';
+import { ServerUrlConst } from 'src/constants/serverUrlConst';
 import { IncidentProperty } from 'src/entities/IncidentProperty';
 import { AbstractService } from './abstract.service';
 
@@ -18,23 +18,23 @@ export class IncidentPropertiesService extends AbstractService{
   }
 
   public async getTypes(): Promise<IncidentProperty>{
-    this.incidentType =  await this.get(this.incidentType, ServerConst.types);
+    this.incidentType =  await this.get(this.incidentType, ServerUrlConst.types);
     return this.incidentType;
   }
 
   public async getPriorities(): Promise<IncidentProperty>{
-    this.incidentPriority = await this.get(this.incidentPriority, ServerConst.priorities);
+    this.incidentPriority = await this.get(this.incidentPriority, ServerUrlConst.priorities);
     return this.incidentPriority;
   }
 
   public async getStatus(): Promise<IncidentProperty>{
-    this.incidentStatus = await this.get(this.incidentStatus, ServerConst.status);
+    this.incidentStatus = await this.get(this.incidentStatus, ServerUrlConst.status);
     return this.incidentStatus;
   }
 
   private async get(property: IncidentProperty , request: string): Promise<IncidentProperty>{
     if(!property){
-      property = await this.httpClient.get<any>(ServerConst.urlServer + ServerConst.incidentUrl + request).toPromise();
+      property = await this.httpClient.get<any>(ServerUrlConst.urlServer + ServerUrlConst.incidentUrl + request).toPromise();
     }
     return property;
   }

@@ -36,8 +36,8 @@ export class IncidentsListingPage{
    * @returns 
    */
   displayDate(incident: Incident){
-    if(incident && incident.date) {
-      return incident.date.toLocaleDateString();
+    if(incident && incident.updatedAt) {
+      return incident.updatedAt.toLocaleDateString();
     } else {
       return "";
     }
@@ -50,7 +50,6 @@ export class IncidentsListingPage{
    */
   async getAllIncidents(incidentFilter: IncidentFilter){
     this.incidents = await this.incidentService.getAll(incidentFilter);
-    console.log(this.incidents);
   }
 
   /**
