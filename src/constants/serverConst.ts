@@ -10,4 +10,9 @@ export class ServerConst {
     public static readonly incidentUrl = 'incidents/';
     public static readonly uploadUrl = 'upload';
     public static readonly deleteUrl = 'delete/';
+
+    
+    public static readonly types = 'types/';
+    public static readonly priorities = 'priorities/';
+    public static readonly status = 'status/';
 }

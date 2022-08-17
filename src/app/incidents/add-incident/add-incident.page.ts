@@ -1,10 +1,8 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
-import { PriorityConst } from 'src/constants/priorityConst';
-import { StatusConst } from 'src/constants/statusConst';
-import { TypeConst } from 'src/constants/typeConst';
 import { Incident } from 'src/entities/incident';
+import { IncidentPropertiesService } from 'src/providers/services/incident-properties.service';
 import { IncidentService } from 'src/providers/services/incident.service';
 import { DateUtil } from 'src/utils/dateUtil';
 
@@ -26,7 +24,6 @@ export class AddIncidentPage implements OnInit {
   public typesList: string[];
   public prioritiesList: string[];
   public statusList: string[];
-  public defaultPriority;
   public screenshot;
   public date: string;
 
@@ -41,19 +38,25 @@ export class AddIncidentPage implements OnInit {
   private displayBlock = 'block';
 
   constructor(private route: ActivatedRoute, private router: Router,
-    private incidentService: IncidentService, public toastController: ToastController) {
-    this.incident = new Incident();
-    this.typesList = TypeConst.getTypes();
-    this.prioritiesList = PriorityConst.getPriority();
-    this.statusList = StatusConst.getStatus();
-    this.defaultPriority = 'normal';
-
-    this.state = this.STATE_NEW;
+    private incidentService: IncidentService, public toastController: ToastController,
+    public incidentPropertiesService: IncidentPropertiesService ) {
   }
 
 
   async ngOnInit() {
     this.incident = new Incident();
+    this.typesList = (await this.incidentPropertiesService.getTypes()).properties;
+    await this.incidentPropertiesService.getPriorities().then((incidentPriority) => {
+      this.prioritiesList = incidentPriority.properties;
+      this.incident.priority = incidentPriority.defaultProperty;
+    });
+    
+    await this.incidentPropertiesService.getStatus().then((incidentStatus) => {
+      this.statusList = incidentStatus.properties;
+      this.incident.status = incidentStatus.defaultProperty;
+    });
+
+    
     if (this.route.snapshot.data.special) {
       this.incident = await this.getIncident(this.route.snapshot.data.special.id);
       this.screenshot = this.incident.screenshotWebPath;
@@ -61,14 +64,10 @@ export class AddIncidentPage implements OnInit {
       this.date = this.incident.date.toISOString();
     } else {
       this.state = this.STATE_NEW;
-      this.incident = new Incident();
-      this.incident.priority = this.defaultPriority;
 
       // Initialisation date du jour
       this.incident.date = new Date();
       this.date = this.incident.date.toISOString();
-
-      this.incident.status = StatusConst.toDo;
       this.incident.screenshotPath = '';
       this.incident.screenshotWebPath = '';
       this.incident.description = '';

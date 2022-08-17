@@ -1,8 +1,6 @@
 import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
-import { PriorityConst } from 'src/constants/priorityConst';
-import { StatusConst } from 'src/constants/statusConst';
-import { TypeConst } from 'src/constants/typeConst';
 import { IncidentFilter } from 'src/entities/incidentFilter';
+import { IncidentPropertiesService } from 'src/providers/services/incident-properties.service';
 
 @Component({
   selector: 'app-search-toolbar',
@@ -22,12 +20,12 @@ export class SearchToolbarComponent {
   // Variable à afficher
   public logoSortedDate;
   public logoReduceToolbarToDisplay;
-  public readonly toDoMsg = StatusConst.toDo;
-  public readonly doingMsg = StatusConst.doing;
-  public readonly doneMsg = StatusConst.done;
+  public toDoMsg: string;
+  public doingMsg: string;
+  public doneMsg: string;
 
-  public priorities = PriorityConst.getSearchPriority();
-  public types = TypeConst.getSearchTypes();
+  public priorities: Array<string>;
+  public types: Array<string>;
 
   // Données à traiter
   public filter: IncidentFilter;
@@ -42,14 +40,31 @@ export class SearchToolbarComponent {
   private selectedStatus: Array<string>;
   private recentDate = true;
 
-  constructor() {
-    this.selectedStatus = new Array(StatusConst.toDo, StatusConst.doing);
-    this.filter = new IncidentFilter('date', '', this.selectedStatus, PriorityConst.none, TypeConst.none);
-
+  constructor(public incidentPropertiesService: IncidentPropertiesService) {
     this.logoSortedDate = this.logoRecentDate;
     this.logoReduceToolbarToDisplay = this.logoReduceToolbar;
     this.toolbarIsActive = true;
+    this.filter = new IncidentFilter();
+    this.init();
   }
+
+  async init(){
+    const incidentType = (await this.incidentPropertiesService.getTypes());
+    const incidentPriorities = (await this.incidentPropertiesService.getPriorities());
+    const incidentStatus = (await this.incidentPropertiesService.getStatus());
+    
+    this.toDoMsg = incidentStatus.properties[0];
+    this.doingMsg =incidentStatus.properties[1];
+    this.doneMsg = incidentStatus.properties[2];
+
+    this.selectedStatus = new Array(this.toDoMsg,  this.doingMsg);
+    this.filter = new IncidentFilter('date', '', this.selectedStatus,
+     incidentPriorities.searchProperties[0], incidentType.searchProperties[0]);
+
+    this.priorities = incidentPriorities.searchProperties;
+    this.types = incidentType.searchProperties;
+  }
+
 
   /**
    * Construit un item IncidentFilter à partir des infos de la SearchToolbar
