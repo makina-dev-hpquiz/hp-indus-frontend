@@ -10,15 +10,16 @@
   </ion-toolbar>
   <ion-toolbar *ngIf="state===STATE_UPDATE" class="toolbar-secondary">
     <!-- en modification-->
-    <span>Remonté le : {{incident.updatedAt.toLocaleString()}} </span>
-    <span>| Mise à jour le : {{incident.updatedAt.toLocaleString()}}</span>
+    <span *ngIf=incident.createdAt >Remonté le : {{incident.createdAt.toLocaleString()}} </span>
+    <span *ngIf=incident.updatedAt >| Mise à jour le : {{incident.updatedAt.toLocaleString()}}</span>
     <ion-icon size="large" color="danger" name="close" (click)="deleteIncident()" slot="end"></ion-icon>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <input *ngIf="state===STATE_UPDATE" type="hidden" [(ngModel)]=incident.id name="id"/>
-  <input *ngIf="state===STATE_UPDATE" type="hidden" [(ngModel)]=date name="updatedAt"/>
+  <input *ngIf="state===STATE_UPDATE" type="hidden" [(ngModel)]=createdAt name="createdAt"/>
+  <input type="hidden" [(ngModel)]=updatedAt name="updatedAt"/>
   <input type="hidden" [(ngModel)]=incident.screenshotPath name="screenshotPath"/>
   <input type="hidden" [(ngModel)]=incident.screenshotWebPath name="screenshotWebPath"/>
 
@@ -66,7 +67,7 @@
   </ion-item>
   <ion-item *ngIf="state===STATE_NEW">
     <ion-label>Date de remonté</ion-label>
-    <ion-datetime (ionChange)="updateDate()" [(ngModel)]="date" required displayFormat="DD MMM YYYY" name="updatedAt"></ion-datetime>
+    <ion-datetime (ionChange)="updateDate()" [(ngModel)]="createdAt" required displayFormat="DD MMM YYYY" name="createdAt"></ion-datetime>
   </ion-item>
   <ion-item>
     <ion-label>Priorité</ion-label>

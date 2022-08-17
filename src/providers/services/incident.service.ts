@@ -58,6 +58,7 @@ export class IncidentService extends AbstractService {
     let incidents: Incident[] = await this.httpClient.get<any>(ServerUrlConst.urlServer + ServerUrlConst.incidentUrl + paramsUrl).toPromise().then(incidents => {
       incidents.forEach(incident => {
         incident.updatedAt = DateUtil.convertStringDateToDate(incident.updatedAt);
+        incident.createdAt = DateUtil.convertStringDateToDate(incident.createdAt);
       });
       return incidents;
     });
@@ -73,6 +74,7 @@ export class IncidentService extends AbstractService {
   public async get(id): Promise<Incident> {
     return await this.httpClient.get<any>(ServerUrlConst.urlServer + ServerUrlConst.incidentUrl + '/' + id).toPromise().then(incident => {
       incident.updatedAt = DateUtil.convertStringDateToDate(incident.updatedAt);
+      incident.createdAt = DateUtil.convertStringDateToDate(incident.createdAt);
       return incident;
     });
 

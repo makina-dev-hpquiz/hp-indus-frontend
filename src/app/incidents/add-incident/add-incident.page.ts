@@ -1,3 +1,4 @@
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
@@ -25,7 +26,8 @@ export class AddIncidentPage implements OnInit {
   public prioritiesList: string[];
   public statusList: string[];
   public screenshot;
-  public date: string;
+  public updatedAt: string;
+  public createdAt: string;
 
   // Etat de la page
   public state: string;
@@ -40,11 +42,14 @@ export class AddIncidentPage implements OnInit {
   constructor(private route: ActivatedRoute, private router: Router,
     private incidentService: IncidentService, public toastController: ToastController,
     public incidentPropertiesService: IncidentPropertiesService ) {
+      
+    this.incident = new Incident();
   }
 
 
   async ngOnInit() {
     this.incident = new Incident();
+
     this.typesList = (await this.incidentPropertiesService.getTypes()).properties;
     await this.incidentPropertiesService.getPriorities().then((incidentPriority) => {
       this.prioritiesList = incidentPriority.properties;
@@ -55,19 +60,22 @@ export class AddIncidentPage implements OnInit {
       this.statusList = incidentStatus.properties;
       this.incident.status = incidentStatus.defaultProperty;
     });
-
-    
     if (this.route.snapshot.data.special) {
-      this.incident = await this.getIncident(this.route.snapshot.data.special.id);
-      this.screenshot = this.incident.screenshotWebPath;
       this.state = this.STATE_UPDATE;
-      this.date = this.incident.updatedAt.toISOString();
+      this.incident = await this.getIncident(this.route.snapshot.data.special.id);
+      
+      this.screenshot = this.incident.screenshotWebPath;
+      this.updatedAt = this.incident.updatedAt.toISOString();
+      this.createdAt  = this.incident.createdAt.toISOString();
+
     } else {
       this.state = this.STATE_NEW;
 
       // Initialisation date du jour
-      this.incident.updatedAt = new Date();
-      this.date = this.incident.updatedAt.toISOString();
+      this.incident.createdAt = new Date();
+      this.createdAt = this.incident.createdAt.toISOString();
+      this.updatedAt = this.createdAt;
+      
       this.incident.screenshotPath = '';
       this.incident.screenshotWebPath = '';
       this.incident.description = '';
@@ -91,10 +99,12 @@ export class AddIncidentPage implements OnInit {
    * @param formValue
    */
   saveAction(formValue) {
+    
     if (this.formValueIsComplete()) {
       if (this.state === this.STATE_NEW) {
         this.addIncident(formValue);
       } else {
+        formValue.updatedAt = new Date().toISOString();
         this.updateIncident(formValue);
       }
     }
@@ -122,7 +132,7 @@ export class AddIncidentPage implements OnInit {
    * Met à jour incident.date avec la date sélectionné
    */
   updateDate() {
-    this.incident.updatedAt = DateUtil.convertStringDateToDate(this.date);
+    this.updatedAt = this.createdAt;
   }
 
   /**
