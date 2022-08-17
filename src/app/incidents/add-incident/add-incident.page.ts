@@ -42,7 +42,7 @@ export class AddIncidentPage implements OnInit {
   constructor(private route: ActivatedRoute, private router: Router,
     private incidentService: IncidentService, public toastController: ToastController,
     public incidentPropertiesService: IncidentPropertiesService ) {
-      
+
     this.incident = new Incident();
   }
 
@@ -55,7 +55,7 @@ export class AddIncidentPage implements OnInit {
       this.prioritiesList = incidentPriority.properties;
       this.incident.priority = incidentPriority.defaultProperty;
     });
-    
+
     await this.incidentPropertiesService.getStatus().then((incidentStatus) => {
       this.statusList = incidentStatus.properties;
       this.incident.status = incidentStatus.defaultProperty;
@@ -63,7 +63,7 @@ export class AddIncidentPage implements OnInit {
     if (this.route.snapshot.data.special) {
       this.state = this.STATE_UPDATE;
       this.incident = await this.getIncident(this.route.snapshot.data.special.id);
-      
+
       this.screenshot = this.incident.screenshotWebPath;
       this.updatedAt = this.incident.updatedAt.toISOString();
       this.createdAt  = this.incident.createdAt.toISOString();
@@ -75,7 +75,7 @@ export class AddIncidentPage implements OnInit {
       this.incident.createdAt = new Date();
       this.createdAt = this.incident.createdAt.toISOString();
       this.updatedAt = this.createdAt;
-      
+
       this.incident.screenshotPath = '';
       this.incident.screenshotWebPath = '';
       this.incident.description = '';
@@ -99,7 +99,7 @@ export class AddIncidentPage implements OnInit {
    * @param formValue
    */
   saveAction(formValue) {
-    
+
     if (this.formValueIsComplete()) {
       if (this.state === this.STATE_NEW) {
         this.addIncident(formValue);

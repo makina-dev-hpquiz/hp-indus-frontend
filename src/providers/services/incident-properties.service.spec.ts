@@ -8,7 +8,7 @@ describe('IncidentPropertiesService', () => {
   let httpClientSpy: jasmine.SpyObj<HttpClient>;
 
   beforeEach(() => {
-    
+
     httpClientSpy = jasmine.createSpyObj('HttpClient', ['get']);
     service = new IncidentPropertiesService(httpClientSpy);
   });
@@ -19,12 +19,12 @@ describe('IncidentPropertiesService', () => {
   it('TEST IncidentPropertiesService.getTypes', async () => {
     const types = service.getTypes();
 
-  })
+  });
   it('TEST IncidentPropertiesService.getPriorities', async () => {
     const priorities = service.getPriorities();
   });
   it('TEST IncidentPropertiesService.getStatus', async () => {
-    const status = ["en attente","en cours", "ok"]; //TODO
+    const status = ['en attente','en cours', 'ok']; //TODO
     const result = service.getStatus();
 
     expect(result).toEqual(status);

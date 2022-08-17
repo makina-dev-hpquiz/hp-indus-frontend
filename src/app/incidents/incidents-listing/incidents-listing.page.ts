@@ -32,14 +32,15 @@ export class IncidentsListingPage{
 
   /**
    * Permet d'afficher les dates et d'éviter des erreurs d'affichage et consoles
-   * @param incident 
-   * @returns 
+   *
+   * @param incident
+   * @returns
    */
   displayDate(incident: Incident){
     if(incident && incident.updatedAt) {
       return incident.updatedAt.toLocaleDateString();
     } else {
-      return "";
+      return '';
     }
   }
 

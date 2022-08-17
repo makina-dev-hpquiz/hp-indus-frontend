@@ -53,7 +53,7 @@ export class SearchToolbarComponent {
     const incidentType = (await this.incidentPropertiesService.getTypes());
     const incidentPriorities = (await this.incidentPropertiesService.getPriorities());
     const incidentStatus = (await this.incidentPropertiesService.getStatus());
-    
+
     this.toDoMsg = incidentStatus.properties[0];
     this.doingMsg =incidentStatus.properties[1];
     this.doneMsg = incidentStatus.properties[2];

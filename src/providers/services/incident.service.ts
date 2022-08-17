@@ -55,14 +55,14 @@ export class IncidentService extends AbstractService {
     if (filter.type) {
       paramsUrl += '&type=' + filter.type;
     }
-    let incidents: Incident[] = await this.httpClient.get<any>(ServerUrlConst.urlServer + ServerUrlConst.incidentUrl + paramsUrl).toPromise().then(incidents => {
+    const incidents: Incident[] = await this.httpClient.get<any>(ServerUrlConst.urlServer + ServerUrlConst.incidentUrl + paramsUrl).toPromise().then(incidents => {
       incidents.forEach(incident => {
         incident.updatedAt = DateUtil.convertStringDateToDate(incident.updatedAt);
         incident.createdAt = DateUtil.convertStringDateToDate(incident.createdAt);
       });
       return incidents;
     });
-    
+
     return incidents;
   }
 
