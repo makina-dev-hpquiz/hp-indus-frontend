@@ -3,7 +3,7 @@
   <div class="image-input" > 
     <div #inputDiv>
       <input type="file" id="screen" name="screen" accept="image/png, image/jpeg" #fileUpload
-        (change)="loadScreenshot($event)">
+        (change)="uploadScreenshot($event)">
    </div>
     <div #viewerDiv class="viewer-div">
       <img  id="imageToDisplay" #viewer src={{screenshot}}>

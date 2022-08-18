@@ -1,4 +1,5 @@
 import { Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { LogService } from 'src/providers/services/log.service';
 
 @Component({
   selector: 'app-image-input',
@@ -20,7 +21,7 @@ export class ImageInputComponent implements OnChanges {
   private displayNone = 'none';
   private displayBlock = 'block';
 
-  constructor() { }
+  constructor(private logger: LogService) { }
   ngOnChanges(changes: SimpleChanges): void {
     if (this.screenshot) {
       this.displayScreenshot();
@@ -32,7 +33,8 @@ export class ImageInputComponent implements OnChanges {
    *
    * @param event
    */
-  loadScreenshot(event) {
+  uploadScreenshot(event) {
+    this.logger.log("ImageInputComponent.uploadScreenshot enclenché");
     if (event.target.files && event.target.files[0]) {
       this.havePicture = true;
       this.displayScreenshot();
@@ -59,6 +61,8 @@ export class ImageInputComponent implements OnChanges {
    */
   cancelScreenshot() {
     if (confirm('Êtes vous sûr de vouloir supprimer l\'image?')) {
+      
+      this.logger.log("ImageInputComponent.cancelScreenshot enclenché");
       this.havePicture = false;
       this.screenshot = null;
 
