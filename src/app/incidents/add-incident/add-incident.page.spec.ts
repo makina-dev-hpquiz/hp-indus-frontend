@@ -91,4 +91,30 @@ describe('AddIncidentPage', () => {
     expect(component.formValueIsComplete()).toBeTrue();
 
   });
+
+  it('TEST AddIncidentPage.updateDate', () => {
+    component.updatedAt = '';
+    component.createdAt = '18/08/2022';
+    expect(component.updatedAt).toBeFalsy();
+
+    component.updateDate();
+    expect(component.createdAt).toEqual(component.createdAt);
+  });
+
+  it('TEST AddIncidentPage.cancelImage', () => {
+
+    const screenshotPath = 'src/content/img1.jpg';
+    const screenshotWebPath = 'localhost:8080/images/img1.jpg';
+    const emptyString = '';
+
+    component.incident.screenshotPath = screenshotPath;
+    component.incident.screenshotWebPath = screenshotWebPath;
+
+
+    expect(component.incident.screenshotPath).toEqual(screenshotPath);
+    expect(component.incident.screenshotWebPath).toEqual(screenshotWebPath);
+    component.cancelImage();
+    expect(component.incident.screenshotPath).toEqual(emptyString);
+    expect(component.incident.screenshotWebPath).toEqual(emptyString);
+  });
 });

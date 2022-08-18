@@ -81,11 +81,12 @@ export class AddIncidentPage implements OnInit {
 
 
   /**
-   * Enclenche les actions de sauvegarde en fonction de l'état de la page
+   * Enclenché par le bouton submit du formulaire.
+   * Permet d'utilsier les actions de sauvegarde en fonction de l'état de la page NEW ou UPDATE
    *
    * @param formValue
    */
-  saveAction(formValue) {
+  public saveAction(formValue) {
 
     if (this.formValueIsComplete()) {
       if (this.state === this.STATE_NEW) {
@@ -97,35 +98,21 @@ export class AddIncidentPage implements OnInit {
     }
   }
 
-  async addIncident(formValue) {
-    await this.incidentService.save(this.generateIncidentFormData(formValue)).then((event: any) => {
-      this.router.navigate([this.INCIDENTS_PAGE]).then(() => {
-      });
-    });
-  }
 
-  async updateIncident(formValue) {
-    await this.incidentService.update(this.generateIncidentFormData(formValue)).then((event: any) => {
-      this.router.navigate([this.INCIDENTS_PAGE]).then(() => {
-      });
-    });
-  }
-
-  async getIncident(id): Promise<Incident> {
-    return await this.incidentService.get(id);
-  }
 
   /**
+   * Enclenché lorsque l'input date est changé
    * Met à jour incident.date avec la date sélectionné
    */
-  updateDate() {
+  public updateDate() {
     this.updatedAt = this.createdAt;
   }
 
-    /**
-     * Envoie une requête pour supprimer l'incident actuel
-     */
-  deleteIncident() {
+  /**
+   * Enclenché lorsque le bouton supprimer est enclenché
+   * Envoie une requête pour supprimer l'incident actuel
+   */
+  public deleteIncident() {
     if (confirm('Êtes vous sûr de vouloir supprimer l\'incident?')) {
       this.incidentService.deleteById(this.incident.id).then((event: any) => {
         this.router.navigate([this.INCIDENTS_PAGE]).then(() => {
@@ -135,9 +122,10 @@ export class AddIncidentPage implements OnInit {
   }
 
   /**
+   * Enclenché depuis avec l'action du composant ImageInput
    * Retire les images de l'objet Incident
    */
-  cancelImage(){
+  public cancelImage() {
     this.incident.screenshotPath = '';
     this.incident.screenshotWebPath = '';
   }
@@ -148,7 +136,7 @@ export class AddIncidentPage implements OnInit {
    *
    * @returns Boolean
    */
-  formValueIsComplete(): boolean {
+  public formValueIsComplete(): boolean {
     if (!this.incident.title ||
       !this.incident.description ||
       !this.incident.priority ||
@@ -162,9 +150,43 @@ export class AddIncidentPage implements OnInit {
   }
 
   /**
+   * Initie une requête pour sauvergarder un nouvel incident
+   *
+   * @param formValue
+   */
+  private async addIncident(formValue) {
+    await this.incidentService.save(this.generateIncidentFormData(formValue)).then((event: any) => {
+      this.router.navigate([this.INCIDENTS_PAGE]).then(() => {
+      });
+    });
+  }
+
+  /**
+   * Initie une requête pour mettre à jour un incident existant
+   *
+   * @param formValue
+   */
+  private async updateIncident(formValue) {
+    await this.incidentService.update(this.generateIncidentFormData(formValue)).then((event: any) => {
+      this.router.navigate([this.INCIDENTS_PAGE]).then(() => {
+      });
+    });
+  }
+
+  /**
+   * Initie une requête pour récupérer un incident en fournissant son ID
+   *
+   * @param id
+   * @returns Incident
+   */
+  private async getIncident(id): Promise<Incident> {
+    return await this.incidentService.get(id);
+  }
+
+  /**
    * Fait apparaître un message
    */
-  async presentToast() {
+  private async presentToast() {
     const toast = await this.toastController.create({
       message: 'L\'incident n\'est pas complet et ne peut être sauvegarder en l\'état',
       duration: 2000,
@@ -184,6 +206,7 @@ export class AddIncidentPage implements OnInit {
     const formData = new FormData();
     Object.keys(formValue).map((key) => formData.append(key, formValue[key]));
     formData.append('file', this.imageInput.getFile());
+    console.log(formData);
     return formData;
   }
 }

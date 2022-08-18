@@ -19,7 +19,7 @@ export class ApkTemplateComponent implements OnInit, OnChanges {
   ngOnInit() {
   }
 
-  ngOnChanges(changes: SimpleChanges){
+  ngOnChanges(changes: SimpleChanges) {
     this.initPicture();
   }
 
@@ -27,8 +27,7 @@ export class ApkTemplateComponent implements OnInit, OnChanges {
    * Initialise l'image à afficher en fonction du nom de l'application
    */
   initPicture() {
-    if(this.apk){
-      this.logger.log('Initialisation de l\'image à afficher pour ', this.apk.name);
+    this.logger.log('Initialisation de l\'image à afficher pour ', this.apk.name);
     if (this.apk) {
       if (this.apk.name.includes(ApplicationsNameConst.hpCore)) {
         this.picture = '../../assets/icon/build.svg';
@@ -39,7 +38,6 @@ export class ApkTemplateComponent implements OnInit, OnChanges {
         this.picture = '../../assets/icon/help-outline.svg';
       }
     }
-  }
   }
 
 }

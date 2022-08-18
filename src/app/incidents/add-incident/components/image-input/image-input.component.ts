@@ -34,7 +34,7 @@ export class ImageInputComponent implements OnChanges {
    * @param event
    */
   uploadScreenshot(event) {
-    this.logger.log("ImageInputComponent.uploadScreenshot enclenché");
+    this.logger.log('ImageInputComponent.uploadScreenshot enclenché');
     if (event.target.files && event.target.files[0]) {
       this.havePicture = true;
       this.displayScreenshot();
@@ -61,8 +61,8 @@ export class ImageInputComponent implements OnChanges {
    */
   cancelScreenshot() {
     if (confirm('Êtes vous sûr de vouloir supprimer l\'image?')) {
-      
-      this.logger.log("ImageInputComponent.cancelScreenshot enclenché");
+
+      this.logger.log('ImageInputComponent.cancelScreenshot enclenché');
       this.havePicture = false;
       this.screenshot = null;
 
