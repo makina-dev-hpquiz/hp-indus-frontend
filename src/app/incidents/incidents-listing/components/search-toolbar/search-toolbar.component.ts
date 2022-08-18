@@ -1,8 +1,9 @@
-import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { IncidentConst } from 'src/constants/incidentConst';
 import { IncidentFilter } from 'src/entities/incidentFilter';
 import { IncidentProperty } from 'src/entities/IncidentProperty';
 import { IncidentPropertiesService } from 'src/providers/services/incident-properties.service';
+import { LogService } from 'src/providers/services/log.service';
 
 @Component({
   selector: 'app-search-toolbar',
@@ -46,7 +47,7 @@ export class SearchToolbarComponent {
   private incidentPriorities: IncidentProperty;
   private incidentStatus: IncidentProperty;
 
-  constructor(public incidentPropertiesService: IncidentPropertiesService) {
+  constructor(public incidentPropertiesService: IncidentPropertiesService, private logger: LogService) {
     this.logoSortedDate = this.logoRecentDate;
     this.logoReduceToolbarToDisplay = this.logoReduceToolbar;
     this.toolbarIsActive = true;
@@ -88,6 +89,8 @@ export class SearchToolbarComponent {
       this.filter.type
     );
 
+
+    this.logger.log('SearchToolbarComponent.updateSearch ', this.filter);
     this.incidentFilterUpdated.emit(this.filter);
   }
 

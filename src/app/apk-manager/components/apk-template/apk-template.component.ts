@@ -1,6 +1,7 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { AndroidPackage } from 'src/entities/androidPackage';
 import { ApplicationsNameConst } from 'src/constants/applicationsNameConst';
+import { LogService } from 'src/providers/services/log.service';
 
 @Component({
   selector: 'app-apk-template',
@@ -12,7 +13,7 @@ export class ApkTemplateComponent implements OnInit, OnChanges {
   @Input() apk: AndroidPackage;
   picture: string;
 
-  constructor() {
+  constructor(private logger: LogService) {
   }
 
   ngOnInit() {
@@ -27,14 +28,14 @@ export class ApkTemplateComponent implements OnInit, OnChanges {
    */
   initPicture() {
     if(this.apk){
-    console.log('Initialisation de l\'image à afficher pour ', this.apk.name);
+      this.logger.log('Initialisation de l\'image à afficher pour ', this.apk.name);
     if (this.apk) {
       if (this.apk.name.includes(ApplicationsNameConst.hpCore)) {
         this.picture = '../../assets/icon/build.svg';
       } else if (this.apk.name.includes(ApplicationsNameConst.hpQuiz)) {
         this.picture = '../../assets/icon/harry_potter_app.png';
       } else {
-        console.error('Aucune image n\'a pu être trouvé pour l\'application ', this.apk.name);
+        this.logger.error('Aucune image n\'a pu être trouvé pour l\'application ', this.apk.name);
         this.picture = '../../assets/icon/help-outline.svg';
       }
     }

@@ -3,6 +3,7 @@ import { Incident } from 'src/entities/incident';
 import { of } from 'rxjs';
 import { IncidentService } from './incident.service';
 import { IncidentFilter } from 'src/entities/incidentFilter';
+import { LogService } from './log.service';
 
 describe('IncidentService', () => {
   let service: IncidentService;
@@ -10,7 +11,7 @@ describe('IncidentService', () => {
 
   beforeEach(() => {
     httpClientSpy = jasmine.createSpyObj('HttpClient', ['get', 'post', 'put', 'delete']);
-    service = new IncidentService(httpClientSpy);
+    service = new IncidentService(httpClientSpy, new LogService());
   });
 
   it('should be created', () => {

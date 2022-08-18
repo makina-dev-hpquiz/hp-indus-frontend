@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { AndroidPackageService } from './android-package.service';
 import { AndroidPackage } from 'src/entities/androidPackage';
 import { of } from 'rxjs';
+import { LogService } from './log.service';
 
 describe('AndroidPackageService', () => {
   let service: AndroidPackageService;
@@ -10,7 +11,7 @@ describe('AndroidPackageService', () => {
 
   beforeEach(() => {
     httpClientSpy = jasmine.createSpyObj('HttpClient', ['get']);
-    service = new AndroidPackageService(httpClientSpy);
+    service = new AndroidPackageService(httpClientSpy, new LogService());
   });
 
   it('should be created', () => {

@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
-import { Icu } from '@angular/compiler/src/i18n/i18n_ast';
 import { Injectable } from '@angular/core';
 import { ServerUrlConst } from 'src/constants/serverUrlConst';
 import { IncidentProperty } from 'src/entities/IncidentProperty';
 import { AbstractService } from './abstract.service';
+import { LogService } from './log.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +14,8 @@ export class IncidentPropertiesService extends AbstractService {
   private incidentPriority: IncidentProperty;
   private incidentStatus: IncidentProperty;
 
-  constructor(protected httpClient: HttpClient) {
-    super(httpClient);
+  constructor(protected httpClient: HttpClient, protected logger: LogService) {
+    super(httpClient, logger);
   }
 
   public async getTypes(): Promise<IncidentProperty> {
@@ -35,7 +35,9 @@ export class IncidentPropertiesService extends AbstractService {
 
   private async get(property: IncidentProperty, request: string): Promise<IncidentProperty> {
     if (!property) {
-      property = await this.httpClient.get<any>(ServerUrlConst.urlServer + ServerUrlConst.incidentUrl + request).toPromise();
+      const url = ServerUrlConst.urlServer + ServerUrlConst.incidentUrl + request;
+      this.logger.log('Utilisation de la méthode IncidentPropertiesService.get :', url);
+      property = await this.httpClient.get<any>(url).toPromise();
     }
     return property;
   }

@@ -3,6 +3,7 @@ import { of } from 'rxjs';
 import { IncidentProperty } from 'src/entities/IncidentProperty';
 
 import { IncidentPropertiesService } from './incident-properties.service';
+import { LogService } from './log.service';
 
 describe('IncidentPropertiesService', () => {
   let service: IncidentPropertiesService;
@@ -10,7 +11,7 @@ describe('IncidentPropertiesService', () => {
 
   beforeEach(() => {
     httpClientSpy = jasmine.createSpyObj('HttpClient', ['get']);
-    service = new IncidentPropertiesService(httpClientSpy);
+    service = new IncidentPropertiesService(httpClientSpy, new LogService());
   });
 
   it('should be created', () => {

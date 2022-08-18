@@ -1,10 +1,10 @@
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Incident } from 'src/entities/incident';
 import { IncidentFilter } from 'src/entities/incidentFilter';
 import { DataService } from 'src/providers/resolver/data.service';
 import { IncidentService } from 'src/providers/services/incident.service';
+import { LogService } from 'src/providers/services/log.service';
 import { SearchToolbarComponent } from './components/search-toolbar/search-toolbar.component';
 
 @Component({
@@ -18,7 +18,8 @@ export class IncidentsListingPage{
 
   public incidents: Incident[];
 
-  constructor(private incidentService: IncidentService, private router: Router, private dataService: DataService) {
+  constructor(private incidentService: IncidentService, private router: Router,
+    private dataService: DataService, private logger: LogService) {
   }
 
   /**
@@ -59,6 +60,7 @@ export class IncidentsListingPage{
    * @param incident
    */
   openIncident(incident: Incident) {
+    this.logger.log('IncidentsListingPage.openIncident : ', incident.id);
     this.dataService.setData(incident.id, incident);
     this.router.navigateByUrl('/incident/'+incident.id);
   }

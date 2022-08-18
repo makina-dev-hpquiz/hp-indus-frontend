@@ -3,14 +3,15 @@ import { Injectable } from '@angular/core';
 import { AndroidPackage } from 'src/entities/androidPackage';
 import { ServerUrlConst } from 'src/constants/serverUrlConst';
 import { AbstractService } from './abstract.service';
+import { LogService } from './log.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AndroidPackageService extends AbstractService {
 
-  constructor(protected httpClient: HttpClient) {
-    super(httpClient);
+  constructor(protected httpClient: HttpClient, protected logger: LogService) {
+    super(httpClient, logger);
   }
 
   /**
@@ -57,13 +58,12 @@ export class AndroidPackageService extends AbstractService {
    * @returns Promise<AndroidPackage>
    */
   private async getAPK(url): Promise<AndroidPackage>{
-
     try {
-      console.log('Utilisation de la méthode AndroidPackageService.getAPK : ', url);
+      this.logger.log('Utilisation de la méthode AndroidPackageService.getAPK : ', url);
       return await this.httpClient.get<AndroidPackage>(url).toPromise();
     } catch(error) {
-      console.error('Erreur survenue lors de l\'execution de AndroidPackageService.getAPK() : ', url, error);
-      console.error('httpClient est correctement initialisé : ', Boolean(this.httpClient));
+      this.logger.error('Erreur survenue lors de l\'execution de AndroidPackageService.getAPK() : ', url, error);
+      this.logger.error('httpClient est correctement initialisé : ', Boolean(this.httpClient));
     }
   }
 
@@ -75,11 +75,11 @@ export class AndroidPackageService extends AbstractService {
     */
   private async getAllAPK(url): Promise<AndroidPackage[]>{
     try {
-      console.log('Utilisation de la méthode AndroidPackageService.getAllAPK : ', url);
+      this.logger.log('Utilisation de la méthode AndroidPackageService.getAllAPK : ', url);
       return await this.httpClient.get<AndroidPackage[]>(url).toPromise();
     } catch(error) {
-      console.error('Erreur survenue lors de l\'execution de AndroidPackageService.getAllAPK() : ', url, error);
-      console.error('httpClient est correctement initialisé : ', Boolean(this.httpClient));
+      this.logger.error('Erreur survenue lors de l\'execution de AndroidPackageService.getAllAPK() : ', url, error);
+      this.logger.error('httpClient est correctement initialisé : ', Boolean(this.httpClient));
     }
   }
 
