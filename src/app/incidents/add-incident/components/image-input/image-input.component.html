@@ -1,0 +1,17 @@
+<ion-item>
+  <ion-label>Image</ion-label> <br>
+  <div class="image-input" > 
+    <div #inputDiv>
+      <input type="file" id="screen" name="screen" accept="image/png, image/jpeg" #fileUpload
+        (change)="loadScreenshot($event)">
+   </div>
+    <div #viewerDiv class="viewer-div">
+      <img  id="imageToDisplay" #viewer src={{screenshot}}>
+      <div> 
+        <ion-button color="danger" fill="outline" (click)="cancelScreenshot()">
+          <ion-icon name="close-outline"></ion-icon>
+        </ion-button>
+      </div>
+    </div>
+  </div>
+</ion-item>

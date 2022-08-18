@@ -27,23 +27,7 @@
     <ion-label>Titre</ion-label>
     <ion-input [(ngModel)]=incident.title required name="title"></ion-input>
   </ion-item>
-  <ion-item>
-    <ion-label>Image</ion-label> <br>
-    <div style="margin-right: 40%;">
-      <div #inputDiv style="font-size: small;">
-        <input type="file" id="screen" name="screen" accept="image/png, image/jpeg" #fileUpload
-          (change)="loadScreenshot($event)">
-     </div>
-      <div #viewerDiv style="display:none;">
-        <img style="height:200px" id="imageToDisplay" #viewer src={{screenshot}}>
-        <div style="left: 50%;">
-          <ion-button color="danger" fill="outline" (click)="cancelScreenshot()">
-            <ion-icon name="close-outline"></ion-icon>
-          </ion-button>
-        </div>
-      </div>
-    </div>
-  </ion-item>
+  <app-image-input #imageInput [screenshot]=screenshot (cancelImage)=cancelImage($event)></app-image-input>
 
   <div class="status">
     <ion-row radio-group>

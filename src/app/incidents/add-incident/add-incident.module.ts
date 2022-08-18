@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { AddIncidentPageRoutingModule } from './add-incident-routing.module';
 
 import { AddIncidentPage } from './add-incident.page';
+import { ImageInputComponent } from './components/image-input/image-input.component';
 
 @NgModule({
   imports: [
@@ -15,6 +16,6 @@ import { AddIncidentPage } from './add-incident.page';
     IonicModule,
     AddIncidentPageRoutingModule
   ],
-  declarations: [AddIncidentPage]
+  declarations: [AddIncidentPage, ImageInputComponent]
 })
 export class AddIncidentPageModule {}
