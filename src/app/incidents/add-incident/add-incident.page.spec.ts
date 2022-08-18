@@ -22,7 +22,8 @@ describe('AddIncidentPage', () => {
   beforeEach(waitForAsync(() => {
     mockIncidentService = jasmine.createSpyObj<IncidentService>('IncidentService', ['get']);
     // httpClientSpy = jasmine.createSpyObj('HttpClient', ['get']);
-    mockIncidentPropertiesService = jasmine.createSpyObj<IncidentPropertiesService>('IncidentPropertiesService', ['getTypes', 'getPriorities', 'getStatus']);
+    mockIncidentPropertiesService =
+      jasmine.createSpyObj<IncidentPropertiesService>('IncidentPropertiesService', ['getTypes', 'getPriorities', 'getStatus']);
 
     TestBed.configureTestingModule({
       declarations: [AddIncidentPage],
@@ -60,10 +61,34 @@ describe('AddIncidentPage', () => {
 
 
     await mockIncidentService.get.and.returnValue(of(incident).toPromise());
-    // await mockIncidentPropertiesService.getPriorities.and.returnValue(of(incidentProperty).toPromise());
-    // await mockIncidentPropertiesService.getStatus.and.returnValue(of(incidentProperty).toPromise());
-    // await mockIncidentPropertiesService.getTypes.and.returnValue(of(incidentProperty).toPromise());
+    await mockIncidentPropertiesService.getPriorities.and.returnValue(of(incidentProperty).toPromise());
+    await mockIncidentPropertiesService.getStatus.and.returnValue(of(incidentProperty).toPromise());
+    await mockIncidentPropertiesService.getTypes.and.returnValue(of(incidentProperty).toPromise());
 
     expect(component).toBeTruthy();
+  });
+
+  it('TEST AddIncidentPage.formValueIsComplete', () => {
+    const incident = new Incident('f0de50b4-a33a-4cde-8587-876a9e8851ab');
+    component.incident = incident;
+    expect(component.formValueIsComplete()).toBeFalse();
+
+    component.incident.title = 'TITRE';
+    expect(component.formValueIsComplete()).toBeFalse();
+
+    component.incident.description = 'DESCRIPTION';
+    expect(component.formValueIsComplete()).toBeFalse();
+
+    component.incident.type = 'TYPE';
+    expect(component.formValueIsComplete()).toBeFalse();
+
+
+    component.incident.status = 'STATUT';
+    expect(component.formValueIsComplete()).toBeFalse();
+
+
+    component.incident.priority = 'PRIORITY';
+    expect(component.formValueIsComplete()).toBeTrue();
+
   });
 });

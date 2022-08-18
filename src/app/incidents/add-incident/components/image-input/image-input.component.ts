@@ -33,12 +33,11 @@ export class ImageInputComponent implements OnChanges {
    * @param event
    */
   loadScreenshot(event) {
-    this.havePicture = true;
-    this.displayScreenshot();
-
     if (event.target.files && event.target.files[0]) {
-      const reader = new FileReader();
+      this.havePicture = true;
+      this.displayScreenshot();
 
+      const reader = new FileReader();
       reader.onload = (progressEvent: ProgressEvent) => {
         this.screenshot = (progressEvent.target as FileReader).result;
       };
