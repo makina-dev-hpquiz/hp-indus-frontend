@@ -4,7 +4,11 @@ export class IncidentFilter {
         public status?: string[],
         public priority?: string,
         public type?: string) {
-        !status ? this.status = new Array() : this.status = status;
+        if (!status) {
+            this.status = new Array();
+        } else {
+            this.status = status;
+        }
     }
 
 }

@@ -51,6 +51,8 @@ export class SearchToolbarComponent {
     this.logoReduceToolbarToDisplay = this.logoReduceToolbar;
     this.toolbarIsActive = true;
     this.filter = new IncidentFilter();
+    this.selectedStatus = new Array();
+
     this.init();
   }
 
@@ -58,7 +60,7 @@ export class SearchToolbarComponent {
     this.incidentType = await this.incidentPropertiesService.getTypes();
     this.incidentPriorities = await this.incidentPropertiesService.getPriorities();
     this.incidentStatus = await this.incidentPropertiesService.getStatus();
-    
+
     if (this.incidentStatus && this.incidentPriorities && this.incidentType) {
       this.toDoMsg = this.incidentStatus.properties[0];
       this.doingMsg = this.incidentStatus.properties[1];

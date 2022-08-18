@@ -55,13 +55,15 @@ export class IncidentService extends AbstractService {
     if (filter.type) {
       paramsUrl += '&type=' + filter.type;
     }
-    const incidents: Incident[] = await this.httpClient.get<any>(ServerUrlConst.urlServer + ServerUrlConst.incidentUrl + paramsUrl).toPromise().then(incidents => {
-      incidents.forEach(incident => {
-        incident.updatedAt = DateUtil.convertStringDateToDate(incident.updatedAt);
-        incident.createdAt = DateUtil.convertStringDateToDate(incident.createdAt);
-      });
-      return incidents;
-    });
+    const incidents: Incident[] =
+      await this.httpClient.get<any>(ServerUrlConst.urlServer + ServerUrlConst.incidentUrl + paramsUrl).toPromise()
+        .then(incidentsResult => {
+          incidentsResult.forEach(incident => {
+            incident.updatedAt = DateUtil.convertStringDateToDate(incident.updatedAt);
+            incident.createdAt = DateUtil.convertStringDateToDate(incident.createdAt);
+          });
+          return incidentsResult;
+        });
 
     return incidents;
   }

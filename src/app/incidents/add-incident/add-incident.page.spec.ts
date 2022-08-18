@@ -18,7 +18,7 @@ describe('AddIncidentPage', () => {
   let mockIncidentPropertiesService: jasmine.SpyObj<IncidentPropertiesService>;
 
   let httpClientSpy: jasmine.SpyObj<HttpClient>;
-  
+
   beforeEach(waitForAsync(() => {
     mockIncidentService = jasmine.createSpyObj<IncidentService>('IncidentService', ['get']);
     // httpClientSpy = jasmine.createSpyObj('HttpClient', ['get']);

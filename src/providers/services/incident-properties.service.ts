@@ -33,7 +33,7 @@ export class IncidentPropertiesService extends AbstractService {
     return this.incidentStatus;
   }
 
-  public async get(property: IncidentProperty, request: string): Promise<IncidentProperty> {
+  private async get(property: IncidentProperty, request: string): Promise<IncidentProperty> {
     if (!property) {
       property = await this.httpClient.get<any>(ServerUrlConst.urlServer + ServerUrlConst.incidentUrl + request).toPromise();
     }

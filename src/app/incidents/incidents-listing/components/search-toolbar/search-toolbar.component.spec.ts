@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 import { of } from 'rxjs';
+import { IncidentConst } from 'src/constants/incidentConst';
 import { IncidentProperty } from 'src/entities/IncidentProperty';
 import { IncidentPropertiesService } from 'src/providers/services/incident-properties.service';
 
@@ -12,10 +13,11 @@ describe('SearchToolbarComponent', () => {
   let mockIncidentPropertiesService: jasmine.SpyObj<IncidentPropertiesService>;
 
   beforeEach(waitForAsync(() => {
-    mockIncidentPropertiesService = jasmine.createSpyObj<IncidentPropertiesService>('IncidentPropertiesService', ['getTypes', 'getPriorities', 'getStatus', 'get']);
+    mockIncidentPropertiesService =
+      jasmine.createSpyObj<IncidentPropertiesService>('IncidentPropertiesService', ['getTypes', 'getPriorities', 'getStatus']);
 
     TestBed.configureTestingModule({
-      declarations: [ SearchToolbarComponent ],
+      declarations: [SearchToolbarComponent],
       imports: [IonicModule.forRoot()],
       providers: [
         {
@@ -34,7 +36,6 @@ describe('SearchToolbarComponent', () => {
   it('should create', async () => {
 
     const incidentType = new IncidentProperty(['type 1', 'type 2', 'type 3'], ['type 1', 'type 2', 'type 3'], 'type 1');
-    incidentType.properties = ['type 1', 'type 2', 'type 3'];
 
     await mockIncidentPropertiesService.getStatus.and.returnValue(of(incidentType).toPromise());
     await mockIncidentPropertiesService.getPriorities.and.returnValue(of(incidentType).toPromise());
@@ -43,24 +44,27 @@ describe('SearchToolbarComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  // it('SearchToolbarComponent.updateSearch', () => {
-  
-  // });
+  it('SearchToolbarComponent.sortByDate', () => {
+    component.sortByDate();
+    expect(component.filter.sort).toEqual(IncidentConst.reverseSortField);
+  });
 
-  
-  // it('SearchToolbarComponent.sortByDate', () => {
-  
-  // });
+  it('SearchToolbarComponent.changeStatus', () => {
+    const fakeButton = { fill: component.solidButton };
+    const enCours = 'en cours';
 
-  
-  // it('SearchToolbarComponent.changeStatus', () => {
-  
-  // });
+    component.changeStatus(fakeButton, enCours);
+    expect(component.filter.status).toEqual([enCours]);
 
-  // it('SearchToolbarComponent.reduceOrExpendToolbar', () => {
-  
-  // });
-  // it('SearchToolbarComponent.displayReduceOrExpendButton', () => {
-  
-  // });
+  });
+
+  it('SearchToolbarComponent.reduceOrExpendToolbar', () => {
+    expect(component.toolbarIsActive).toBeTrue();
+    component.reduceOrExpendToolbar();
+    expect(component.toolbarIsActive).toBeFalse();
+  });
+
+  it('SearchToolbarComponent.displayReduceOrExpendButton', () => {
+    expect(component.displayReduceOrExpendButton()).toBeFalse();
+  });
 });
