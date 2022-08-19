@@ -87,7 +87,6 @@ export class AddIncidentPage implements OnInit {
    * @param formValue
    */
   public saveAction(formValue) {
-
     if (this.formValueIsComplete()) {
       if (this.state === this.STATE_NEW) {
         this.addIncident(formValue);
@@ -112,11 +111,10 @@ export class AddIncidentPage implements OnInit {
    * Enclenché lorsque le bouton supprimer est enclenché
    * Envoie une requête pour supprimer l'incident actuel
    */
-  public deleteIncident() {
+  public async deleteIncident() {
     if (confirm('Êtes vous sûr de vouloir supprimer l\'incident?')) {
-      this.incidentService.deleteById(this.incident.id).then((event: any) => {
-        this.router.navigate([this.INCIDENTS_PAGE]).then(() => {
-        });
+      await this.incidentService.deleteById(this.incident.id).then(async (event: any) => {
+        await this.router.navigate([this.INCIDENTS_PAGE]);
       });
     }
   }
@@ -130,24 +128,24 @@ export class AddIncidentPage implements OnInit {
     this.incident.screenshotWebPath = '';
   }
 
-  /**
-   * Valide si l'objet Incident est complet et prêt à être sauvegarder
-   * Dans le cas contraîre fait apparaître un toast
-   *
-   * @returns Boolean
-   */
-  public formValueIsComplete(): boolean {
-    if (!this.incident.title ||
-      !this.incident.description ||
-      !this.incident.priority ||
-      !this.incident.status ||
-      !this.incident.type) {
-      this.presentToast();
-      return false;
-    }
+   /**
+    * Valide si l'objet Incident est complet et prêt à être sauvegarder
+    * Dans le cas contraîre fait apparaître un toast
+    *
+    * @returns Boolean
+    */
+    private formValueIsComplete(): boolean {
+      if (!this.incident.title ||
+        !this.incident.description ||
+        !this.incident.priority ||
+        !this.incident.status ||
+        !this.incident.type) {
+        this.presentToast();
+        return false;
+      }
 
-    return true;
-  }
+      return true;
+    }
 
   /**
    * Initie une requête pour sauvergarder un nouvel incident
@@ -155,9 +153,8 @@ export class AddIncidentPage implements OnInit {
    * @param formValue
    */
   private async addIncident(formValue) {
-    await this.incidentService.save(this.generateIncidentFormData(formValue)).then((event: any) => {
-      this.router.navigate([this.INCIDENTS_PAGE]).then(() => {
-      });
+    await this.incidentService.save(this.generateIncidentFormData(formValue)).then(async (event: any) => {
+      await this.router.navigate([this.INCIDENTS_PAGE]);
     });
   }
 
@@ -167,9 +164,8 @@ export class AddIncidentPage implements OnInit {
    * @param formValue
    */
   private async updateIncident(formValue) {
-    await this.incidentService.update(this.generateIncidentFormData(formValue)).then((event: any) => {
-      this.router.navigate([this.INCIDENTS_PAGE]).then(() => {
-      });
+    await this.incidentService.update(this.generateIncidentFormData(formValue)).then(async (event: any) => {
+      await this.router.navigate([this.INCIDENTS_PAGE]);
     });
   }
 
@@ -206,7 +202,6 @@ export class AddIncidentPage implements OnInit {
     const formData = new FormData();
     Object.keys(formValue).map((key) => formData.append(key, formValue[key]));
     formData.append('file', this.imageInput.getFile());
-    console.log(formData);
     return formData;
   }
 }

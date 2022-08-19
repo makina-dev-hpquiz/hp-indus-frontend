@@ -27,8 +27,8 @@ export class ApkTemplateComponent implements OnInit, OnChanges {
    * Initialise l'image à afficher en fonction du nom de l'application
    */
   initPicture() {
-    this.logger.log('Initialisation de l\'image à afficher pour ', this.apk.name);
     if (this.apk) {
+      this.logger.log('Initialisation de l\'image à afficher pour ', this.apk.name);
       if (this.apk.name.includes(ApplicationsNameConst.hpCore)) {
         this.picture = '../../assets/icon/build.svg';
       } else if (this.apk.name.includes(ApplicationsNameConst.hpQuiz)) {

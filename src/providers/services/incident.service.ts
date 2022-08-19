@@ -100,7 +100,7 @@ export class IncidentService extends AbstractService {
    * @param id
    * @returns
    */
-  public async deleteById(id: string) {
+  public async deleteById(id: string): Promise<any> {
     this.logger.log('Utilisation de la méthode IncidentService.delete : ',
       ServerUrlConst.urlServer + ServerUrlConst.incidentUrl + '/' + id);
     return await this.httpClient.delete<any>(ServerUrlConst.urlServer + ServerUrlConst.incidentUrl + id).toPromise();
