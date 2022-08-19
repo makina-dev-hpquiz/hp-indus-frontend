@@ -124,14 +124,14 @@ describe('AddIncidentPage', () => {
     const incidentProperty = new IncidentProperty(['type 1', 'type 2'], ['type 1', 'type 2', 'type 3'], 'type 1');
 
     incident.screenshotWebPath = 'localhost:8080/images/img.jpg';
-    component.incidentService = mockIncidentService;
+    component['incidentService'] = mockIncidentService;
     await mockIncidentService.get.and.returnValue(of(incident).toPromise());
     await mockIncidentPropertiesService.getPriorities.and.returnValue(of(incidentProperty).toPromise());
     await mockIncidentPropertiesService.getStatus.and.returnValue(of(incidentProperty).toPromise());
     await mockIncidentPropertiesService.getTypes.and.returnValue(of(incidentProperty).toPromise());
 
     const id = 'f0de50b4-a33a-4cde-8587-876a9e8851ab';
-    component.route.snapshot.data.special = id;
+    component['route'].snapshot.data.special = id;
 
     await component.ngOnInit();
     expect(component).toBeTruthy();
