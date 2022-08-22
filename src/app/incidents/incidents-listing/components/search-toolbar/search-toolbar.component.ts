@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { IncidentConst } from 'src/constants/incidentConst';
 import { IncidentFilter } from 'src/entities/incidentFilter';
-import { IncidentProperty } from 'src/entities/IncidentProperty';
 import { IncidentPropertiesService } from 'src/providers/services/incident-properties.service';
 import { LogService } from 'src/providers/services/log.service';
 
@@ -43,10 +42,6 @@ export class SearchToolbarComponent {
   private selectedStatus: Array<string>;
   private recentDate = true;
 
-  private incidentType: IncidentProperty;
-  private incidentPriorities: IncidentProperty;
-  private incidentStatus: IncidentProperty;
-
   constructor(public incidentPropertiesService: IncidentPropertiesService, private logger: LogService) {
     this.logoSortedDate = this.logoRecentDate;
     this.logoReduceToolbarToDisplay = this.logoReduceToolbar;
@@ -58,21 +53,21 @@ export class SearchToolbarComponent {
   }
 
   async init() {
-    this.incidentType = await this.incidentPropertiesService.getTypes();
-    this.incidentPriorities = await this.incidentPropertiesService.getPriorities();
-    this.incidentStatus = await this.incidentPropertiesService.getStatus();
+    const incidentType = await this.incidentPropertiesService.getTypes();
+    const incidentPriorities = await this.incidentPropertiesService.getPriorities();
+    const incidentStatus = await this.incidentPropertiesService.getStatus();
 
-    if (this.incidentStatus && this.incidentPriorities && this.incidentType) {
-      this.toDoMsg = this.incidentStatus.properties[0];
-      this.doingMsg = this.incidentStatus.properties[1];
-      this.doneMsg = this.incidentStatus.properties[2];
+    if (incidentStatus && incidentPriorities && incidentType) {
+      this.toDoMsg = incidentStatus.properties[0];
+      this.doingMsg = incidentStatus.properties[1];
+      this.doneMsg = incidentStatus.properties[2];
 
       this.selectedStatus = new Array(this.toDoMsg, this.doingMsg);
       this.filter = new IncidentFilter(IncidentConst.sortField, '', this.selectedStatus,
-        this.incidentPriorities.searchProperties[0], this.incidentType.searchProperties[0]);
+        incidentPriorities.searchProperties[0], incidentType.searchProperties[0]);
 
-      this.priorities = this.incidentPriorities.searchProperties;
-      this.types = this.incidentType.searchProperties;
+      this.priorities = incidentPriorities.searchProperties;
+      this.types = incidentType.searchProperties;
     }
   }
 
@@ -95,7 +90,7 @@ export class SearchToolbarComponent {
   }
 
   // Change le logo du bouton tri par date
-  sortByDate() {
+  public sortByDate() {
     if (this.logoSortedDate === this.logoRecentDate) {
       this.logoSortedDate = this.logoOldDate;
     } else {
@@ -111,7 +106,7 @@ export class SearchToolbarComponent {
    * @param button
    * @param status
    */
-  changeStatus(button, status) {
+  public changeStatus(button, status) {
     switch (button.fill) {
       case this.solidButton:
         button.fill = this.outlineButton;
@@ -133,7 +128,7 @@ export class SearchToolbarComponent {
   /**
    * Réduit ou étend la toolbar de recherche
    */
-  reduceOrExpendToolbar() {
+   public reduceOrExpendToolbar() {
     if (this.logoReduceToolbarToDisplay === this.logoReduceToolbar) {
       this.logoReduceToolbarToDisplay = this.logoExpendToolbar;
     } else {
@@ -148,7 +143,7 @@ export class SearchToolbarComponent {
    *
    * @returns boolean
    */
-  displayReduceOrExpendButton() {
+   public displayReduceOrExpendButton() {
     return (window.screen.width < 920 || window.screen.height < 600);
   }
 }

@@ -12,7 +12,7 @@ import { SearchToolbarComponent } from './components/search-toolbar/search-toolb
   templateUrl: './incidents-listing.page.html',
   styleUrls: ['./incidents-listing.page.scss'],
 })
-export class IncidentsListingPage{
+export class IncidentsListingPage {
 
   @ViewChild(SearchToolbarComponent) searchToolBar: SearchToolbarComponent;
 
@@ -25,8 +25,8 @@ export class IncidentsListingPage{
   /**
    * Appel la searchToolBar pour récuper le filtre à utiliser pour afficher les incidents
    */
-  ionViewDidEnter(){
-    if(this.searchToolBar) {
+  ionViewDidEnter() {
+    if (this.searchToolBar) {
       this.searchToolBar.updateSearch();
     }
   }
@@ -37,8 +37,8 @@ export class IncidentsListingPage{
    * @param incident
    * @returns
    */
-  displayDate(incident: Incident){
-    if(incident && incident.updatedAt) {
+  public displayDate(incident: Incident) {
+    if (incident && incident.updatedAt) {
       return incident.updatedAt.toLocaleDateString();
     } else {
       return '';
@@ -50,7 +50,7 @@ export class IncidentsListingPage{
    *
    * @param incidentFilter
    */
-  async getAllIncidents(incidentFilter: IncidentFilter){
+  public async getAllIncidents(incidentFilter: IncidentFilter) {
     this.incidents = await this.incidentService.getAll(incidentFilter);
   }
 
@@ -59,10 +59,10 @@ export class IncidentsListingPage{
    *
    * @param incident
    */
-  openIncident(incident: Incident) {
+  public async openIncident(incident: Incident) {
     this.logger.log('IncidentsListingPage.openIncident : ', incident.id);
     this.dataService.setData(incident.id, incident);
-    this.router.navigateByUrl('/incident/'+incident.id);
+    await this.router.navigateByUrl('/incident/' + incident.id);
   }
 
   /**
@@ -70,8 +70,8 @@ export class IncidentsListingPage{
    *
    * @returns number
    */
-  public getIncidentNumber(): number{
-    if(this.incidents){
+  public getIncidentNumber(): number {
+    if (this.incidents) {
       return this.incidents.length;
     } else {
       return 0;

@@ -19,7 +19,12 @@ const routes: Routes = [
 describe('ListPage', () => {
   let component: ListPage;
   let fixture: ComponentFixture<ListPage>;
-
+  const apks = [
+    new AndroidPackage('hp-core-latest.apk', '16/05/2022 16:45', '4.62 Mo', '0'),
+    new AndroidPackage('hp-core-1.0.1.apk', '10/05/2022 16:45', '4.62 Mo', '0'),
+  ];
+  mockAndroidPackageService.getAllHPCoreAPK.and.returnValue(of(apks).toPromise());
+  mockAndroidPackageService.getAllHPQuizAPK.and.returnValue(of([]).toPromise());
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ ListPage ],
@@ -37,14 +42,11 @@ describe('ListPage', () => {
     fixture.detectChanges();
   }));
 
-  it('should create', async () => {
-    const apks = [
-      new AndroidPackage('hp-core-latest.apk', '16/05/2022 16:45', '4.62 Mo', '0'),
-      new AndroidPackage('hp-core-1.0.1.apk', '10/05/2022 16:45', '4.62 Mo', '0'),
-    ];
-
-    mockAndroidPackageService.getAllHPCoreAPK.and.returnValue(of(apks).toPromise());
-    mockAndroidPackageService.getAllHPQuizAPK.and.returnValue(of(apks).toPromise());
+  it('should create with data', async () => {
     expect(component).toBeTruthy();
+    expect(2).toEqual(component.allHpCoreAPK.length);
+    expect(component.allHpQuizAPK).toEqual([]);
+
   });
+
 });
