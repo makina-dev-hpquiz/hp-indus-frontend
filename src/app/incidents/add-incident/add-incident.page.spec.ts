@@ -62,8 +62,6 @@ describe('AddIncidentPage', () => {
     'en cours'
   );
 
-
-
   beforeEach(waitForAsync(() => {
     mockIncidentService = jasmine.createSpyObj<IncidentService>('IncidentService', ['get', 'save', 'update', 'deleteById']);
     mockIncidentPropertiesService =
@@ -204,7 +202,7 @@ describe('AddIncidentPage', () => {
     expect(date.toISOString()).toEqual(component.updatedAt);
   });
 
-  it('TEST public AddIncidentPage.deleteIncident avec confirm = true', async () => {
+  it('TEST public AddIncidentPage.deleteIncident avec confirm == true', async () => {
     spyOn(window, 'confirm').and.callFake(() => true);
     let t: any;
     mockIncidentService.deleteById.and.returnValue(of(t).toPromise());
@@ -213,7 +211,7 @@ describe('AddIncidentPage', () => {
     expect(component[router].navigated).toBeTrue();
   });
 
-  it('TEST public AddIncidentPage.deleteIncident avec confirm = false', async () => {
+  it('TEST public AddIncidentPage.deleteIncident avec confirm == false', async () => {
     spyOn(window, 'confirm').and.callFake(() =>  false);
     let t: any;
     mockIncidentService.deleteById.and.returnValue(of(t).toPromise());

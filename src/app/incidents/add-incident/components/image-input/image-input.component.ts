@@ -13,7 +13,7 @@ export class ImageInputComponent implements OnChanges {
   @ViewChild('viewerDiv', { static: false }) viewerDiv: ElementRef;
 
 
-  @Output() cancelImage = new EventEmitter<void>();
+  @Output() cancelImageEmitter = new EventEmitter<void>();
   @Input() screenshot;
 
   public havePicture = false;
@@ -23,6 +23,8 @@ export class ImageInputComponent implements OnChanges {
 
   constructor(private logger: LogService) { }
   ngOnChanges(changes: SimpleChanges): void {
+
+    console.log('ngOnChanges');
     if (this.screenshot) {
       this.displayScreenshot();
     }
@@ -33,7 +35,7 @@ export class ImageInputComponent implements OnChanges {
    *
    * @param event
    */
-  uploadScreenshot(event) {
+  public uploadScreenshot(event) {
     this.logger.log('ImageInputComponent.uploadScreenshot enclenché');
     if (event.target.files && event.target.files[0]) {
       this.havePicture = true;
@@ -47,19 +49,13 @@ export class ImageInputComponent implements OnChanges {
     }
   }
 
-  /**
-   * Active l'afficheur d'image
-   */
-  displayScreenshot() {
-    this.inputDiv.nativeElement.style.display = this.displayNone;
-    this.viewerDiv.nativeElement.style.display = this.displayBlock;
-  }
+
 
   /**
    * Annule l'image en la retirant dans l'objet Incident et remettant à disposition
    * les éléments permettant de choisir une image
    */
-  cancelScreenshot() {
+  public cancelImage() {
     if (confirm('Êtes vous sûr de vouloir supprimer l\'image?')) {
 
       this.logger.log('ImageInputComponent.cancelScreenshot enclenché');
@@ -69,15 +65,22 @@ export class ImageInputComponent implements OnChanges {
       this.fileUpload.nativeElement.type = 'text';
       this.fileUpload.nativeElement.type = 'file';
 
-      this.cancelImage.emit();
+      this.cancelImageEmitter.emit();
 
       this.viewerDiv.nativeElement.style.display = this.displayNone;
       this.inputDiv.nativeElement.style.display = this.displayBlock;
     }
   }
 
-  public getFile(): any{
+  public getFile(): any {
     return this.fileUpload.nativeElement.files[0];
   }
 
+  /**
+   * Active l'afficheur d'image
+   */
+  private displayScreenshot() {
+    this.inputDiv.nativeElement.style.display = this.displayNone;
+    this.viewerDiv.nativeElement.style.display = this.displayBlock;
+  }
 }
