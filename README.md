@@ -2,7 +2,9 @@
 
 ***
 
-Cette plateforme a pour objectif de servir le projet en proposant plusieurs outils à la fois de débug mais également de suivi de projet. 
+Cette plateforme a pour objectif de servir le projet principal HP-QUIZ en proposant plusieurs outils à la fois de débug mais également de suivi de projet. 
+L'application est utilisable sur navigateur (chrome) ainsi que sur navigateur mobile.
+
 Les fonctionnalités principales sont : 
 * Module de gestion des APKs permettant de télécharger les différentes APK liés à l'ensemble du projet
 * Module de gestion d'incidents permettant d'ouvrir et de gérer des tickets de bug.
