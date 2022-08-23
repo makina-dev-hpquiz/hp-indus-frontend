@@ -2,13 +2,13 @@
   <ion-header>
   <ion-toolbar>
     <ion-icon class="back-button" slot="start" color="warning" size="large" name="arrow-back"
-      [routerLink]="[INCIDENTS_PAGE]"></ion-icon>
+      [routerLink]="[incidentsPage]"></ion-icon>
     <ion-title slot="start">Référencer un bug</ion-title>
     <ion-button class="save-button" fill="clear" type="submit">
       <ion-icon color="success" name="send" size="large"></ion-icon>
     </ion-button>
   </ion-toolbar>
-  <ion-toolbar *ngIf="state===STATE_UPDATE" class="toolbar-secondary">
+  <ion-toolbar *ngIf="state===stateUpdate" class="toolbar-secondary">
     <!-- en modification-->
     <span *ngIf=incident.createdAt >Remonté le : {{incident.createdAt.toLocaleString()}} </span>
     <span *ngIf=incident.updatedAt >| Mise à jour le : {{incident.updatedAt.toLocaleString()}}</span>
@@ -17,8 +17,8 @@
 </ion-header>
 
 <ion-content>
-  <input *ngIf="state===STATE_UPDATE" type="hidden" [(ngModel)]=incident.id name="id"/>
-  <input *ngIf="state===STATE_UPDATE" type="hidden" [(ngModel)]=createdAt name="createdAt"/>
+  <input *ngIf="state===stateUpdate" type="hidden" [(ngModel)]=incident.id name="id"/>
+  <input *ngIf="state===stateUpdate" type="hidden" [(ngModel)]=createdAt name="createdAt"/>
   <input type="hidden" [(ngModel)]=updatedAt name="updatedAt"/>
   <input type="hidden" [(ngModel)]=incident.screenshotPath name="screenshotPath"/>
   <input type="hidden" [(ngModel)]=incident.screenshotWebPath name="screenshotWebPath"/>
@@ -49,7 +49,7 @@
     <ion-label>Description</ion-label>
     <ion-textarea [(ngModel)]="incident.description" required name="description" ></ion-textarea>
   </ion-item>
-  <ion-item *ngIf="state===STATE_NEW">
+  <ion-item *ngIf="state===stateNew">
     <ion-label>Date de remonté</ion-label>
     <ion-datetime (ionChange)="updateDate()" [(ngModel)]="createdAt" required displayFormat="DD MMM YYYY" name="createdAt"></ion-datetime>
   </ion-item>

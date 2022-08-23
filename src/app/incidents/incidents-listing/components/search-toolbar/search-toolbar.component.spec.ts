@@ -12,6 +12,12 @@ describe('SearchToolbarComponent', () => {
   let fixture: ComponentFixture<SearchToolbarComponent>;
   let mockIncidentPropertiesService: jasmine.SpyObj<IncidentPropertiesService>;
 
+  // Nom de propriétés privées
+  const selectedStatus = 'selectedStatus';
+  const logoRecentDate = 'logoRecentDate';
+  const logoOldDate = 'logoOldDate';
+  const logoReduceToolbar = 'logoReduceToolbar';
+  const logoExpendToolbar = 'logoExpendToolbar';
 
   beforeEach(waitForAsync(async () => {
     mockIncidentPropertiesService =
@@ -50,12 +56,12 @@ describe('SearchToolbarComponent', () => {
     expect(incidentProperties.properties).toContain(component.doneMsg);
     expect(incidentProperties.properties).toContain(component.doingMsg);
     expect(incidentProperties.properties).toContain(component.toDoMsg);
-    expect(incidentProperties.properties[0]).toContain(component['selectedStatus'][0]);
-    expect(incidentProperties.properties[1]).toContain(component['selectedStatus'][1]);
+    expect(incidentProperties.properties[0]).toContain(component[selectedStatus][0]);
+    expect(incidentProperties.properties[1]).toContain(component[selectedStatus][1]);
 
     expect(IncidentConst.sortField).toEqual(component.filter.sort);
     expect('').toEqual(component.filter.search);
-    expect([component['selectedStatus'][0], component['selectedStatus'][1]]).toEqual(component.filter.status);
+    expect([component[selectedStatus][0], component[selectedStatus][1]]).toEqual(component.filter.status);
     expect(incidentProperties.searchProperties[0]).toEqual(component.filter.priority);
     expect(incidentProperties.searchProperties[0]).toEqual(component.filter.type);
 
@@ -68,10 +74,10 @@ describe('SearchToolbarComponent', () => {
   });
 
   it('TEST SearchToolbarComponent.sortByDate', () => {
-    expect(component['logoRecentDate']).toEqual(component.logoSortedDate);
+    expect(component[logoRecentDate]).toEqual(component.logoSortedDate);
     component.sortByDate();
     expect(component.filter.sort).toEqual(IncidentConst.reverseSortField);
-    expect(component['logoOldDate']).toEqual(component.logoSortedDate);
+    expect(component[logoOldDate]).toEqual(component.logoSortedDate);
   });
 
   it('TEST SearchToolbarComponent.changeStatus', () => {
@@ -81,16 +87,16 @@ describe('SearchToolbarComponent', () => {
     component.changeStatus(fakeButton, enCours);
     expect(component.filter.status).toEqual([enCours]);
     expect(fakeButton.fill).toEqual(component.outlineButton);
-    expect(component['selectedStatus']).toContain(enCours);
+    expect(component[selectedStatus]).toContain(enCours);
 
   });
 
   it('TEST SearchToolbarComponent.reduceOrExpendToolbar', () => {
-    expect(component['logoReduceToolbar']).toEqual(component.logoReduceToolbarToDisplay);
+    expect(component[logoReduceToolbar]).toEqual(component.logoReduceToolbarToDisplay);
     expect(component.toolbarIsActive).toBeTrue();
     component.reduceOrExpendToolbar();
     expect(component.toolbarIsActive).toBeFalse();
-    expect(component['logoExpendToolbar']).toEqual(component.logoReduceToolbarToDisplay);
+    expect(component[logoExpendToolbar]).toEqual(component.logoReduceToolbarToDisplay);
   });
 
   it('TEST SearchToolbarComponent.displayReduceOrExpendButton avec windows.screen.height normal et à 599', () => {

@@ -15,6 +15,10 @@ describe('Incidents listing', () => {
   let fixture: ComponentFixture<IncidentsListingPage>;
   let mockIncidentService: jasmine.SpyObj<IncidentService>;
 
+   // Nom de propriétés privées
+   const router = 'router';
+   const dataService = 'dataService';
+
   beforeEach(waitForAsync(() => {
     mockIncidentService =
       jasmine.createSpyObj<IncidentService>('IncidentService', ['getAll']);
@@ -123,9 +127,9 @@ describe('Incidents listing', () => {
     'interface'
   );
     await component.openIncident(incident);
-    expect(incident).toEqual(component['dataService'].getData(incident.id));
-    expect('/incident/'+incident.id).toEqual(component['router'].url);
-    expect(component['router'].navigated).toBeTrue();
+    expect(incident).toEqual(component[dataService].getData(incident.id));
+    expect('/incident/'+incident.id).toEqual(component[router].url);
+    expect(component[router].navigated).toBeTrue();
   });
 
   it('TEST public IncidentsListingPage.getIncidentNumber', () => {

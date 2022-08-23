@@ -28,10 +28,10 @@ export class AddIncidentPage implements OnInit {
 
   // Etat de la page
   public state: string;
-  public readonly STATE_NEW = 'NEW';
-  public readonly STATE_UPDATE = 'UPDATE';
+  public readonly stateNew = 'NEW';
+  public readonly stateUpdate = 'UPDATE';
 
-  public readonly INCIDENTS_PAGE = '/incidents';
+  public readonly incidentsPage = '/incidents';
 
   constructor(private route: ActivatedRoute, private router: Router,
     private incidentService: IncidentService, public toastController: ToastController,
@@ -39,7 +39,6 @@ export class AddIncidentPage implements OnInit {
 
     this.incident = new Incident();
   }
-
 
   async ngOnInit() {
     this.incident = new Incident();
@@ -58,7 +57,7 @@ export class AddIncidentPage implements OnInit {
     }
 
     if (this.route.snapshot.data.special) {
-      this.state = this.STATE_UPDATE;
+      this.state = this.stateUpdate;
       this.incident = await this.getIncident(this.route.snapshot.data.special.id);
 
       this.screenshot = this.incident.screenshotWebPath;
@@ -66,7 +65,7 @@ export class AddIncidentPage implements OnInit {
       this.createdAt = this.incident.createdAt.toISOString();
 
     } else {
-      this.state = this.STATE_NEW;
+      this.state = this.stateNew;
 
       // Initialisation date du jour
       this.incident.createdAt = new Date();
@@ -79,7 +78,6 @@ export class AddIncidentPage implements OnInit {
     }
   }
 
-
   /**
    * Enclenché par le bouton submit du formulaire.
    * Permet d'utilsier les actions de sauvegarde en fonction de l'état de la page NEW ou UPDATE
@@ -88,7 +86,7 @@ export class AddIncidentPage implements OnInit {
    */
   public saveAction(formValue) {
     if (this.formValueIsComplete()) {
-      if (this.state === this.STATE_NEW) {
+      if (this.state === this.stateNew) {
         this.addIncident(formValue);
       } else {
         formValue.updatedAt = new Date().toISOString();
@@ -97,14 +95,13 @@ export class AddIncidentPage implements OnInit {
     }
   }
 
-
-
   /**
    * Enclenché lorsque l'input date est changé
    * Met à jour incident.date avec la date sélectionné
    */
   public updateDate() {
-    this.updatedAt = this.createdAt;
+      this.createdAt = new Date(this.createdAt).toISOString();
+      this.updatedAt = this.createdAt;
   }
 
   /**
@@ -114,7 +111,7 @@ export class AddIncidentPage implements OnInit {
   public async deleteIncident() {
     if (confirm('Êtes vous sûr de vouloir supprimer l\'incident?')) {
       await this.incidentService.deleteById(this.incident.id).then(async (event: any) => {
-        await this.router.navigate([this.INCIDENTS_PAGE]);
+        await this.router.navigate([this.incidentsPage]);
       });
     }
   }
@@ -128,24 +125,25 @@ export class AddIncidentPage implements OnInit {
     this.incident.screenshotWebPath = '';
   }
 
-   /**
-    * Valide si l'objet Incident est complet et prêt à être sauvegarder
-    * Dans le cas contraîre fait apparaître un toast
-    *
-    * @returns Boolean
-    */
-    private formValueIsComplete(): boolean {
-      if (!this.incident.title ||
-        !this.incident.description ||
-        !this.incident.priority ||
-        !this.incident.status ||
-        !this.incident.type) {
-        this.presentToast();
-        return false;
-      }
-
-      return true;
+  /**
+   * Valide si l'objet Incident est complet et prêt à être sauvegarder
+   * Dans le cas contraîre fait apparaître un toast
+   *
+   * @returns Boolean
+   */
+  private formValueIsComplete(): boolean {
+    if (!this.incident.title ||
+      !this.incident.description ||
+      !this.incident.priority ||
+      !this.incident.status ||
+      !this.incident.type ||
+      !this.createdAt) {
+      this.presentToast();
+      return false;
     }
+
+    return true;
+  }
 
   /**
    * Initie une requête pour sauvergarder un nouvel incident
@@ -154,7 +152,7 @@ export class AddIncidentPage implements OnInit {
    */
   private async addIncident(formValue) {
     await this.incidentService.save(this.generateIncidentFormData(formValue)).then(async (event: any) => {
-      await this.router.navigate([this.INCIDENTS_PAGE]);
+      await this.router.navigate([this.incidentsPage]);
     });
   }
 
@@ -165,7 +163,7 @@ export class AddIncidentPage implements OnInit {
    */
   private async updateIncident(formValue) {
     await this.incidentService.update(this.generateIncidentFormData(formValue)).then(async (event: any) => {
-      await this.router.navigate([this.INCIDENTS_PAGE]);
+      await this.router.navigate([this.incidentsPage]);
     });
   }
 
