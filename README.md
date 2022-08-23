@@ -28,10 +28,14 @@ npm install -g @ionic/cli
 
 Git 
 
+```
 git clone git@github.com:VHauchecorn/hp-indus-frontend.git
+```
 
-Installation 
+Installation
+```
 npm i 
+```
 
 ## Configuration d'accès à hp-indus-backend
 Actuellement, rien n'est pas prévu pour gérer dynamiquement ou de manière externe à hp-indus-frontend l'url d'accès à hp-indus-backend.
@@ -71,7 +75,11 @@ ionic start
 ```
 
 L'application est accessible à l'adresse :
+```
 http://localhost:8100
-http://[ip]:8100
+```
+```
+http://[ip-addr]:8100
+```
 
 
