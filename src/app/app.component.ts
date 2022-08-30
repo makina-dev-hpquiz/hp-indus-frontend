@@ -14,25 +14,25 @@ export class AppComponent {
 
   sideMenu() {
     this.navigate =
-    [
+      [
         {
-        title : 'Home',
-        url   : '/home',
-        icon  : 'home',
-        type  : 'page'
+          title: 'Home',
+          url: '/home',
+          icon: 'home',
+          type: 'page'
         },
-      {
-        title : 'Incidents',
-        url   : '/incidents',
-        icon  : 'bug',
-        type  : 'page'
-      },
-      {
-        title : 'Todo',
-        url   : 'https://trello.com/b/qn8eTmwn/harry-potter-quiz',
-        icon  : 'list',
-        type  : 'link'
-      },
-    ];
+        {
+          title: 'Incidents',
+          url: '/incidents',
+          icon: 'bug',
+          type: 'page'
+        },
+        {
+          title: 'Navigation',
+          url: '/navigation',
+          icon: 'list',
+          type: 'page'
+        },
+      ];
   }
 }

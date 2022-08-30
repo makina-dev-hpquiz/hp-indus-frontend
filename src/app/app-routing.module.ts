@@ -35,7 +35,11 @@ export const routes: Routes = [
     path: 'home/archives',
     redirectTo: 'archives',
     pathMatch: 'full'
+  },  {
+    path: 'navigation',
+    loadChildren: () => import('./navigation/navigation/navigation.module').then( m => m.NavigationPageModule)
   }
+
 
 ];
 
