@@ -5,52 +5,14 @@
 </ion-toolbar>
 
 <ion-content>
-  <ion-card>
+  <ion-card *ngFor="let linkHeading of linkHeadings">
     <ion-card-header>
-      <ion-card-title>Usage quotidien</ion-card-title>
-      <ion-item>
-        <ion-icon src="assets/icon/navigation/trello.svg" slot="start"></ion-icon>
-        <ion-label>Trello</ion-label>
-      </ion-item>
-
-      <ion-item href="https://docs.google.com/document/d/13rAYX7682Tl2PeBYgLWXr_n-HCTmqKyhS0WNDFKP_Hc/edit?usp=sharing" target="_blank" class="ion-activated">
-        <ion-icon src="assets/icon/navigation/google-docs.svg" slot="start"></ion-icon>
-        <ion-label>Journal de bord</ion-label>
-      </ion-item>
-
-      <ion-item>
-        <ion-icon src="assets/icon/navigation/sonarqube.svg" slot="start"></ion-icon>
-        <ion-label>Sonarqube</ion-label>
-      </ion-item>
+      <ion-card-title>{{linkHeading.title}}</ion-card-title>
     </ion-card-header>
-  </ion-card>
 
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>Accès serveur</ion-card-title>
-    </ion-card-header>
-    <ion-item>
-      <ion-icon src="assets/icon/navigation/google-sheets.svg" slot="start"></ion-icon>
-      <ion-label>Calc</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-icon src="assets/icon/navigation/postgresql.svg" slot="start"></ion-icon>
-      <ion-label>Postgresql</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-icon src="assets/icon/navigation/github.svg" slot="start"></ion-icon>
-      <ion-label>Github</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-icon src="assets/icon/navigation/tomcat.svg" slot="start"></ion-icon>
-      <ion-label>tomcat</ion-label>
+    <ion-item *ngFor="let link of linkHeading.links" [href]=link.href target="_blank">
+      <ion-icon [src]=link.icon slot="start"></ion-icon>
+      <ion-label>{{link.title}}</ion-label>
     </ion-item>
   </ion-card>
-
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>Evolution</ion-card-title>
-    </ion-card-header>
-  </ion-card>
-
 </ion-content>

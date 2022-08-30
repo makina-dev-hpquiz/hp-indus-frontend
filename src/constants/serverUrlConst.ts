@@ -1,5 +1,7 @@
 export class ServerUrlConst {
     public static readonly urlServer = 'http://192.168.1.10:8082/';
+    public static readonly url = 'http://192.168.1.10';
+    public static readonly portTomcat = '8080';
 
     public static readonly apkUrl = 'apks/';
     public static readonly lastHPQuizAPK = 'hp-quiz/latest';
