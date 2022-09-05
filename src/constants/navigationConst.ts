@@ -31,6 +31,12 @@ export class NavigationConst {
         'Chiffrage',
         'https://docs.google.com/spreadsheets/d/12cPok14pU8tnejYP6GV8gVy76S_Eqh-w1hvSaMXM31Y/edit?usp=sharing'
     );
+    private static readonly quickNote = new Link(
+        NavigationConst.docsIcon,
+        'Note rapide',
+        'https://docs.google.com/document/d/1BxvUpkiCHOI_lObLWX9ERsQc7ETflJAbu1V2VggAn6M/edit?usp=sharing'
+    );
+
 
     // Accès serveur
     private static readonly serverAccesTitle = 'Accès serveur';
@@ -117,7 +123,7 @@ export class NavigationConst {
 
     private static getDailyUseHeading() {
         return new LinksGroup(NavigationConst.dailyUseTitle,
-            [NavigationConst.trelloCurrentLot, NavigationConst.logBook, NavigationConst.chiffrage]);
+            [NavigationConst.trelloCurrentLot, NavigationConst.logBook, NavigationConst.chiffrage, NavigationConst.quickNote]);
     }
 
     private static getServerAccessHeading() {
