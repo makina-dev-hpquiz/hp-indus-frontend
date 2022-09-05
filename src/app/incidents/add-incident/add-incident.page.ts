@@ -33,6 +33,8 @@ export class AddIncidentPage implements OnInit {
 
   public readonly incidentsPage = '/incidents';
 
+  private toast: HTMLIonToastElement;
+
   constructor(private route: ActivatedRoute, private router: Router,
     private incidentService: IncidentService, public toastController: ToastController,
     public incidentPropertiesService: IncidentPropertiesService) {
@@ -100,8 +102,8 @@ export class AddIncidentPage implements OnInit {
    * Met à jour incident.date avec la date sélectionné
    */
   public updateDate() {
-      this.createdAt = new Date(this.createdAt).toISOString();
-      this.updatedAt = this.createdAt;
+    this.createdAt = new Date(this.createdAt).toISOString();
+    this.updatedAt = this.createdAt;
   }
 
   /**
@@ -181,13 +183,15 @@ export class AddIncidentPage implements OnInit {
    * Fait apparaître un message
    */
   private async presentToast() {
-    const toast = await this.toastController.create({
-      message: 'L\'incident n\'est pas complet et ne peut être sauvegarder en l\'état',
-      duration: 2000,
-      position: 'top',
-      color: 'danger'
-    });
-    toast.present();
+    if (!this.toast) {
+      this.toast = await this.toastController.create({
+        message: 'L\'incident n\'est pas complet et ne peut être sauvegarder en l\'état',
+        duration: 2000,
+        position: 'top',
+        color: 'danger'
+      });
+    }
+    this.toast.present();
   }
 
   /**

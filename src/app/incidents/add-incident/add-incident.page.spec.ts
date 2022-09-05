@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { IonicModule } from '@ionic/angular';
@@ -13,6 +13,7 @@ import { AddIncidentPage } from './add-incident.page';
 import { ImageInputComponent } from './components/image-input/image-input.component';
 
 import { routes } from 'src/app/app-routing.module';
+import { browser } from 'protractor';
 
 describe('AddIncidentPage', () => {
   let component: AddIncidentPage;
@@ -157,6 +158,8 @@ describe('AddIncidentPage', () => {
   it('TEST public AddIncidentPage.saveAction', async () => {
     component.state = component.stateNew;
 
+    const presentToastSpy = spyOn<any>(component, presentToast);
+
     const addIncidentSpy = spyOn<any>(component, addIncident);
     const updateIncidentSpy = spyOn<any>(component, updateIncident);
 
@@ -212,7 +215,7 @@ describe('AddIncidentPage', () => {
   });
 
   it('TEST public AddIncidentPage.deleteIncident avec confirm == false', async () => {
-    spyOn(window, 'confirm').and.callFake(() =>  false);
+    spyOn(window, 'confirm').and.callFake(() => false);
     let t: any;
     mockIncidentService.deleteById.and.returnValue(of(t).toPromise());
     await component[deleteIncident]();
@@ -235,7 +238,7 @@ describe('AddIncidentPage', () => {
     expect(component.incident.screenshotWebPath).toEqual(emptyString);
   });
 
-  it('TEST private AddIncidentPage.formValueIsComplete', () => {
+  it('TEST private AddIncidentPage.formValueIsComplete', async () => {
     const presentToastSpy = spyOn<any>(component, presentToast);
     const incidentUseOnFormValue = new Incident('f0de50b4-a33a-4cde-8587-876a9e8851ab');
     component.createdAt = '';
@@ -295,22 +298,24 @@ describe('AddIncidentPage', () => {
     expect(result).toEqual(incident);
   });
 
-  it('TEST private presentToast', () => {
-    // Not impl.
+  it('TEST private presentToast', async () => {
+    expect(0).toEqual(document.getElementsByTagName('ion-toast').length);
+    await component[presentToast]();
+    expect(1).toEqual(document.getElementsByTagName('ion-toast').length);
   });
 
   it('TEST private AddIncidentPage.generateIncidentFormData ', async () => {
 
-  //Initialisation blob mock
-  const lastModifiedDate = 'lastModifiedDate';
-  const name = 'name';
+    //Initialisation blob mock
+    const lastModifiedDate = 'lastModifiedDate';
+    const name = 'name';
 
-  const typeFile = 'image/jpeg';
-  const blob = new Blob([], { type: typeFile });
-  blob[lastModifiedDate] = '';
-  blob[name] = 'file.jpg';
+    const typeFile = 'image/jpeg';
+    const blob = new Blob([], { type: typeFile });
+    blob[lastModifiedDate] = '';
+    blob[name] = 'file.jpg';
 
-  const fakeFile = blob as File;
+    const fakeFile = blob as File;
 
     mockImageInputComponent.getFile.and.returnValue(fakeFile);
     component.imageInput = mockImageInputComponent;
@@ -330,6 +335,4 @@ describe('AddIncidentPage', () => {
     expect(undefined).toEqual(resutltFile);
     expect('Test 1').toEqual(resutltTitle);
   });
-
-
 });
