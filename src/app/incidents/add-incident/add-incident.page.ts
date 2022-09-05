@@ -58,9 +58,16 @@ export class AddIncidentPage implements OnInit {
       this.incident.status = incidentStatus.defaultProperty;
     }
 
-    if (this.route.snapshot.data.special) {
+    if (this.route.snapshot.data.special || (this.route.snapshot.paramMap && this.route.snapshot.paramMap.get('id')) ) {
       this.state = this.stateUpdate;
-      this.incident = await this.getIncident(this.route.snapshot.data.special.id);
+
+      let id: string;
+      if(this.route.snapshot.data.special) {
+        id = this.route.snapshot.data.special.id;
+      } else {
+        id = this.route.snapshot.paramMap.get('id');
+      }
+      this.incident = await this.getIncident(id);
 
       this.screenshot = this.incident.screenshotWebPath;
       this.updatedAt = this.incident.updatedAt.toISOString();

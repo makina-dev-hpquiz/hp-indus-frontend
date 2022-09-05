@@ -33,7 +33,7 @@ export class AppComponent {
           icon: 'bug',
           type: 'page'
         },
-       
+
       ];
   }
 }

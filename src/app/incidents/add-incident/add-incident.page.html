@@ -3,7 +3,8 @@
   <ion-toolbar>
     <ion-icon class="back-button" slot="start" color="warning" size="large" name="arrow-back"
       [routerLink]="[incidentsPage]"></ion-icon>
-    <ion-title slot="start">Référencer un bug</ion-title>
+    <ion-title *ngIf="state===stateNew" slot="start">Nouvel un incident</ion-title>
+    <ion-title *ngIf="state===stateUpdate" slot="start">Mise à jour incident</ion-title>
     <ion-button class="save-button" fill="clear" type="submit">
       <ion-icon color="success" name="send" size="large"></ion-icon>
     </ion-button>
