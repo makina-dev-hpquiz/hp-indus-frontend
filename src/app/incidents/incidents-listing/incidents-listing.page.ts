@@ -17,9 +17,11 @@ export class IncidentsListingPage {
   @ViewChild(SearchToolbarComponent) searchToolBar: SearchToolbarComponent;
 
   public incidents: Incident[];
+  public imageIsDisplayed: boolean;
 
   constructor(private incidentService: IncidentService, private router: Router,
     private dataService: DataService, private logger: LogService) {
+      this.imageIsDisplayed = true;
   }
 
   /**
@@ -76,5 +78,9 @@ export class IncidentsListingPage {
     } else {
       return 0;
     }
+  }
+
+  public displayImage(isDisplayed:  boolean){
+    this.imageIsDisplayed = isDisplayed;
   }
 }

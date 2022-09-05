@@ -12,7 +12,7 @@
       </ion-button>
       <ion-button #doingButton [fill]=solidButton (click)="changeStatus(doingButton, doingMsg)">{{doingMsg}}
       </ion-button>
-      <ion-button #donetButton [fill]=outlineButton  (click)="changeStatus(donetButton, doneMsg)">{{doneMsg}}
+      <ion-button #donetButton [fill]=outlineButton (click)="changeStatus(donetButton, doneMsg)">{{doneMsg}}
       </ion-button>
     </span>
   </div>
@@ -35,9 +35,15 @@
         <ion-select-option *ngFor="let type of types">{{type}}</ion-select-option>
       </ion-select>
     </span>
+    <span>
+      <ion-label *ngIf=!isSmallScreen() class="mini-label">{{textStateImage}}</ion-label>
+      <ion-button fill="clear" (click)="displayImage()">
+        <ion-icon size="large" [name]=logoStateImage></ion-icon>
+      </ion-button>
+    </span>
   </div>
 </ion-toolbar>
-<div *ngIf=displayReduceOrExpendButton() class="reduce-toolbar">
+<div *ngIf=isSmallScreen() class="reduce-toolbar">
   <ion-button (click)="reduceOrExpendToolbar()">
     <ion-icon [name]=logoReduceToolbarToDisplay></ion-icon>
   </ion-button>

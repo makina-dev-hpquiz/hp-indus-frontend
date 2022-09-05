@@ -12,12 +12,14 @@ import { LogService } from 'src/providers/services/log.service';
 export class SearchToolbarComponent {
 
   @Output() incidentFilterUpdated = new EventEmitter<IncidentFilter>();
+  @Output() displayImageEmitter = new EventEmitter<boolean>();
 
   //CSS mise à jour
   public readonly outlineButton = 'outline';
   public readonly solidButton = 'solid';
 
   public toolbarIsActive: boolean;
+  public imageIsDisplayed: boolean;
 
   // Variable à afficher
   public logoSortedDate;
@@ -25,6 +27,8 @@ export class SearchToolbarComponent {
   public toDoMsg: string;
   public doingMsg: string;
   public doneMsg: string;
+  public logoStateImage;
+  public textStateImage;
 
   public priorities: Array<string>;
   public types: Array<string>;
@@ -37,6 +41,11 @@ export class SearchToolbarComponent {
   private readonly logoOldDate = 'remove-outline';
   private readonly logoReduceToolbar = 'caret-up-outline';
   private readonly logoExpendToolbar = 'caret-down-outline';
+  private readonly logoHiddenImage = 'tablet-landscape-outline';
+  private readonly logoDisplayImage = 'image-outline';
+
+  private readonly textHiddenImage = 'Masquer les images';
+  private readonly textDisplayImage = 'Afficher les images';
 
   // Données à traiter
   private selectedStatus: Array<string>;
@@ -45,7 +54,10 @@ export class SearchToolbarComponent {
   constructor(public incidentPropertiesService: IncidentPropertiesService, private logger: LogService) {
     this.logoSortedDate = this.logoRecentDate;
     this.logoReduceToolbarToDisplay = this.logoReduceToolbar;
+    this.logoStateImage = this.logoHiddenImage;
+    this.textStateImage = this.textHiddenImage;
     this.toolbarIsActive = true;
+    this.imageIsDisplayed = true;
     this.filter = new IncidentFilter();
     this.selectedStatus = new Array();
 
@@ -143,7 +155,23 @@ export class SearchToolbarComponent {
    *
    * @returns boolean
    */
-   public displayReduceOrExpendButton() {
+   public isSmallScreen() {
     return (window.screen.width < 920 || window.screen.height < 600);
+  }
+
+  /**
+   * Affiche ou non les images présent dans le résultat de recherche
+   */
+  public displayImage(){
+    if (this.logoStateImage === this.logoHiddenImage) {
+      this.logoStateImage = this.logoDisplayImage;
+      this.textStateImage = this.textDisplayImage;
+    } else {
+      this.logoStateImage = this.logoHiddenImage;
+      this.textStateImage = this.textHiddenImage;
+    }
+
+    this.imageIsDisplayed = !this.imageIsDisplayed;
+    this.displayImageEmitter.emit(this.imageIsDisplayed);
   }
 }

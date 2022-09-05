@@ -3,7 +3,7 @@
   <h2>Liste des Incidents ({{getIncidentNumber()}})</h2>
   <ion-button fill="outline" slot="end" [routerLink]="['/incident']">Nouveau</ion-button>
 </ion-toolbar>
-<app-search-toolbar #searchToolBar (incidentFilterUpdated)=getAllIncidents($event)></app-search-toolbar>
+<app-search-toolbar #searchToolBar (incidentFilterUpdated)=getAllIncidents($event) (displayImageEmitter)=displayImage($event)></app-search-toolbar>
 
 <ion-content>
   <ion-card *ngFor="let incident of incidents">
@@ -19,7 +19,7 @@
         <span>Priorité : {{incident.priority}} | </span>
         <span>Statut : {{incident.status}}</span>
       </div>
-      <img style="height:400px;" [src]="incident.screenshotWebPath">
+      <img *ngIf=imageIsDisplayed style="height:400px;" [src]="incident.screenshotWebPath">
       <p>
         {{incident.description}}
       </p>

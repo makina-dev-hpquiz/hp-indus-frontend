@@ -19,6 +19,13 @@ describe('SearchToolbarComponent', () => {
   const logoReduceToolbar = 'logoReduceToolbar';
   const logoExpendToolbar = 'logoExpendToolbar';
 
+  const logoStateImage = 'logoStateImage';
+  const textStateImage = 'textStateImage';
+  const logoHiddenImage = 'logoHiddenImage';
+  const logoDisplayImage = 'logoDisplayImage';
+  const textHiddenImage = 'textHiddenImage';
+  const textDisplayImage = 'textDisplayImage';
+
   beforeEach(waitForAsync(async () => {
     mockIncidentPropertiesService =
       jasmine.createSpyObj<IncidentPropertiesService>('IncidentPropertiesService', ['getTypes', 'getPriorities', 'getStatus']);
@@ -100,17 +107,38 @@ describe('SearchToolbarComponent', () => {
   });
 
   it('TEST SearchToolbarComponent.displayReduceOrExpendButton avec windows.screen.height normal et à 599', () => {
-    expect(component.displayReduceOrExpendButton()).toBeFalse();
+    expect(component.isSmallScreen()).toBeFalse();
     const spy = spyOnProperty(window, 'screen', ).and.returnValue({height : 599});
-    expect(component.displayReduceOrExpendButton()).toBeTrue();
+    expect(component.isSmallScreen()).toBeTrue();
 
     spy.and.returnValue({height : 600});
-    expect(component.displayReduceOrExpendButton()).toBeFalse();
+    expect(component.isSmallScreen()).toBeFalse();
 
     spy.and.returnValue({width : 919});
-    expect(component.displayReduceOrExpendButton()).toBeTrue();
+    expect(component.isSmallScreen()).toBeTrue();
 
     spy.and.returnValue({width : 920});
-    expect(component.displayReduceOrExpendButton()).toBeFalse();
+    expect(component.isSmallScreen()).toBeFalse();
+  });
+
+  it('TEST SearchToolbarComponent.displayImage', () => {
+    const displayImageEmitter = spyOn(component.displayImageEmitter, 'emit');
+
+    expect(component[logoStateImage]).toEqual(component[logoHiddenImage]);
+    expect(component[textStateImage]).toEqual(component[textHiddenImage]);
+    expect(component.imageIsDisplayed).toBeTrue();
+
+    component.displayImage();
+    expect(displayImageEmitter).toHaveBeenCalled();
+    expect(component.imageIsDisplayed).toBeFalse();
+    expect(component[logoStateImage]).toEqual(component[logoDisplayImage]);
+    expect(component[textStateImage]).toEqual(component[textDisplayImage]);
+
+    component.displayImage();
+    expect(component[logoStateImage]).toEqual(component[logoHiddenImage]);
+    expect(component[textStateImage]).toEqual(component[textHiddenImage]);
+    expect(component.imageIsDisplayed).toBeTrue();
+    expect(displayImageEmitter).toHaveBeenCalledTimes(2);
+
   });
 });

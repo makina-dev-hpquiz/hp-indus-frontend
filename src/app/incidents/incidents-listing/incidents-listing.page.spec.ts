@@ -144,4 +144,12 @@ describe('Incidents listing', () => {
     result = component.getIncidentNumber();
     expect(2).toEqual(result);
   });
+
+  it('TEST public IncidentsListingPage.displayImage', () => {
+    expect(component.imageIsDisplayed).toBeTrue();
+    component.displayImage(false);
+    expect(component.imageIsDisplayed).toBeFalse();
+    component.displayImage(true);
+    expect(component.imageIsDisplayed).toBeTrue();
+  });
 });
