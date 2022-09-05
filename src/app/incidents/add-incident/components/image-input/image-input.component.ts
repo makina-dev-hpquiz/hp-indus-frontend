@@ -4,7 +4,7 @@ import { LogService } from 'src/providers/services/log.service';
 @Component({
   selector: 'app-image-input',
   templateUrl: './image-input.component.html',
-  styleUrls: ['./image-input.component.scss'],
+  styleUrls: ['./image-input.component.scss', './../../add-incident.page.scss'],
 })
 export class ImageInputComponent implements OnChanges {
 
@@ -23,8 +23,6 @@ export class ImageInputComponent implements OnChanges {
 
   constructor(private logger: LogService) { }
   ngOnChanges(changes: SimpleChanges): void {
-
-    console.log('ngOnChanges');
     if (this.screenshot) {
       this.displayScreenshot();
     }

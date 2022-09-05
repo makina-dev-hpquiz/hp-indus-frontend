@@ -23,4 +23,10 @@ form{
     ion-radio{
         margin-left: 5px;
     }
+    .underline-none{
+        text-decoration:none;
+    }
+}
+ion-label{
+    text-decoration: underline;
 }

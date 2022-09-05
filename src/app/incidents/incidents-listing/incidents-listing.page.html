@@ -1,7 +1,7 @@
 <app-header-menu></app-header-menu>
 <ion-toolbar>
   <h2>Liste des Incidents ({{getIncidentNumber()}})</h2>
-  <ion-button fill="outline" slot="end" [routerLink]="['/incident']">Ajouter un bug</ion-button>
+  <ion-button fill="outline" slot="end" [routerLink]="['/incident']">Nouveau</ion-button>
 </ion-toolbar>
 <app-search-toolbar #searchToolBar (incidentFilterUpdated)=getAllIncidents($event)></app-search-toolbar>
 
