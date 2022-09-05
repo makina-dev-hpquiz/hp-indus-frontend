@@ -3,11 +3,11 @@ import { AndroidPackage } from 'src/entities/androidPackage';
 import { AndroidPackageService } from 'src/providers/services/android-package.service';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: 'home.page.html',
-  styleUrls: ['home.page.scss'],
+  selector: 'app-latest-apk',
+  templateUrl: 'latest-apk.page.html',
+  styleUrls: ['latest-apk.page.scss'],
 })
-export class HomePage implements OnInit {
+export class LatestAPKPage implements OnInit {
 
   public hpCoreAPK: AndroidPackage;
   public hpQuizAPK: AndroidPackage;

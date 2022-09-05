@@ -2,14 +2,14 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 import { of } from 'rxjs';
 import { AndroidPackage } from 'src/entities/androidPackage';
-import { HomePage } from './home.page';
+import { LatestAPKPage } from './latest-apk.page';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AndroidPackageService } from 'src/providers/services/android-package.service';
 
 
-describe('HomePage', () => {
-  let component: HomePage;
-  let fixture: ComponentFixture<HomePage>;
+describe('LatestAPKPage', () => {
+  let component: LatestAPKPage;
+  let fixture: ComponentFixture<LatestAPKPage>;
   let mockAndroidPackageService: jasmine.SpyObj<AndroidPackageService>;
   const apk = new AndroidPackage('hp-core.apk', '16/05/2022 16:45', '4.62 Mo', '0');
 
@@ -21,7 +21,7 @@ describe('HomePage', () => {
     mockAndroidPackageService.getLastHPCoreAPK.and.returnValue(of(undefined).toPromise());
 
     TestBed.configureTestingModule({
-      declarations: [ HomePage ],
+      declarations: [ LatestAPKPage ],
       imports: [IonicModule.forRoot(), RouterTestingModule],
       providers: [
         {
@@ -31,7 +31,7 @@ describe('HomePage', () => {
       ]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(HomePage);
+    fixture = TestBed.createComponent(LatestAPKPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
 

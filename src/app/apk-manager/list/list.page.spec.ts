@@ -3,9 +3,9 @@ import { Routes } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { IonicModule } from '@ionic/angular';
 import { of } from 'rxjs';
-import { HomePage } from 'src/app/home/home.page';
 import { AndroidPackage } from 'src/entities/androidPackage';
 import { AndroidPackageService } from 'src/providers/services/android-package.service';
+import { LatestAPKPage } from '../latest/latest-apk.page';
 
 import { ListPage } from './list.page';
 
@@ -13,7 +13,7 @@ const mockAndroidPackageService =
   jasmine.createSpyObj<AndroidPackageService>('AndroidPackageService', ['getAllHPQuizAPK', 'getAllHPCoreAPK']);
 
 const routes: Routes = [
-  { path: 'home', component: HomePage },
+  { path: 'apk', component: LatestAPKPage },
 ];
 
 describe('ListPage', () => {

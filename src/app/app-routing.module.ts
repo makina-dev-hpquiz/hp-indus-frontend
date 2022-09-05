@@ -5,11 +5,12 @@ import { DataResolverService } from '../providers/resolver/data-resolver.service
 export const routes: Routes = [
   {
     path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
+    redirectTo: 'navigation',
+    pathMatch: 'full'
   },
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'navigation',
     pathMatch: 'full'
   },
   {
@@ -32,10 +33,15 @@ export const routes: Routes = [
     loadChildren: () => import('./apk-manager/list/list.module').then( m => m.ListPageModule)
   },
   {
-    path: 'home/archives',
+    path: 'apk',
+    loadChildren: () => import('./apk-manager/latest/latest-apk.module').then( m => m.LatestAPKPageModule)
+  },
+  {
+    path: 'apk/archives',
     redirectTo: 'archives',
     pathMatch: 'full'
-  },  {
+  },
+  {
     path: 'navigation',
     loadChildren: () => import('./navigation/navigation/navigation.module').then( m => m.NavigationPageModule)
   }

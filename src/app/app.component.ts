@@ -16,9 +16,15 @@ export class AppComponent {
     this.navigate =
       [
         {
-          title: 'Home',
-          url: '/home',
-          icon: 'home',
+          title: 'Navigation',
+          url: '/navigation',
+          icon: 'list',
+          type: 'page'
+        },
+        {
+          title: 'APK',
+          url: '/apk',
+          icon: 'logo-android',
           type: 'page'
         },
         {
@@ -27,12 +33,7 @@ export class AppComponent {
           icon: 'bug',
           type: 'page'
         },
-        {
-          title: 'Navigation',
-          url: '/navigation',
-          icon: 'list',
-          type: 'page'
-        },
+       
       ];
   }
 }
