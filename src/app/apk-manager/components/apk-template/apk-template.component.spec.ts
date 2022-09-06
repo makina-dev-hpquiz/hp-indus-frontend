@@ -54,17 +54,17 @@ describe('#initPicture', () => {
   it('Doit retourner l\'image correspondant à l\'application hpCoreAPK', () => {
     component.apk = hpCoreApk;
     component.initPicture();
-    expect(component.picture).toEqual('../../assets/icon/build.svg');
+    expect(component.picture).toEqual('assets/icon/build.svg');
   });
   it('Doit retourner l\'image correspondant à l\'application hpQuizAPK', () => {
     component.apk = hpQuizApk;
     component.initPicture();
-    expect(component.picture).toEqual('../../assets/icon/harry_potter_app.png');
+    expect(component.picture).toEqual('assets/icon/harry_potter_app.png');
   });
   it('Doit retourner l\'image correspondant à l\'application hpCoreApk', () => {
     component.apk = otherApk;
     component.initPicture();
-    expect(component.picture).toEqual('../../assets/icon/help-outline.svg');
+    expect(component.picture).toEqual('assets/icon/help-outline.svg');
   });
 
   it('L\'APK vaut null', () => {

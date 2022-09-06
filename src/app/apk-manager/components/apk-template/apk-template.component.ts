@@ -30,12 +30,12 @@ export class ApkTemplateComponent implements OnInit, OnChanges {
     if (this.apk) {
       this.logger.log('Initialisation de l\'image à afficher pour ', this.apk.name);
       if (this.apk.name.includes(ApplicationsNameConst.hpCore)) {
-        this.picture = '../../assets/icon/build.svg';
+        this.picture = 'assets/icon/build.svg';
       } else if (this.apk.name.includes(ApplicationsNameConst.hpQuiz)) {
-        this.picture = '../../assets/icon/harry_potter_app.png';
+        this.picture = 'assets/icon/harry_potter_app.png';
       } else {
         this.logger.error('Aucune image n\'a pu être trouvé pour l\'application ', this.apk.name);
-        this.picture = '../../assets/icon/help-outline.svg';
+        this.picture = 'assets/icon/help-outline.svg';
       }
     }
   }
