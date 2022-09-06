@@ -7,17 +7,17 @@ import { IonicModule } from '@ionic/angular';
 import { ScreenBugsPageRoutingModule } from './incidents-listing-routing.module';
 
 import { IncidentsListingPage } from './incidents-listing.page';
-import { HeaderMenuComponent } from '../../components/header-menu/header-menu.component';
 import { SearchToolbarComponent } from './components/search-toolbar/search-toolbar.component';
+import { ComponentsModule } from 'src/app/components/components.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ScreenBugsPageRoutingModule
+    ScreenBugsPageRoutingModule,
+    ComponentsModule
   ],
-  declarations: [IncidentsListingPage,
-    HeaderMenuComponent, SearchToolbarComponent]
+  declarations: [IncidentsListingPage, SearchToolbarComponent]
 })
 export class ScreenBugsPageModule {}

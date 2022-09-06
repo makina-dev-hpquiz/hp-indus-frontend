@@ -28,7 +28,7 @@
     <ion-label>Titre</ion-label>
     <ion-input [(ngModel)]=incident.title required name="title"></ion-input>
   </ion-item>
-  <app-image-input #imageInput [screenshot]=screenshot (cancelImage)=cancelImageEmitter($event)></app-image-input>
+  <app-image-input #imageInput [screenshot]=screenshot (cancelImageEmitter)=cancelImage()></app-image-input>
 
   <div class="status">
     <ion-row radio-group>

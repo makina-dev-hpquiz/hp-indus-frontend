@@ -1,4 +1,4 @@
-<ion-toolbar *ngIf=toolbarIsActive [ngClass]=ionToolBarClass>
+<ion-toolbar *ngIf=toolbarIsActive>
   <div>
     <ion-input (ionChange)="updateSearch()" debounce=500 type="text" [(ngModel)]="filter.search" fill="outline"
       placeholder="Rechercher">

@@ -7,15 +7,16 @@ import { IonicModule } from '@ionic/angular';
 import { ListPageRoutingModule } from './list-routing.module';
 
 import { ListPage } from './list.page';
-import { ApkTemplateComponent } from '../components/apk-template/apk-template.component';
+import { APKComponentsModule } from '../components/apk-components.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ListPageRoutingModule
+    ListPageRoutingModule,
+    APKComponentsModule
   ],
-  declarations: [ListPage, ApkTemplateComponent]
+  declarations: [ListPage]
 })
 export class ListPageModule {}

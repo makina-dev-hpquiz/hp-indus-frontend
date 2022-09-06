@@ -5,8 +5,8 @@ import { FormsModule } from '@angular/forms';
 import { LatestAPKPage } from './latest-apk.page';
 
 import { LatestAPKPageRoutingModule } from './latest-routing.module';
-import { ApkTemplateComponent } from '../components/apk-template/apk-template.component';
-import { HeaderMenuComponent } from 'src/app/components/header-menu/header-menu.component';
+import { ComponentsModule } from 'src/app/components/components.module';
+import { APKComponentsModule } from '../components/apk-components.module';
 
 
 @NgModule({
@@ -14,9 +14,10 @@ import { HeaderMenuComponent } from 'src/app/components/header-menu/header-menu.
     CommonModule,
     FormsModule,
     IonicModule,
-    LatestAPKPageRoutingModule
+    LatestAPKPageRoutingModule,
+    ComponentsModule,
+    APKComponentsModule
   ],
-  declarations: [LatestAPKPage,
-    HeaderMenuComponent, ApkTemplateComponent]
+  declarations: [LatestAPKPage]
 })
 export class LatestAPKPageModule {}
