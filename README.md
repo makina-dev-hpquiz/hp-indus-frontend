@@ -60,7 +60,7 @@ npm run lint -- --fix
 npm run test
 ```
 
-### Commandes de lancements de l'application
+### Commandes de lancements de l'application en mode Developpement
 
 Démarrage via la console :
 ```
@@ -84,4 +84,18 @@ http://localhost:8100
 http://[ip-addr]:8100
 ```
 
+### Commandes de build
 
+Les phases de packaging et de déploiement sont gérées par le fichier build.sh
+Fonctionnement : 
+L'application est packagé dans le répertoire www/
+Puis le script va supprimer l'ancienne version présente dans le tomcat puis déplacé l'ensemble des fichiers présents dans le répertoire www/ dans le répertoire tomcat hp-indus.
+
+Pour build la webapp sans la déployer, utiliser la commande :
+```
+ionic build --prod
+```
+
+En mode développement le base href correspond à /
+En mode production le base href correspond à /hp-indus/ 
+Ce dernier est paramètre dans le fichier angular.json
