@@ -21,6 +21,12 @@ export class NavigationConst {
         'Trello Lot 0',
         'https://trello.com/b/0nxmoKAm/lot-0'
     );
+    private static readonly trelloLot1 = new Link(
+        NavigationConst.trelloIcon,
+        'Trello Lot 1',
+        'https://trello.com/b/YWCTUBnL/lot-1'
+    );
+    
     private static readonly logBook = new Link(
         NavigationConst.docsIcon,
         'Journal de bord',
@@ -54,6 +60,11 @@ export class NavigationConst {
         NavigationConst.postresqlIcon,
         'Postgresql',
         ServerUrlConst.url + ':5432'
+    );
+    private static readonly hpCoreBackend = new Link(
+        NavigationConst.tomcatIcon,
+        'hp-core-backend',
+        ServerUrlConst.url + ':8081'
     );
 
     // Evolution
@@ -91,6 +102,16 @@ export class NavigationConst {
         'Trello global',
         'https://trello.com/w/environnementharrypotterquiz/home'
     );
+    private static readonly roadmap = new Link(
+        NavigationConst.docsIcon,
+        'Roadmap',
+        'https://docs.google.com/document/d/1nxdJMI8h9_iNmjrAvKKnQXeV1GuceJjOrsuhjklycQk/edit?usp=sharing'
+    );
+    private static readonly cahierTests = new Link(
+        NavigationConst.docsIcon,
+        'Répertoire cahier de tests',
+        'https://drive.google.com/drive/folders/1meN-zSPd1zsahn35eBN-E_syML-VT3Nc?usp=sharing'
+    );
 
     //Ressources documentaires
     private static readonly resourceTitles = 'Ressources documentaires';
@@ -104,31 +125,35 @@ export class NavigationConst {
         'Cahier des charges',
         'https://docs.google.com/document/d/1ltLQh4fln5jLzrMJe7gymfBdCJC38CYv4dL5tNIwOeQ/edit?usp=sharing'
     );
-
-    private static readonly roadmap = new Link(
+    private static readonly docArchi = new Link(
         NavigationConst.docsIcon,
-        'Roadmap',
-        'https://docs.google.com/document/d/1nxdJMI8h9_iNmjrAvKKnQXeV1GuceJjOrsuhjklycQk/edit?usp=sharing'
+        'Document d\'architecture',
+        ' https://docs.google.com/document/d/1xBnUBreBMrJjQeVxWINOmLhoLnvQK2oAPUsC5Aer3pc/edit?usp=sharing'
     );
+
+
+   
+
+  
 
     public static getNavigationConsts() {
         return [
             NavigationConst.getDailyUseHeading(),
-            NavigationConst.getServerAccessHeading(),
-            NavigationConst.getEvolutionHeading(),
             NavigationConst.getDevelopmentHeading(),
+            NavigationConst.getEvolutionHeading(),
+            NavigationConst.getServerAccessHeading(),
             NavigationConst.getDocumentaryResources()
         ];
     }
 
     private static getDailyUseHeading() {
         return new LinksGroup(NavigationConst.dailyUseTitle,
-            [NavigationConst.trelloCurrentLot, NavigationConst.logBook, NavigationConst.chiffrage, NavigationConst.quickNote]);
+            [NavigationConst.trelloCurrentLot, NavigationConst.logBook, NavigationConst.chiffrage, NavigationConst.quickNote, NavigationConst.trelloLot1]);
     }
 
     private static getServerAccessHeading() {
         return new LinksGroup(NavigationConst.serverAccesTitle, [
-            NavigationConst.backend, NavigationConst.tomcat, NavigationConst.pgsql
+            NavigationConst.backend, NavigationConst.tomcat, NavigationConst.hpCoreBackend, NavigationConst.pgsql
         ]);
     }
 
@@ -140,13 +165,13 @@ export class NavigationConst {
 
     private static getDevelopmentHeading() {
         return new LinksGroup(NavigationConst.developmentTitle, [
-            NavigationConst.sonarqube, NavigationConst.github, NavigationConst.trelloGlobal
+            NavigationConst.sonarqube, NavigationConst.github, NavigationConst.roadmap, NavigationConst.cahierTests, NavigationConst.trelloGlobal
         ]);
     }
 
     private static getDocumentaryResources() {
         return new LinksGroup(NavigationConst.resourceTitles, [
-            NavigationConst.sfdDoc, NavigationConst.cdcDoc, NavigationConst.roadmap
+            NavigationConst.sfdDoc, NavigationConst.cdcDoc, NavigationConst.docArchi
         ]);
     }
 }
