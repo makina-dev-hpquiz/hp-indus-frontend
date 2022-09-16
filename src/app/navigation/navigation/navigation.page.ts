@@ -9,6 +9,7 @@ import { LinksGroup } from 'src/entities/linksGroup';
 })
 export class NavigationPage implements OnInit {
 
+  public title= 'Navigation';
   public linkHeadings: LinksGroup[];
 
   constructor() { }

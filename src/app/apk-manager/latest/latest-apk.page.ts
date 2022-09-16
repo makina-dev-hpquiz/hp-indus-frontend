@@ -9,6 +9,7 @@ import { AndroidPackageService } from 'src/providers/services/android-package.se
 })
 export class LatestAPKPage implements OnInit {
 
+  public title = "Gestion des APKs"
   public hpCoreAPK: AndroidPackage;
   public hpQuizAPK: AndroidPackage;
 

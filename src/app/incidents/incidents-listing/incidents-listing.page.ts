@@ -19,6 +19,8 @@ export class IncidentsListingPage {
   public incidents: Incident[];
   public imageIsDisplayed: boolean;
 
+  public title = "Gestion des incidents";
+  
   constructor(private incidentService: IncidentService, private router: Router,
     private dataService: DataService, private logger: LogService) {
       this.imageIsDisplayed = true;
