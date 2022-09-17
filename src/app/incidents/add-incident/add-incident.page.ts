@@ -33,8 +33,6 @@ export class AddIncidentPage implements OnInit {
 
   public readonly incidentsPage = '/incidents';
 
-  private toast: HTMLIonToastElement;
-
   constructor(private route: ActivatedRoute, private router: Router,
     private incidentService: IncidentService, public toastController: ToastController,
     public incidentPropertiesService: IncidentPropertiesService) {
@@ -190,15 +188,13 @@ export class AddIncidentPage implements OnInit {
    * Fait apparaître un message
    */
   private async presentToast() {
-    if (!this.toast) {
-      this.toast = await this.toastController.create({
+      let toast = await this.toastController.create({
         message: 'L\'incident n\'est pas complet et ne peut être sauvegarder en l\'état',
         duration: 2000,
         position: 'top',
         color: 'danger'
       });
-    }
-    this.toast.present();
+    toast.present();
   }
 
   /**
