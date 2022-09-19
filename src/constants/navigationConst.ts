@@ -18,11 +18,6 @@ export class NavigationConst {
     private static readonly dailyUseTitle = 'Usage quotidien';
     private static readonly trelloCurrentLot = new Link(
         NavigationConst.trelloIcon,
-        'Trello Lot 0',
-        'https://trello.com/b/0nxmoKAm/lot-0'
-    );
-    private static readonly trelloLot1 = new Link(
-        NavigationConst.trelloIcon,
         'Trello Lot 1',
         'https://trello.com/b/YWCTUBnL/lot-1'
     );
@@ -148,7 +143,7 @@ export class NavigationConst {
 
     private static getDailyUseHeading() {
         return new LinksGroup(NavigationConst.dailyUseTitle,
-            [NavigationConst.trelloCurrentLot, NavigationConst.logBook, NavigationConst.chiffrage, NavigationConst.quickNote, NavigationConst.trelloLot1]);
+            [NavigationConst.trelloCurrentLot, NavigationConst.logBook, NavigationConst.chiffrage, NavigationConst.quickNote]);
     }
 
     private static getServerAccessHeading() {

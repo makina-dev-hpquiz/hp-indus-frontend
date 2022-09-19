@@ -17,6 +17,9 @@ ion-toolbar {
             ion-select{
                 width: 130px;
             }
+            .ion-select-small{
+                width: 100px !important;
+            }
         }
         .status {
             width: fit-content;

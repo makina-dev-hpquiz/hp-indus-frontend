@@ -25,7 +25,7 @@
     </span>
     <span>
       <ion-label class="mini-label">Priorité</ion-label>
-      <ion-select (ionChange)="updateSearch()" [(ngModel)]="filter.priority">
+      <ion-select class="ion-select-small" (ionChange)="updateSearch()" [(ngModel)]="filter.priority">
         <ion-select-option *ngFor="let priority of priorities">{{priority}}</ion-select-option>
       </ion-select>
     </span>
