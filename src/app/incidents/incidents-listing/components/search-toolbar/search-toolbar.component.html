@@ -8,11 +8,11 @@
   <div>
     <span class="status">
       <ion-label class="mini-label">Statut</ion-label>
-      <ion-button #toDoButton [fill]=solidButton (click)="changeStatus(toDoButton, toDoMsg)">{{toDoMsg}}
+      <ion-button #toDoButton [fill]=toDoButtonFill (click)="changeStatus(toDoButton, toDoMsg)">{{toDoMsg}}
       </ion-button>
-      <ion-button #doingButton [fill]=solidButton (click)="changeStatus(doingButton, doingMsg)">{{doingMsg}}
+      <ion-button #doingButton [fill]=doingButtonFill (click)="changeStatus(doingButton, doingMsg)">{{doingMsg}}
       </ion-button>
-      <ion-button #donetButton [fill]=outlineButton (click)="changeStatus(donetButton, doneMsg)">{{doneMsg}}
+      <ion-button #doneButton [fill]=doneButtonFill (click)="changeStatus(doneButton, doneMsg)">{{doneMsg}}
       </ion-button>
     </span>
   </div>

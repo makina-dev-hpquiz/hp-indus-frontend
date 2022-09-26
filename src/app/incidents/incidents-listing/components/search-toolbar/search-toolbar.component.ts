@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, OnChanges, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { IonButton } from '@ionic/angular';
 import { IncidentConst } from 'src/constants/incidentConst';
 import { IncidentFilter } from 'src/entities/incidentFilter';
 import { IncidentPropertiesService } from 'src/providers/services/incident-properties.service';
@@ -33,6 +34,10 @@ export class SearchToolbarComponent {
   public priorities: Array<string>;
   public types: Array<string>;
 
+  public toDoButtonFill: string;
+  public doingButtonFill: string;
+  public doneButtonFill: string;
+
   // Données à traiter
   public filter: IncidentFilter;
 
@@ -51,7 +56,13 @@ export class SearchToolbarComponent {
   private selectedStatus: Array<string>;
   private recentDate = true;
 
+
   constructor(public incidentPropertiesService: IncidentPropertiesService, private logger: LogService) {
+    this.init();
+  }
+
+
+  public async init() {
     this.logoSortedDate = this.logoRecentDate;
     this.logoReduceToolbarToDisplay = this.logoReduceToolbar;
     this.logoStateImage = this.logoHiddenImage;
@@ -60,11 +71,12 @@ export class SearchToolbarComponent {
     this.imageIsDisplayed = true;
     this.filter = new IncidentFilter();
     this.selectedStatus = new Array();
+    this.recentDate = true;
 
-    this.init();
-  }
+    this.toDoButtonFill = this.solidButton;
+    this.doingButtonFill = this.solidButton;
+    this.doneButtonFill = this.outlineButton;
 
-  async init() {
     const incidentType = await this.incidentPropertiesService.getTypes();
     const incidentPriorities = await this.incidentPropertiesService.getPriorities();
     const incidentStatus = await this.incidentPropertiesService.getStatus();
