@@ -1,11 +1,13 @@
 import { Component, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RoutesRecognized } from '@angular/router';
 import { Incident } from 'src/entities/incident';
 import { IncidentFilter } from 'src/entities/incidentFilter';
 import { DataService } from 'src/providers/resolver/data.service';
 import { IncidentService } from 'src/providers/services/incident.service';
 import { LogService } from 'src/providers/services/log.service';
 import { SearchToolbarComponent } from './components/search-toolbar/search-toolbar.component';
+
+import {filter, pairwise }from 'rxjs/operators';
 
 @Component({
   selector: 'app-incidents-listing',
@@ -19,8 +21,8 @@ export class IncidentsListingPage {
   public incidents: Incident[];
   public imageIsDisplayed: boolean;
 
-  public title = "Gestion des incidents";
-  
+  public title = 'Gestion des incidents';
+
   constructor(private incidentService: IncidentService, private router: Router,
     private dataService: DataService, private logger: LogService) {
       this.imageIsDisplayed = true;
@@ -29,8 +31,9 @@ export class IncidentsListingPage {
   /**
    * Appel la searchToolBar pour récuper le filtre à utiliser pour afficher les incidents
    */
-  ionViewDidEnter() {
+  async ionViewDidEnter() {
     if (this.searchToolBar) {
+      // await this.searchToolBar.init();
       this.searchToolBar.updateSearch();
     }
   }

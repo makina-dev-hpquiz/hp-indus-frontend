@@ -188,7 +188,7 @@ export class AddIncidentPage implements OnInit {
    * Fait apparaître un message
    */
   private async presentToast() {
-      let toast = await this.toastController.create({
+      const toast = await this.toastController.create({
         message: 'L\'incident n\'est pas complet et ne peut être sauvegarder en l\'état',
         duration: 2000,
         position: 'top',

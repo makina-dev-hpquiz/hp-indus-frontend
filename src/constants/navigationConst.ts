@@ -21,7 +21,7 @@ export class NavigationConst {
         'Trello Lot 1',
         'https://trello.com/b/YWCTUBnL/lot-1'
     );
-    
+
     private static readonly logBook = new Link(
         NavigationConst.docsIcon,
         'Journal de bord',
@@ -127,9 +127,9 @@ export class NavigationConst {
     );
 
 
-   
 
-  
+
+
 
     public static getNavigationConsts() {
         return [
