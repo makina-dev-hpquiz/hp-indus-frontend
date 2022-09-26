@@ -146,7 +146,6 @@ describe('SearchToolbarComponent', () => {
     expect(result).toEqual(component.outlineButton);
     result = component[getInverseFillButton](component.outlineButton);
     expect(result).toEqual(component.solidButton);
-
   });
 
 });

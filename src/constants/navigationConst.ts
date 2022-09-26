@@ -71,8 +71,8 @@ export class NavigationConst {
     );
     private static readonly evolutionForm = new Link(
         NavigationConst.docsIcon,
-        'Fiche dEtudes d\'Evolution',
-        'https://docs.google.com/document/d/1iVc_LN0ASTt1PtkVaKnUZQqwUy8vForzlY8nYA-7GKE/edit?usp=sharing'
+        'Répertoire Fiche dEtudes d\'Evolution',
+        'https://drive.google.com/drive/folders/1s2QwG8gwJAUgncV6ugTJ3rNUAPHN9GWS?usp=sharing'
     );
     private static readonly estimateForm = new Link(
         NavigationConst.sheetsIcon,
