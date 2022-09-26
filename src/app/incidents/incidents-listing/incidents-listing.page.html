@@ -1,6 +1,6 @@
 <app-header-menu [subTitle]=title></app-header-menu>
 <ion-toolbar>
-  <h2>Liste des Incidents ({{getIncidentNumber()}})</h2>
+  <h2 (click)="resetSearchToolbar()">Liste des Incidents ({{getIncidentNumber()}})</h2>
   <ion-button fill="outline" slot="end" [routerLink]="['/incident']">Nouveau</ion-button>
 </ion-toolbar>
 <app-search-toolbar #searchToolBar (incidentFilterUpdated)=getAllIncidents($event) (displayImageEmitter)=displayImage($event)></app-search-toolbar>

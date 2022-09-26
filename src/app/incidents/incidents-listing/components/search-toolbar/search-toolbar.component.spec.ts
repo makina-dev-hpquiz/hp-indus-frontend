@@ -26,6 +26,8 @@ describe('SearchToolbarComponent', () => {
   const textHiddenImage = 'textHiddenImage';
   const textDisplayImage = 'textDisplayImage';
 
+  const getInverseFillButton = 'getInverseFillButton';
+
   beforeEach(waitForAsync(async () => {
     mockIncidentPropertiesService =
       jasmine.createSpyObj<IncidentPropertiesService>('IncidentPropertiesService', ['getTypes', 'getPriorities', 'getStatus']);
@@ -88,14 +90,11 @@ describe('SearchToolbarComponent', () => {
   });
 
   it('TEST SearchToolbarComponent.changeStatus', () => {
-    const fakeButton = { fill: component.solidButton };
     const enCours = 'en cours';
 
-    component.changeStatus(fakeButton, enCours);
+    component.changeStatus(enCours);
     expect(component.filter.status).toEqual([enCours]);
-    expect(fakeButton.fill).toEqual(component.outlineButton);
     expect(component[selectedStatus]).toContain(enCours);
-
   });
 
   it('TEST SearchToolbarComponent.reduceOrExpendToolbar', () => {
@@ -141,4 +140,13 @@ describe('SearchToolbarComponent', () => {
     expect(displayImageEmitter).toHaveBeenCalledTimes(2);
 
   });
+
+  it('TEST private SearchToolbarComponent.getInverseFillButton', () => {
+    let result = component[getInverseFillButton](component.solidButton);
+    expect(result).toEqual(component.outlineButton);
+    result = component[getInverseFillButton](component.outlineButton);
+    expect(result).toEqual(component.solidButton);
+
+  });
+
 });

@@ -93,6 +93,8 @@ export class SearchToolbarComponent {
       this.priorities = incidentPriorities.searchProperties;
       this.types = incidentType.searchProperties;
     }
+
+    this.updateSearch();
   }
 
 
@@ -130,13 +132,18 @@ export class SearchToolbarComponent {
    * @param button
    * @param status
    */
-  public changeStatus(button, status) {
-    switch (button.fill) {
-      case this.solidButton:
-        button.fill = this.outlineButton;
+  public changeStatus(status) {
+
+    let buttonFiled;
+    switch(status){
+      case this.toDoMsg :
+        this.toDoButtonFill = this.getInverseFillButton(this.toDoButtonFill);
         break;
-      case this.outlineButton:
-        button.fill = this.solidButton;
+      case this.doingMsg :
+        this.doingButtonFill = this.getInverseFillButton(this.doingButtonFill);
+        break;
+      case this.doneMsg :
+        this.doneButtonFill = this.getInverseFillButton(this.doneButtonFill);
         break;
     }
 
@@ -185,5 +192,15 @@ export class SearchToolbarComponent {
 
     this.imageIsDisplayed = !this.imageIsDisplayed;
     this.displayImageEmitter.emit(this.imageIsDisplayed);
+  }
+
+  /**
+   * Retourne la valeur inverse outlineButton ou solidButton
+   *
+   * @param fillButton
+   * @returns
+   */
+   private getInverseFillButton(fillButton){
+    return fillButton === this.outlineButton? this.solidButton : this.outlineButton;
   }
 }
